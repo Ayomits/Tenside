@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.2",
     "canvas": "^2.11.2",
     "discord.js": "^14.14.1",
-    "sequelize": "^6.35.1"
+    "dotenv": "^16.3.1",
+    "sequelize": "^6.35.1",
+    "sqlite3": "^5.1.6"
   }
 }
