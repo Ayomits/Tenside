@@ -1,7 +1,7 @@
 const {ButtonInteraction} = require('discord.js')
 
 module.exports = {
-  customId: "helloWorld1",
+  customId: "firstBtn",
   
   /**
    * @param {ButtonInteraction} interaction

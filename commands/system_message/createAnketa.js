@@ -14,7 +14,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   data: new SlashCommandBuilder()
-        .setName("createanketa")
+        .setName("idk")
         .setDescription("создание анкеты для набора в стафф")
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   /**
@@ -27,7 +27,7 @@ module.exports = {
                   .setDescription("Сейчас вам нужно настроить анкету")
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-          .setCustomId("helloWorld1")
+          .setCustomId("firstBtn")
           .setLabel("hello world")
           .setStyle(ButtonStyle.Primary)
     )

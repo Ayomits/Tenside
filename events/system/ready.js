@@ -12,11 +12,12 @@ module.exports = {
    * @param {Client} client 
    */
   async execute(client) {
-    require('../../handlers/dbHandler').init()
-    require('../../handlers/commandHandler').init(client)
-    require('../../handlers/commandRegister').init(client)
-    require('../../handlers/buttonsHandler').init(client)
+    require('../../handlers/system/dbHandler').init()
+    require('../../handlers/system/commandHandler').init(client)
+    require('../../handlers/system/commandRegister').init(client)
+    require('../../handlers/system/buttonsHandler').init(client)
 
     client.user.setStatus("dnd")
+    
   }
 }

@@ -8,7 +8,7 @@ module.exports.init = async (client) => {
 
   for (let dir of fs.readdirSync('./components')) {
     for (let file of fs.readdirSync(`./components/${dir}`).filter(f => f.endsWith(".js"))) {
-      const button = require(`../components/${dir}/${file}`);
+      const button = require(`../../components/${dir}/${file}`);
       client.buttons.set(button.customId, button);
     }
   }

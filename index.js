@@ -15,7 +15,7 @@ const client = new Client({ intents: intents });
 client.commands = new Collection();
 client.buttons = new Collection()
 
-require('./handlers/eventHandler.js').init(client)
+require('./handlers/system/eventHandler.js').init(client)
 
 client.on('error', error => console.log(error))
 client.on('warn', warn => console.log(warn))

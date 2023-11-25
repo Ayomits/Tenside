@@ -18,7 +18,6 @@ module.exports = {
    *
    */
   async execute(interaction) {
-    if (interaction.isCommand() && interaction.channel.type === "DM") {
       const ping = interaction.createdTimestamp - Date.now();
       const embed = new EmbedBuilder()
         .setTitle("Проверка задержки бота")
@@ -35,6 +34,5 @@ module.exports = {
           }
         );
       return await interaction.reply({ embeds: [embed] });
-    }else return interaction.reply({content: process.env.DMS_ERROR_MESSAGE, ephemeral: true})
-  },
+    }
 };

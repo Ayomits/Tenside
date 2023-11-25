@@ -11,7 +11,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isButton()) return;
 
-    const button = client.buttons.get(interaction.customId)
+    const button = interaction.client.buttons.get(interaction.customId)
 
     if(!button) return interaction.reply({ephemeral: true, content: "неизвестная ошибка"})
     else await button.execute(interaction)
