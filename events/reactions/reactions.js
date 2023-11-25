@@ -9,10 +9,9 @@ module.exports = {
    *
    * @param {Message} message
    */
-
   async execute(message) {
     if (message.author.bot) return;
-    if (!message.content.startsWith(process.env.PREFIX)) return;
+    if (!message.content.toLowerCase().startsWith(process.env.PREFIX)) return;
     const reaction = message.content.replace(process.env.PREFIX, "").split(" ");
 
     console.log(reaction);

@@ -19,21 +19,19 @@ module.exports = {
    *
    */
   async execute(interaction) {
-    if (interaction.isCommand() && interaction.channel.isDMBased()) {
-      const congfigs = path.resolve("configs");
-      const data = JSON.parse(
-        await fs.promises.readFile(congfigs + "/reactions.json")
-      );
-      const embed = new EmbedBuilder().setTitle("Помощь по командам реакций");
+    const congfigs = path.resolve("configs");
+    const data = JSON.parse(
+      await fs.promises.readFile(congfigs + "/reactions.json")
+    );
+    const embed = new EmbedBuilder().setTitle("Помощь по командам реакций");
 
-      let description = "";
-      for (let react in data) {
-        description += `**${data[react].api_name}** - ${data[react].action}\n`;
-      }
+    let description = "";
+    for (let react in data) {
+      description += `**${data[react].api_name}** - ${data[react].action}\n`;
+    }
 
-      embed.setDescription(description);
+    embed.setDescription(description);
 
-      await interaction.reply({ embeds: [embed] });
-    }else return interaction.reply({content: process.env.DMS_ERROR_MESSAGE, ephemeral: true})
+    await interaction.reply({ embeds: [embed] });
   },
 };

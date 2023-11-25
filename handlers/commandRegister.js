@@ -17,7 +17,7 @@ module.exports.init = async function register(client) {
       Routes.applicationCommands(client.user.id),
       { body: commands}
     )
-      console.log(`[REGISTER] все команды успешно зарегестрированы. Команд всего: ${data.length}`);
+      console.log(`[REGISTER] Все команды успешно зарегестрированы. Команд всего: ${data.length}`);
   }
   catch (error) {
     console.log(error);

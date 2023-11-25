@@ -13,7 +13,7 @@ const intents = [
 
 const client = new Client({ intents: intents });
 client.commands = new Collection();
-client.commandsArray = [];
+client.buttons = new Collection()
 
 require('./handlers/eventHandler.js').init(client)
 

@@ -17,3 +17,16 @@ const systemMessageModel = sequelize.define("system_messages", {
     defaultValue: 0
   }
 })
+
+const systemAnketa = sequelize.define('system_anketa', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  question: {
+    type: DataTypes.STRING,
+  }, 
+  type_: {
+    type: DataTypes.STRING,
+  }
+})

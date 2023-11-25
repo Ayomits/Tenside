@@ -296,14 +296,5 @@
     "everyoneVerb":"со всеми",
     "memberVerb":" с пользователем",
     "isApi": true
-  },
-  "smoke": {
-    "api_name": "smoke",
-    "action": "курить",
-    "verbal": "курит",
-    "everyone": true,
-    "everyoneVerb":"со всеми",
-    "memberVerb":" с пользователем",
-    "isApi": false
   }
 }
