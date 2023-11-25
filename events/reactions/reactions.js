@@ -1,6 +1,6 @@
 const axios = require("axios");;
 const { Events, Message } = require("discord.js");
-const react = require('../../handlers/reactHandler');
+const react = require('../../handlers/features/reactHandler');
 
 module.exports = {
   name: Events.MessageCreate,

@@ -5,11 +5,12 @@ const {
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
+const devs = JSON.parse(process.env.DEVELOPERS)
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Проверка задержи бота")
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .setDMPermission(true),
 
   /**
@@ -18,6 +19,7 @@ module.exports = {
    *
    */
   async execute(interaction) {
+      if (devs.includes(Number(interaction.user.id))){
       const ping = interaction.createdTimestamp - Date.now();
       const embed = new EmbedBuilder()
         .setTitle("Проверка задержки бота")
@@ -34,5 +36,6 @@ module.exports = {
           }
         );
       return await interaction.reply({ embeds: [embed] });
+    } else return await interaction.reply({content: "У вас нет права для написания этой команды", ephemeral: true})
     }
 };

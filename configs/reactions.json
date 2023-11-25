@@ -1,300 +1,299 @@
 {
-  "kiss": {
-    "api_name": "kiss",
-    "action": "поцеловать",
-    "verbal": "поцеловал(-а)",
-    "everyone": false,
-    "everyoneVerb": "весь сервер",
-    "memberVerb": "пользователя",
-    "isApi": true
-  },
-  "hug": {
-    "api_name": "hug",
-    "action": "обнять",
-    "verbal": "обнял(-а)",
-    "everyone": true,
-    "everyoneVerb": "весь сервер",
-    "memberVerb": "пользователя",
-    "isApi": true
-  },
-  "smile": {
-    "api_name": "smile",
-    "action": "улыбка",
-    "verbal": "улыбнулся(-алась)",
-    "everyone": true,
-    "everyoneVerb": "всему серверу",
-    "memberVerb": "пользователю",
-    "isApi": true
-  },
-  "wave": {
-    "api_name": "wave",
-    "action": "помахать",
-    "verbal": "помахал(-а)",
-    "everyone": true,
-    "everyoneVerb": "всему серверу ручкой",
-    "memberVerb": "пользователю",
-    "isApi": true
-  },
-  "pat": {
-    "api_name": "pat",
-    "action": "погладить",
-    "verbal": "погладил(-а)",
-    "everyone": true,
-    "everyoneVerb": "весь сервер",
-    "memberVerb": "пользователя",
-    "isApi": true
-  },
-  "sleep": {
-    "api_name": "sleep",
-    "action": "поспать",
-    "verbal": "уснул(-а)",
-    "everyone": true,
-    "everyoneVerb": "",
-    "memberVerb": "с пользователем",
-    "isApi": true
-  },
   "airkiss": {
-    "api_name": "airkiss",
     "action": "воздушный поцелуй",
-    "verbal": "послал(-а)",
+    "api_name": "airkiss",
     "everyone": true,
-    "everyoneVerb": "воздушный поцелуй всему серверу", 
+    "everyoneVerb": "воздушный поцелуй всему серверу",
+    "isApi": true,
     "memberVer": "пользователю",
-    "isApi": true
-  },
-  "bite": {
-    "api_name": "bite",
-    "action": "кусь",
-    "verbal": "укусил(-а)",
-    "everyone": true,
-    "everyoneVerb": "весь сервер",
-    "memberVerb": "пользователя",
-    "isApi": true
-  },
-  "cry": {
-    "api_name": "cry",
-    "action": "плак-плак",
-    "verbal": "плачет",
-    "everyone": true,
-    "everyoneVerb": "", 
-    "memberVerb": "о своих трудностях пользователю",
-    "isApi": true
-  },
-  "happy": {
-    "api_name": "happy",
-    "action": "радоваться",
-    "verbal": "радуется",
-    "everyone": true,
-    "everyoneVerb":"всему серверу",
-    "memberVerb":"пользователю",
-    "isApi": true
-    
-  },
-  "handhold": {
-    "api_name": "handhold",
-    "action": "держаться за руки",
-    "verbal": "держиться за руки с",
-    "everyone": true,
-    "everyoneVerb":"всем сервером",
-    "memberVerb":"пользователем",
-    "isApi": true
-  },
-  "evillaugh": {
-    "api_name": "evillaugh",
-    "action": "злобно улыбаться",
-    "verbal": "злобно улыбается",
-    "everyone": true,
-    "everyoneVerb":"всему серверу",
-    "memberVerb":"пользователю",
-    "isApi": true
-  },
-  "blush": {
-    "api_name": "blush",
-    "action": "смущаться",
-    "verbal": "смущается",
-    "everyone": true,
-    "everyoneVerb": "",
-    "memberVerb": "из-за пользователя",
-    "isApi": true
-  },
-  "love": {
-    "api_name": "love",
-    "action": "выражать любовь",
-    "verbal": "любит",
-    "everyone": true,
-    "everyoneVerb": "весь сервер",
-    "memberVerb":"пользователя",
-    "isApi": true
-  },
-  "shy": {
-    "api_name": "shy",
-    "action": "стесняться",
-    "verbal": "стесняется",
-    "everyone": true,
-    "everyoneVerb": "",
-    "memberVerb":"из-за пользователя" ,
-    "isApi": true
-  },
-  "sad": {
-    "api_name": "sad",
-    "action": "грустить",
-    "verbal": "грустит",
-    "everyone": true,
-    "everyoneVerb": "",
-    "memberVerb": "из-за пользователя",
-    "isApi": true
+    "verbal": "послал(-а)"
   },
   "angrystare": {
-    "api_name": "angrystare",
     "action": "сердито смотреть",
-    "verbal": "сердито смотрит",
+    "api_name": "angrystare",
     "everyone": true,
-    "everyoneVerb":"на весь сервер",
-    "memberVerb":"на пользователя",
-    "isApi": true
+    "everyoneVerb": "на весь сервер",
+    "isApi": true,
+    "memberVerb": "на пользователя",
+    "verbal": "сердито смотрит"
+  },
+  "bite": {
+    "action": "кусь",
+    "api_name": "bite",
+    "everyone": true,
+    "everyoneVerb": "весь сервер",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "укусил(-а)"
+  },
+  "blush": {
+    "action": "смущаться",
+    "api_name": "blush",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "из-за пользователя",
+    "verbal": "смущается"
   },
   "brofist": {
-    "api_name": "highfive(brofist)",
     "action": "дать пять",
-    "verbal": "даёт пять",
+    "api_name": "highfive(brofist)",
     "everyone": true,
-    "everyoneVerb":"всему серверу",
-    "memberVerb":"пользователю",
-    "isApi": true
+    "everyoneVerb": "всему серверу",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "даёт пять"
   },
   "celebrate": {
-    "api_name": "celebrate",
     "action": "Празднует",
-    "verbal": "Празднует",
+    "api_name": "celebrate",
     "everyone": true,
-    "everyoneVerb":"со всем сервером",
-    "memberVerb":"с пользователем",
-    "isApi": true
+    "everyoneVerb": "со всем сервером",
+    "isApi": true,
+    "memberVerb": "с пользователем",
+    "verbal": "Празднует"
   },
   "cheers": {
-    "api_name": "cheers",
     "action": "выпивает",
-    "verbal": "выпивает",
+    "api_name": "cheers",
     "everyone": true,
-    "everyoneVerb":"со всем сервером",
-    "memberVerb":"с пользователем",
-    "isApi": true
+    "everyoneVerb": "со всем сервером",
+    "isApi": true,
+    "memberVerb": "с пользователем",
+    "verbal": "выпивает"
   },
   "clap": {
-    "api_name": "clap",
     "action": "хлопает",
-    "verbal": "хлопает",
+    "api_name": "clap",
     "everyone": true,
-    "everyoneVerb":"всему серверу",
-    "memberVerb":"пользователю",
-    "isApi": true
+    "everyoneVerb": "всему серверу",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "хлопает"
   },
   "confused": {
-    "api_name": "confused",
     "action": "Озадачен",
-    "verbal": "Озадачен",
+    "api_name": "confused",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"пользователем",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "пользователем",
+    "verbal": "Озадачен"
   },
   "cool": {
-    "api_name": "cool",
     "action": "крутой",
-    "verbal": "крутой",
+    "api_name": "cool",
     "everyone": true,
-    "everyoneVerb":"со всем сервером",
-    "memberVerb":"вместе с пользователем",
-    "isApi": true
+    "everyoneVerb": "со всем сервером",
+    "isApi": true,
+    "memberVerb": "вместе с пользователем",
+    "verbal": "крутой"
+  },
+  "cry": {
+    "action": "плак-плак",
+    "api_name": "cry",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "о своих трудностях пользователю",
+    "verbal": "плачет"
   },
   "dance": {
-    "api_name": "dance",
     "action": "танцует",
-    "verbal": "танцует",
+    "api_name": "dance",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"с пользователем",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "с пользователем",
+    "verbal": "танцует"
   },
   "droll": {
-    "api_name": "drool",
     "action": "пускает слюни",
-    "verbal": "пускает слюни",
+    "api_name": "drool",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"от пользователя",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "от пользователя",
+    "verbal": "пускает слюни"
+  },
+  "evillaugh": {
+    "action": "злобно улыбаться",
+    "api_name": "evillaugh",
+    "everyone": true,
+    "everyoneVerb": "всему серверу",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "злобно улыбается"
   },
   "facepalm": {
-    "api_name": "facepalm",
     "action": "разочарован",
-    "verbal": "разочарован",
+    "api_name": "facepalm",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"в пользователе",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "в пользователе",
+    "verbal": "разочарован"
+  },
+  "handhold": {
+    "action": "держаться за руки",
+    "api_name": "handhold",
+    "everyone": true,
+    "everyoneVerb": "всем сервером",
+    "isApi": true,
+    "memberVerb": "пользователем",
+    "verbal": "держиться за руки с"
+  },
+  "happy": {
+    "action": "радоваться",
+    "api_name": "happy",
+    "everyone": true,
+    "everyoneVerb": "всему серверу",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "радуется"
   },
   "headbang": {
-    "api_name": "headbang",
     "action": "бьется головой",
-    "verbal": "бьется головой",
+    "api_name": "headbang",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "",
+    "verbal": "бьется головой"
+  },
+  "hug": {
+    "action": "обнять",
+    "api_name": "hug",
+    "everyone": true,
+    "everyoneVerb": "весь сервер",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "обнял(-а)"
+  },
+  "kiss": {
+    "action": "поцеловать",
+    "api_name": "kiss",
+    "everyone": false,
+    "everyoneVerb": "весь сервер",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "поцеловал(-а)"
   },
   "laugh": {
-    "api_name": "laugh",
     "action": "смеется",
-    "verbal": "смеется",
+    "api_name": "laugh",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"с пользователем",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "с пользователем",
+    "verbal": "смеется"
   },
   "lick": {
-    "api_name": "lick",
     "action": "облизывает",
-    "verbal": "облизывает",
+    "api_name": "lick",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"пользователя",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "облизывает"
+  },
+  "love": {
+    "action": "выражать любовь",
+    "api_name": "love",
+    "everyone": true,
+    "everyoneVerb": "весь сервер",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "любит"
   },
   "mad": {
-    "api_name": "mad",
     "action": "обезумел",
-    "verbal": "обезумел",
+    "api_name": "mad",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"из-за пользователя",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "из-за пользователя",
+    "verbal": "обезумел"
   },
   "nervous": {
-    "api_name": "nervous",
     "action": "нервничает",
-    "verbal": "нервничает",
+    "api_name": "nervous",
     "everyone": true,
-    "everyoneVerb":"",
-    "memberVerb":"из-за пользователя",
-    "isApi": true
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "из-за пользователя",
+    "verbal": "нервничает"
   },
   "no": {
-    "api_name": "no",
     "action": "отказать",
-    "verbal": "отказывает",
+    "api_name": "no",
     "everyone": true,
-    "everyoneVerb":"всем",
-    "memberVerb":"пользователю",
-    "isApi": true
+    "everyoneVerb": "всем",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "отказывает"
+  },
+  "pat": {
+    "action": "погладить",
+    "api_name": "pat",
+    "everyone": true,
+    "everyoneVerb": "весь сервер",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "погладил(-а)"
+  },
+  "sad": {
+    "action": "грустить",
+    "api_name": "sad",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "из-за пользователя",
+    "verbal": "грустит"
+  },
+  "shy": {
+    "action": "стесняться",
+    "api_name": "shy",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "из-за пользователя",
+    "verbal": "стесняется"
+  },
+  "sleep": {
+    "action": "поспать",
+    "api_name": "sleep",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "с пользователем",
+    "verbal": "уснул(-а)"
+  },
+  "smile": {
+    "action": "улыбка",
+    "api_name": "smile",
+    "everyone": true,
+    "everyoneVerb": "всему серверу",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "улыбнулся(-алась)"
+  },
+  "wave": {
+    "action": "помахать",
+    "api_name": "wave",
+    "everyone": true,
+    "everyoneVerb": "всему серверу ручкой",
+    "isApi": true,
+    "memberVerb": "пользователю",
+    "verbal": "помахал(-а)"
   },
   "yes": {
-    "api_name": "yes",
     "action": "соглашается",
-    "verbal": "соглашается",
+    "api_name": "yes",
     "everyone": true,
-    "everyoneVerb":"со всеми",
-    "memberVerb":" с пользователем",
-    "isApi": true
+    "everyoneVerb": "со всеми",
+    "isApi": true,
+    "memberVerb": " с пользователем",
+    "verbal": "соглашается"
   }
 }
