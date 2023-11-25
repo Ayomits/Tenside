@@ -25,14 +25,21 @@ module.exports = {
     const embed = new EmbedBuilder()
                   .setTitle("Настройка анкет")
                   .setDescription("Сейчас вам нужно настроить анкету")
-    const row = new ActionRowBuilder().addComponents(
+    const create = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
           .setCustomId("createAnketa")
-          .setLabel("hello world")
+          .setLabel("create")
+          .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+          .setCustomId('closeAnketa')
+          .setLabel("close")
           .setStyle(ButtonStyle.Primary)
     )
+    const close = new ActionRowBuilder().addComponents(
+      
+    )
 
-    return await interaction.reply({embeds: [embed], components: [row]})
+    return await interaction.reply({embeds: [embed], components: [create]})
 
   }
 }

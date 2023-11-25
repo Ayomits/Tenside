@@ -13,11 +13,11 @@ module.exports.init = async function register(client) {
     console.log("[REGISTER] Начинаю регистрировать команды...");
 
     const commands = client.commands.map(command => command.data.toJSON()) 
-    const data = await rest.put(
+    const commandsData = await rest.put(
       Routes.applicationCommands(client.user.id),
       { body: commands}
     )
-      console.log(`[REGISTER] Все команды успешно зарегестрированы. Команд всего: ${data.length}`);
+      console.log(`[REGISTER] Все команды успешно зарегестрированы. Команд всего: ${commandsData.length}`);
   }
   catch (error) {
     console.log(error);

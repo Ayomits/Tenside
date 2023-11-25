@@ -20,7 +20,7 @@ module.exports = {
         `${process.env.API_URL}/gif?reaction=${reaction[0]}&format=${process.env.FORMAT}`
       )
       .then(async (response) => {
-        await react(message, reaction, response)
+        await react(message, reaction, response.data.url)
       })
       .catch(() => {
         return;

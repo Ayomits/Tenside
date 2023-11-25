@@ -13,4 +13,5 @@ module.exports.init = async (client) => {
     }
   }
    console.log("[HANDLER] Занесение команд в коллекцию завершено...");
+   
 };

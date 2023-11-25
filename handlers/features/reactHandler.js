@@ -8,10 +8,10 @@ const axios = require("axios");
  * @param {Message} message
  * @param {String} reaction
  * @param {String} action
- * @param {axios.AxiosResponse} resp
+ * @param {String} url
  */
 
-async function react(message, reaction, resp) {
+async function react(message, reaction, url) {
   console.log("вызвано");
   const baseDir = path.resolve("configs");
   const data = JSON.parse(
@@ -33,7 +33,7 @@ async function react(message, reaction, resp) {
 
   const embed = new EmbedBuilder()
     .setTitle(`Реакция ${reactionData.action}`)
-    .setImage(resp.data.url)
+    .setImage(url)
     .setFooter({
       iconURL: message.author.displayAvatarURL(),
       text: message.author.username,

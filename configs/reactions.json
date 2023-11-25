@@ -37,7 +37,7 @@
   },
   "brofist": {
     "action": "дать пять",
-    "api_name": "highfive(brofist)",
+    "api_name": "brofist",
     "everyone": true,
     "everyoneVerb": "всему серверу",
     "isApi": true,
