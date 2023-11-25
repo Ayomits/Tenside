@@ -27,7 +27,7 @@ module.exports = {
                   .setDescription("Сейчас вам нужно настроить анкету")
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-          .setCustomId("firstBtn")
+          .setCustomId("createAnketa")
           .setLabel("hello world")
           .setStyle(ButtonStyle.Primary)
     )

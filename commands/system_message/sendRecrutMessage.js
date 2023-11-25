@@ -8,6 +8,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const data = new SlashCommandBuilder()
   .setName("sendmodalmessage")
   .setDescription("Sends a random gif!")
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
   .addChannelOption((option) =>
     option
       .setName("channel")

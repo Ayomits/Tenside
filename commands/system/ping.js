@@ -9,7 +9,7 @@ const devs = JSON.parse(process.env.DEVELOPERS)
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("ping")
+    .setName("ping_")
     .setDescription("Проверка задержи бота")
     .setDMPermission(true),
 

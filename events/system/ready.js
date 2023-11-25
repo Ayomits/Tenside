@@ -12,10 +12,12 @@ module.exports = {
    * @param {Client} client 
    */
   async execute(client) {
+    // подгрузка команд, компонентов, создание таблиц в СУБД
+
     require('../../handlers/system/dbHandler').init()
     require('../../handlers/system/commandHandler').init(client)
     require('../../handlers/system/commandRegister').init(client)
-    require('../../handlers/system/buttonsHandler').init(client)
+    require('../../handlers/system/componentsHandler').init("components", client.buttons, "кнопки")
 
     client.user.setStatus("dnd")
     

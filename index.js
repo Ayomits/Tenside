@@ -12,8 +12,11 @@ const intents = [
 ];
 
 const client = new Client({ intents: intents });
+
 client.commands = new Collection();
-client.buttons = new Collection()
+client.buttons = new Collection();
+client.modals = new Collection();
+client.selects = new Collection()
 
 require('./handlers/system/eventHandler.js').init(client)
 
