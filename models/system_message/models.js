@@ -30,3 +30,5 @@ const systemAnketa = sequelize.define('system_anketa', {
     type: DataTypes.STRING,
   }
 })
+
+module.exports = systemAnketa, systemMessageModel

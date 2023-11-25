@@ -17,3 +17,5 @@ const logs = sequelize.define("logs", {
     type: DataTypes.STRING,
   }
 })
+
+module.exports = logs
