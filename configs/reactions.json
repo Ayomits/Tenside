@@ -5,7 +5,7 @@
     "everyone": true,
     "everyoneVerb": "воздушный поцелуй всему серверу",
     "isApi": true,
-    "memberVer": "пользователю",
+    "memberVer": "воздушный поцелуй пользователю",
     "verbal": "послал(-а)"
   },
   "angrystare": {
@@ -278,6 +278,70 @@
     "memberVerb": "пользователю",
     "verbal": "улыбнулся(-алась)"
   },
+  "smoke":{
+    "action": "курить",
+    "api_name": "smoke",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": false,
+    "memberVerb": "с пользователем",
+    "verbal": "курит"
+  },
+  "tea": {
+    "action": "пить чай",
+    "api_name": "tea",
+    "everyone": true,
+    "everyoneVerb": "",
+    "isApi": false,
+    "memberVerb": "с пользователем",
+    "verbal": "пьёт чай"
+  },
+  "coffee": {
+      "action": "пить кофе",
+      "api_name": "coffee",
+      "everyone": true,
+      "everyoneVerb": "",
+      "isApi": false,
+      "memberVerb": "с пользователем",
+      "verbal": "пьёт кофе"
+    },
+    "squeeze": {
+      "action": "тискать",
+      "api_name": "squeeze",
+      "everyone": true,
+      "everyoneVerb": "весь сервер",
+      "isApi": false,
+      "memberVerb": "пользователя",
+      "verbal": "тискает"
+    },
+    "cheek": {
+      "action": "поцеловать в щечку",
+      "api_name": "cheek",
+      "everyone": false,
+      "everyoneVerb": "",
+      "isApi": false,
+      "memberVerb": "пользователя",
+      "verbal": "поцеловал(-а) в щечку"
+    },
+    "bonk": {
+      "action": "ударить по голове",
+      "api_name": "bonk",
+      "everyone": true,
+      "everyoneVerb": "весь сервер",
+      "isApi": false,
+      "memberVerb": "пользователя",
+      "verbal": "бьёт по голове"
+    },
+    "slap": {
+      "action": "дать подщёчину",
+      "api_name": "slap",
+      "everyone": true,
+      "everyoneVerb": "самому себе",
+      "isApi": false,
+      "memberVerb": "пользователю",
+      "verbal": "дал(-а) подщёчину"
+    },
+    
   "wave": {
     "action": "помахать",
     "api_name": "wave",
@@ -293,7 +357,7 @@
     "everyone": true,
     "everyoneVerb": "со всеми",
     "isApi": true,
-    "memberVerb": " с пользователем",
+    "memberVerb": "с пользователем",
     "verbal": "соглашается"
   }
 }

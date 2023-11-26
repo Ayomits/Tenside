@@ -18,6 +18,6 @@ module.exports = {
     require('../../handlers/system/commandRegister').init(client)
    
     client.user.setStatus("dnd")
-    console.log(client.reactions);
+    client.user.setActivity()
   }
 }
