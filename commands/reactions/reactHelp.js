@@ -1,37 +1,61 @@
-const {
-  CommandInteraction,
-  EmbedBuilder,
-  PermissionFlagsBits,
-} = require("discord.js");
+const { CommandInteraction, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const fs = require("fs");
 const path = require("path");
-
+const img = `https://i.imgur.com/i3Y3gQF.png`
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("reactionshelp")
     .setDescription("Все команды реакций")
     .setDMPermission(true),
 
-  /**
-   *
-   * @param {CommandInteraction} interaction
-   *
-   */
   async execute(interaction) {
-    const congfigs = path.resolve("configs");
-    const data = JSON.parse(
-      await fs.promises.readFile(congfigs + "/reactions.json")
-    );
-    const embed = new EmbedBuilder().setTitle("Помощь по командам реакций");
+    const configs = path.resolve("configs");
+    const data = JSON.parse(await fs.promises.readFile(configs + "/reactions.json"));
+    
+    const descriptionembed = new EmbedBuilder().setTitle("Список реакций").setDescription("```Тут находится список всех команд-реакций.```")
+    const loveEmbed = new EmbedBuilder().setTitle("Любовные команды").setImage(img);
+    const emotionEmbed = new EmbedBuilder().setTitle("Команды с эмоциями").setImage(img);
+    const actionEmbed = new EmbedBuilder().setTitle("Команды действий").setImage(img);
 
-    let description = "";
+    let loveDescription = "";
+    let emotionDescription = "";
+    let actionDescription = "";
+
     for (let react in data) {
-      description += `**${data[react].api_name}** - ${data[react].action}\n`;
+      switch (data[react].type) {
+        case 'love':
+          loveDescription += `> **${data[react].api_name}** - ${data[react].action}\n`;
+          break;
+        case 'emotion':
+          emotionDescription += `> **${data[react].api_name}** - ${data[react].action}\n`;
+          break;
+        case 'action':
+          actionDescription += `> **${data[react].api_name}** - ${data[react].action}\n`;
+          break;
+        default:
+          break;
+      }
     }
 
-    embed.setDescription(description);
+    if (loveDescription !== "") {
+      loveEmbed.setDescription(loveDescription.trim());
+    } else {
+      loveEmbed.setDescription("Команды любви не найдены.");
+    }
 
-    await interaction.reply({ embeds: [embed] });
+    if (emotionDescription !== "") {
+      emotionEmbed.setDescription(emotionDescription.trim());
+    } else {
+      emotionEmbed.setDescription("Команды с эмоциями не найдены.");
+    }
+
+    if (actionDescription !== "") {
+      actionEmbed.setDescription(actionDescription.trim());
+    } else {
+      actionEmbed.setDescription("Команды действий не найдены.");
+    }
+
+    await interaction.reply({ embeds: [loveEmbed, emotionEmbed, actionEmbed] });
   },
 };
