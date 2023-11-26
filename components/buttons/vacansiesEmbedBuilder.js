@@ -1,6 +1,10 @@
-const {ButtonInteraction, ModalBuilder, ActionRow, TextInputBuilder, TextInputStyle} = require('discord.js')
-const {systemMessageModel} = require('../../models/models')
-
+const {
+  ButtonInteraction,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
+  ActionRowBuilder,
+} = require("discord.js");
 
 module.exports = {
   customId: "vacansiesEmbedBuilder",
@@ -11,36 +15,46 @@ module.exports = {
 
   async execute(interaction) {
     const modal = new ModalBuilder()
-                  .setTitle("Генератор эмбеда")
-                  .setCustomId("embedGenerator")
-                  .setComponents(
-                    new TextInputBuilder()
-                        .setCustomId("embedTitle")
-                        .setLabel("Название эмбеда вакансий")
-                        .setRequired(true)
-                        .setStyle(TextInputStyle.Short),
+      .setTitle("Генератор эмбеда")
+      .setCustomId("embedGenerator");
 
-                    new TextInputBuilder()
-                        .setCustomId("embedDescription")
-                        .setLabel('Описание эмбеда вакансий')
-                        .setPlaceholder("Бла-бла")
-                        .setStyle(TextInputStyle.Paragraph),
-                    
-                    new TextInputBuilder()
-                        .setCustomId("embedImage")
-                        .setLabel("Ссылка на картинку")
-                        .setPlaceholder("https://example.com")
-                        .setStyle(TextInputStyle.Short)
-                        .setRequired(true),
+    const title = new ActionRowBuilder().addComponents(
+      new TextInputBuilder()
+        .setCustomId("embedTitle")
+        .setLabel("Название эмбеда вакансий")
+        .setPlaceholder("Название эмбеда")
+        .setRequired(true)
+        .setStyle(TextInputStyle.Short),
+    );
+    const desc =  new ActionRowBuilder().addComponents(
+      new TextInputBuilder()
+        .setCustomId("embedDescription")
+        .setLabel("Описание эмбеда")
+        .setPlaceholder("Бла-бла")
+        .setStyle(TextInputStyle.Short)
+        .setRequired(true),
+    )
+    const color =  new ActionRowBuilder().addComponents(
+      new TextInputBuilder()
+        .setCustomId("embedColor")
+        .setLabel("цвет эмбеда")
+        .setPlaceholder("#0000000")
+        .setStyle(TextInputStyle.Short)
+        .setRequired(true)
+        .setMaxLength(7)
+        .setMinLength(7),
+    )
+    const image = new ActionRowBuilder().addComponents(
+      new TextInputBuilder()
+        .setCustomId("embedImage")
+        .setLabel("Цвет эмбеда")
+        .setPlaceholder("https://example.com")
+        .setStyle(TextInputStyle.Short)
+        .setRequired(true)
+    )
+    
+    modal.setComponents(title, desc, color, image)
 
-                    new TextInputBuilder()
-                        .setCustomId("embedColor")
-                        .setLabel('Цвет эмбеда в hex')
-                        .setMaxLength(7)
-                        .setMinLength(7)
-                        .setRequired(true)
-                        .setStyle(TextInputStyle.Short)
-                  )
-    await interaction.showModal(modal)
-  }
-} 
+    await interaction.showModal(modal);
+  },
+};

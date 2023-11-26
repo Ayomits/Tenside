@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType} = require('discord.js')
-const { systemMessageModel, systemAnketa } = require("../../models/models");
+const { systemMessageModel, systemAnketa } = require("../../models/system_message/models");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,12 +13,12 @@ module.exports = {
 
   async execute(interaction) {
     let channelId
-    await systemMessageModel.findAll({
+    await systemMessageModel.findOne({
       where: {
         guild_id: interaction.guildId
       }
     }).then((result) => {
-      channelId = result[0].dataValues.channel_id
+      channelId = result.dataValues.channel_id
     }).catch(() => {
       channelId = "отсутствует"
     })
@@ -30,8 +30,10 @@ module.exports = {
     if (channelId === "отсутствует") {
       embed.setDescription(`Ваш канал: ${channelId}`)
     }else {
-      const channel = interaction.client.channels.cache.get(String(channelId))
-      embed.setDescription(`Ваш канал: ${channel}`)
+      console.log(String(channelId));
+      const channel = interaction.guild.channels.cache.get(String(channelId))
+      console.log(channel);
+      embed.setDescription(`Ваш канал: <#${channelId}>`)
     }
 
     const select = new ActionRowBuilder().addComponents(
@@ -50,7 +52,7 @@ module.exports = {
           .setCustomId("publishVacancies")
           .setLabel('Опубликовать в существующий')
           .setStyle(ButtonStyle.Success),
-          
+
       new ButtonBuilder()
           .setCustomId('vacansiesEmbedBuilder')
           .setLabel("Создать эмбед")

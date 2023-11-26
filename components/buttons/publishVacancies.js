@@ -1,5 +1,5 @@
 const {ButtonInteraction, EmbedBuilder} = require('discord.js')
-const {systemMessageModel} = require('../../models/models')
+const {systemMessageModel, systemAnketaEmbed} = require('../../models/system_message/models')
 
 module.exports = {
   customId: "publishVacancies",
@@ -9,19 +9,28 @@ module.exports = {
   */
 
   async execute(interaction) {
-    const embed = new EmbedBuilder()
-                  .setTitle("Установка канала для отправки вакансий")
-                  .setTimestamp(Date.now())
-                  .setFooter({iconURL: interaction.user.displayAvatarURL(), text: interaction.user.username})
-    const channel_id = await systemMessageModel.findAll({
+    const channel_id = await systemMessageModel.findOne({
       where: {
         guild_id: interaction.guildId
       }
     })
     if (channel_id) {
-      const channel = interaction.client.channels.cache.get(String(channel_id))
+      const channelId = channel_id.dataValues.channel_id
+      const channel = interaction.guild.channels.cache.get(channelId);
       if (channel) {
-        return await channel.send({content: "hello world"})
+        const fields = await systemAnketaEmbed.findOne({where: {guild_id: interaction.guildId}})
+        if (fields) {
+          const fields_ = fields.dataValues
+          const embed = new EmbedBuilder()
+                        .setTitle(fields_.title)
+                        .setDescription(fields_.description)
+                        .setColor(fields_.color)
+                        .setImage(fields_.imageLink)
+          
+          await interaction.message.delete()
+          return await channel.send({embeds: [embed]})
+
+      }else await interaction.reply({content: "эмбед не создан, создайте его при помощи кнопки", ephemeral: true})
       } else {
         return await channel.send({content: "канала не существует"})
       }
