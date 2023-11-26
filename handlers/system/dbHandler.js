@@ -7,7 +7,7 @@ module.exports.init = () => {
       for (let file of fs.readdirSync(`./models/${dir}`).filter(f => f.endsWith('.js'))) {
         require(`../../models/${dir}/${file}`)
         count += 1
-        sequelize.sync({alter: true})
+        sequelize.sync()
       }
     }
     console.log("[DBHANDLER] количество итераций " + count.toString());
