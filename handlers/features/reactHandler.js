@@ -65,7 +65,7 @@ async function react(message, reaction, url) {
     }
   }
 
-  return await message.channel.send({ embeds: [embed] });
+  return await message.reply({ embeds: [embed] });
 }
 
 module.exports = react;

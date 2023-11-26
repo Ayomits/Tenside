@@ -7,12 +7,12 @@ const systemMessageModel = sequelize.define("system_messages", {
     primaryKey: true
   },
   guild_id: {
-    type: DataTypes.BIGINT,
+    type: DataTypes.STRING,
     unique: true,
     defaultValue: 0
   },
   channel_id: {
-    type: DataTypes.BIGINT,
+    type: DataTypes.STRING,
     unique: true,
     defaultValue: 0
   }
@@ -31,7 +31,34 @@ const systemAnketa = sequelize.define('system_anketa', {
   }
 })
 
+const systemAnketaEmbed = sequelize.define('system_anketa_embed', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  guild_id: {
+    type: DataTypes.STRING,
+    unique: true,
+    defaultValue: 0
+  },
+  title: {
+    type: DataTypes.STRING,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
+  color: {
+    type: DataTypes.STRING
+  },
+  imageLink: {
+    type: DataTypes.STRING
+  }
+})
+
+
+
 module.exports = {
   systemMessageModel,
-  systemAnketa
+  systemAnketa,
+  systemAnketaEmbed
 };

@@ -1,6 +1,6 @@
 {
   "airkiss": {
-    "action": "воздушный поцелуй",
+    "action": "Послать воздушный поцелуй",
     "api_name": "airkiss",
     "everyone": true,
     "everyoneVerb": "воздушный поцелуй всему серверу",
@@ -10,7 +10,7 @@
     "type":"love"
   },
   "angrystare": {
-    "action": "сердито смотреть",
+    "action": "Злобно посмотреть",
     "api_name": "angrystare",
     "everyone": true,
     "everyoneVerb": "на весь сервер",
@@ -20,7 +20,7 @@
     "type":"action"
   },
   "bite": {
-    "action": "кусь",
+    "action": "Укусить",
     "api_name": "bite",
     "everyone": true,
     "everyoneVerb": "весь сервер",
@@ -30,7 +30,7 @@
     "type":"action"
   },
   "blush": {
-    "action": "смущаться",
+    "action": "Смущаться",
     "api_name": "blush",
     "everyone": true,
     "everyoneVerb": "",
@@ -40,7 +40,7 @@
     "type":"emotion"
   },
   "brofist": {
-    "action": "дать пять",
+    "action": "Дать пять",
     "api_name": "brofist",
     "everyone": true,
     "everyoneVerb": "всему серверу",
@@ -50,7 +50,7 @@
     "type":"action"
   },
   "celebrate": {
-    "action": "Празднует",
+    "action": "Праздновать",
     "api_name": "celebrate",
     "everyone": true,
     "everyoneVerb": "со всем сервером",
@@ -60,7 +60,7 @@
     "type":"action"
   },
   "cheers": {
-    "action": "выпивает",
+    "action": "Выпить",
     "api_name": "cheers",
     "everyone": true,
     "everyoneVerb": "со всем сервером",
@@ -70,7 +70,7 @@
     "type":"action"
   },
   "clap": {
-    "action": "хлопает",
+    "action": "Хлопать",
     "api_name": "clap",
     "everyone": true,
     "everyoneVerb": "всему серверу",
@@ -80,7 +80,7 @@
     "type":"action"
   },
   "confused": {
-    "action": "Озадачен",
+    "action": "Озадачиться",
     "api_name": "confused",
     "everyone": true,
     "everyoneVerb": "",
@@ -90,7 +90,7 @@
     "type":"emotion"
   },
   "cry": {
-    "action": "плак-плак",
+    "action": "Плакать",
     "api_name": "cry",
     "everyone": true,
     "everyoneVerb": "",
@@ -100,7 +100,7 @@
     "type":"emotion"
   },
   "dance": {
-    "action": "танцует",
+    "action": "Танцевать",
     "api_name": "dance",
     "everyone": true,
     "everyoneVerb": "",
@@ -110,7 +110,7 @@
     "type":"action"
   },
   "droll": {
-    "action": "пускает слюни",
+    "action": "Пускать слюни",
     "api_name": "drool",
     "everyone": true,
     "everyoneVerb": "",
@@ -120,7 +120,7 @@
     "type":"action"
   },
   "evillaugh": {
-    "action": "злобно улыбаться",
+    "action": "Злобно улыбаться",
     "api_name": "evillaugh",
     "everyone": true,
     "everyoneVerb": "всему серверу",
@@ -130,7 +130,7 @@
     "type":"action"
   },
   "facepalm": {
-    "action": "разочарован",
+    "action": "Разочароваться",
     "api_name": "facepalm",
     "everyone": true,
     "everyoneVerb": "",
@@ -140,7 +140,7 @@
     "type":"emotion"
   },
   "handhold": {
-    "action": "держаться за руки",
+    "action": "Держаться за руки",
     "api_name": "handhold",
     "everyone": true,
     "everyoneVerb": "всем сервером",
@@ -150,7 +150,7 @@
     "type":"love"
   },
   "happy": {
-    "action": "радоваться",
+    "action": "Разочароваться",
     "api_name": "happy",
     "everyone": true,
     "everyoneVerb": "всему серверу",
@@ -160,7 +160,7 @@
     "type":"emotion"
   },
   "headbang": {
-    "action": "бьется головой",
+    "action": "Биться головой",
     "api_name": "headbang",
     "everyone": true,
     "everyoneVerb": "",
@@ -170,7 +170,7 @@
     "type":"action"
   },
   "hug": {
-    "action": "обнять",
+    "action": "Обнять",
     "api_name": "hug",
     "everyone": true,
     "everyoneVerb": "весь сервер",
@@ -180,7 +180,7 @@
     "type":"love"
   },
   "kiss": {
-    "action": "поцеловать",
+    "action": "Поцеловать",
     "api_name": "kiss",
     "everyone": false,
     "everyoneVerb": "весь сервер",
@@ -190,7 +190,7 @@
     "type":"love"
   },
   "laugh": {
-    "action": "смеется",
+    "action": "Смеяться",
     "api_name": "laugh",
     "everyone": true,
     "everyoneVerb": "",
@@ -200,7 +200,7 @@
     "type":"emotion"
   },
   "lick": {
-    "action": "облизывает",
+    "action": "Облизывать",
     "api_name": "lick",
     "everyone": true,
     "everyoneVerb": "",
@@ -210,7 +210,7 @@
     "type":"love"
   },
   "love": {
-    "action": "выражать любовь",
+    "action": "Выражать любовь",
     "api_name": "love",
     "everyone": true,
     "everyoneVerb": "весь сервер",
@@ -220,7 +220,7 @@
     "type":"love"
   },
   "mad": {
-    "action": "обезумел",
+    "action": "Обезуметь",
     "api_name": "mad",
     "everyone": true,
     "everyoneVerb": "",
@@ -230,7 +230,7 @@
     "type":"emotion"
   },
   "nervous": {
-    "action": "нервничает",
+    "action": "Нервничать",
     "api_name": "nervous",
     "everyone": true,
     "everyoneVerb": "",
@@ -240,7 +240,7 @@
     "type":"emotion"
   },
   "pat": {
-    "action": "погладить",
+    "action": "Погладить",
     "api_name": "pat",
     "everyone": true,
     "everyoneVerb": "весь сервер",
@@ -250,7 +250,7 @@
     "type":"love"
   },
   "sad": {
-    "action": "грустить",
+    "action": "Грустить",
     "api_name": "sad",
     "everyone": true,
     "everyoneVerb": "",
@@ -260,7 +260,7 @@
     "type":"emotion"
   },
   "shy": {
-    "action": "стесняться",
+    "action": "Стесняться",
     "api_name": "shy",
     "everyone": true,
     "everyoneVerb": "",
@@ -270,7 +270,7 @@
     "type":"emotion"
   },
   "sleep": {
-    "action": "поспать",
+    "action": "Поспать",
     "api_name": "sleep",
     "everyone": true,
     "everyoneVerb": "",
@@ -280,7 +280,7 @@
     "type":"action"
   },
   "smile": {
-    "action": "улыбка",
+    "action": "Улыбаться",
     "api_name": "smile",
     "everyone": true,
     "everyoneVerb": "всему серверу",
@@ -290,7 +290,7 @@
     "type":"emotion"
   },
   "smoke":{
-    "action": "курить",
+    "action": "Курить",
     "api_name": "smoke",
     "everyone": true,
     "everyoneVerb": "",
@@ -300,7 +300,7 @@
     "type":"action"
   },
   "tea": {
-    "action": "пить чай",
+    "action": "Пить чай",
     "api_name": "tea",
     "everyone": true,
     "everyoneVerb": "",
@@ -310,7 +310,7 @@
     "type":"action"
   },
   "coffee": {
-      "action": "пить кофе",
+      "action": "Пить кофе",
       "api_name": "coffee",
       "everyone": true,
       "everyoneVerb": "",
@@ -320,7 +320,7 @@
       "type":"action"
     },
     "squeeze": {
-      "action": "тискать",
+      "action": "Тискать",
       "api_name": "squeeze",
       "everyone": true,
       "everyoneVerb": "весь сервер",
@@ -330,7 +330,7 @@
       "type":"action"
     },
     "cheek": {
-      "action": "поцеловать в щечку",
+      "action": "Поцеловать в щечку",
       "api_name": "cheek",
       "everyone": false,
       "everyoneVerb": "",
@@ -340,7 +340,7 @@
       "type":"love"
     },
     "bonk": {
-      "action": "ударить по голове",
+      "action": "Ударить по голове",
       "api_name": "bonk",
       "everyone": true,
       "everyoneVerb": "весь сервер",
@@ -350,7 +350,7 @@
       "type":"action"
     },
     "slap": {
-      "action": "дать подщёчину",
+      "action": "Дать подщёчину",
       "api_name": "slap",
       "everyone": true,
       "everyoneVerb": "самому себе",
@@ -361,7 +361,7 @@
     },
     
   "wave": {
-    "action": "помахать",
+    "action": "Помахать",
     "api_name": "wave",
     "everyone": true,
     "everyoneVerb": "всему серверу ручкой",
