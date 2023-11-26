@@ -369,5 +369,17 @@
     "memberVerb": "пользователю",
     "verbal": "помахал(-а)",
     "type":"action"
+
+  },
+  "fuck": {
+    "action": "трахает кого-то",
+    "api_name": "fuck",
+    "everyone": false,
+    "everyoneVerb": "",
+    "isApi": true,
+    "memberVerb": "пользователя",
+    "verbal": "трахает",
+    "type":"nsfw",
+    "nsfw": true
   }
 }
