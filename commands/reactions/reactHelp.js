@@ -13,10 +13,10 @@ module.exports = {
     const configs = path.resolve("configs");
     const data = JSON.parse(await fs.promises.readFile(configs + "/reactions.json"));
     
-    const descriptionembed = new EmbedBuilder().setTitle("Список реакций").setDescription("```Тут находится список всех команд-реакций.```")
-    const loveEmbed = new EmbedBuilder().setTitle("Любовные команды").setImage(img);
-    const emotionEmbed = new EmbedBuilder().setTitle("Команды с эмоциями").setImage(img);
-    const actionEmbed = new EmbedBuilder().setTitle("Команды действий").setImage(img);
+    const descriptionembed = new EmbedBuilder().setTitle("Список реакций").setDescription("```Тут находится список всех команд-реакций.\nВы можете использовать их где угодно на сервере (но без оффтопа и спама)```").setColor('#2F3136');
+    const loveEmbed = new EmbedBuilder().setTitle("Любовные команды").setImage(img).setColor('#2F3136');
+    const emotionEmbed = new EmbedBuilder().setTitle("Команды с эмоциями").setImage(img).setColor('#2F3136');
+    const actionEmbed = new EmbedBuilder().setTitle("Команды действий").setImage(img).setColor('#2F3136');
 
     let loveDescription = "";
     let emotionDescription = "";
@@ -56,6 +56,6 @@ module.exports = {
       actionEmbed.setDescription("Команды действий не найдены.");
     }
 
-    await interaction.reply({ embeds: [loveEmbed, emotionEmbed, actionEmbed] });
+    await interaction.reply({ embeds: [descriptionembed, loveEmbed, emotionEmbed, actionEmbed] });
   },
 };

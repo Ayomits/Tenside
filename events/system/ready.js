@@ -1,4 +1,4 @@
-const { Events, Client } = require('discord.js');
+const { Events, Client, Activity, ActivityType } = require('discord.js');
 
 module.exports = {
   name: Events.ClientReady,
@@ -18,6 +18,10 @@ module.exports = {
     require('../../handlers/system/commandRegister').init(client)
    
     client.user.setStatus("dnd")
-    client.user.setActivity()
+    client.user.setActivity({
+      name: `Приглядываю за вами :3`,
+      type: ActivityType.Custom
+    })
+    
   }
 }

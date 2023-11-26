@@ -1,5 +1,5 @@
 const sequelize = require('../../db')
-const { DataTypes } = require('sequelize')
+const {DataTypes} = require('sequelize')
 
 const logs = sequelize.define("logs", {
   id: {
@@ -18,4 +18,6 @@ const logs = sequelize.define("logs", {
   }
 })
 
-module.exports = logs
+module.exports = {
+  logs
+}
