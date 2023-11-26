@@ -6,7 +6,8 @@
     "everyoneVerb": "воздушный поцелуй всему серверу",
     "isApi": true,
     "memberVer": "воздушный поцелуй пользователю",
-    "verbal": "послал(-а)"
+    "verbal": "послал(-а)",
+    "type":"Любовные"
   },
   "angrystare": {
     "action": "сердито смотреть",
@@ -15,7 +16,8 @@
     "everyoneVerb": "на весь сервер",
     "isApi": true,
     "memberVerb": "на пользователя",
-    "verbal": "сердито смотрит"
+    "verbal": "сердито смотрит",
+    "type":"Действия"
   },
   "bite": {
     "action": "кусь",
@@ -24,7 +26,8 @@
     "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "укусил(-а)"
+    "verbal": "укусил(-а)",
+    "type":"Действия"
   },
   "blush": {
     "action": "смущаться",
@@ -33,7 +36,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "из-за пользователя",
-    "verbal": "смущается"
+    "verbal": "смущается",
+    "type":"Эмоции"
   },
   "brofist": {
     "action": "дать пять",
@@ -42,7 +46,8 @@
     "everyoneVerb": "всему серверу",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "даёт пять"
+    "verbal": "даёт пять",
+    "type":"Действия"
   },
   "celebrate": {
     "action": "Празднует",
@@ -51,7 +56,8 @@
     "everyoneVerb": "со всем сервером",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "Празднует"
+    "verbal": "Празднует",
+    "type":"Действия"
   },
   "cheers": {
     "action": "выпивает",
@@ -60,7 +66,8 @@
     "everyoneVerb": "со всем сервером",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "выпивает"
+    "verbal": "выпивает",
+    "type":"Действия"
   },
   "clap": {
     "action": "хлопает",
@@ -69,7 +76,8 @@
     "everyoneVerb": "всему серверу",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "хлопает"
+    "verbal": "хлопает",
+    "type":"Действия"
   },
   "confused": {
     "action": "Озадачен",
@@ -78,7 +86,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователем",
-    "verbal": "Озадачен"
+    "verbal": "Озадачен",
+    "type":"Эмоции"
   },
   "cool": {
     "action": "крутой",
@@ -87,7 +96,8 @@
     "everyoneVerb": "со всем сервером",
     "isApi": true,
     "memberVerb": "вместе с пользователем",
-    "verbal": "крутой"
+    "verbal": "крутой",
+    "type":"Действия"
   },
   "cry": {
     "action": "плак-плак",
@@ -96,7 +106,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "о своих трудностях пользователю",
-    "verbal": "плачет"
+    "verbal": "плачет",
+    "type":"Эмоции"
   },
   "dance": {
     "action": "танцует",
@@ -105,7 +116,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "танцует"
+    "verbal": "танцует",
+    "type":"Действия"
   },
   "droll": {
     "action": "пускает слюни",
@@ -114,7 +126,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "от пользователя",
-    "verbal": "пускает слюни"
+    "verbal": "пускает слюни",
+    "type":"Действия"
   },
   "evillaugh": {
     "action": "злобно улыбаться",
@@ -123,7 +136,8 @@
     "everyoneVerb": "всему серверу",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "злобно улыбается"
+    "verbal": "злобно улыбается",
+    "type":"Действия"
   },
   "facepalm": {
     "action": "разочарован",
@@ -132,7 +146,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "в пользователе",
-    "verbal": "разочарован"
+    "verbal": "разочарован",
+    "type":"Эмоции"
   },
   "handhold": {
     "action": "держаться за руки",
@@ -141,7 +156,8 @@
     "everyoneVerb": "всем сервером",
     "isApi": true,
     "memberVerb": "пользователем",
-    "verbal": "держиться за руки с"
+    "verbal": "держиться за руки с",
+    "type":"Любовные"
   },
   "happy": {
     "action": "радоваться",
@@ -150,7 +166,8 @@
     "everyoneVerb": "всему серверу",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "радуется"
+    "verbal": "радуется",
+    "type":"Эмоции"
   },
   "headbang": {
     "action": "бьется головой",
@@ -159,7 +176,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "об пользователя",
-    "verbal": "бьется головой"
+    "verbal": "бьется головой",
+    "type":"Действия"
   },
   "hug": {
     "action": "обнять",
@@ -168,7 +186,8 @@
     "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "обнял(-а)"
+    "verbal": "обнял(-а)",
+    "type":"Любовные"
   },
   "kiss": {
     "action": "поцеловать",
@@ -177,7 +196,8 @@
     "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "поцеловал(-а)"
+    "verbal": "поцеловал(-а)",
+    "type":"Любовные"
   },
   "laugh": {
     "action": "смеется",
@@ -186,7 +206,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "смеется"
+    "verbal": "смеется",
+    "type":"Эмоции"
   },
   "lick": {
     "action": "облизывает",
@@ -195,7 +216,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "облизывает"
+    "verbal": "облизывает",
+    "type":"Любовные"
   },
   "love": {
     "action": "выражать любовь",
@@ -204,7 +226,8 @@
     "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "любит"
+    "verbal": "любит",
+    "type":"Любовные"
   },
   "mad": {
     "action": "обезумел",
@@ -213,7 +236,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "из-за пользователя",
-    "verbal": "обезумел"
+    "verbal": "обезумел",
+    "type":"Эмоции"
   },
   "nervous": {
     "action": "нервничает",
@@ -222,7 +246,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "из-за пользователя",
-    "verbal": "нервничает"
+    "verbal": "нервничает",
+    "type":"Эмоции"
   },
   "no": {
     "action": "отказать",
@@ -231,7 +256,8 @@
     "everyoneVerb": "всем",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "отказывает"
+    "verbal": "отказывает",
+    "type":"Действия"
   },
   "pat": {
     "action": "погладить",
@@ -240,7 +266,8 @@
     "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
-    "verbal": "погладил(-а)"
+    "verbal": "погладил(-а)",
+    "type":"Любовные"
   },
   "sad": {
     "action": "грустить",
@@ -249,7 +276,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "из-за пользователя",
-    "verbal": "грустит"
+    "verbal": "грустит",
+    "type":"Эмоции"
   },
   "shy": {
     "action": "стесняться",
@@ -258,7 +286,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "из-за пользователя",
-    "verbal": "стесняется"
+    "verbal": "стесняется",
+    "type":"Эмоции"
   },
   "sleep": {
     "action": "поспать",
@@ -267,7 +296,8 @@
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "уснул(-а)"
+    "verbal": "уснул(-а)",
+    "type":"Действия"
   },
   "smile": {
     "action": "улыбка",
@@ -276,7 +306,8 @@
     "everyoneVerb": "всему серверу",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "улыбнулся(-алась)"
+    "verbal": "улыбнулся(-алась)",
+    "type":"Эмоции"
   },
   "smoke":{
     "action": "курить",
@@ -285,7 +316,8 @@
     "everyoneVerb": "",
     "isApi": false,
     "memberVerb": "с пользователем",
-    "verbal": "курит"
+    "verbal": "курит",
+    "type":"Действия"
   },
   "tea": {
     "action": "пить чай",
@@ -294,7 +326,8 @@
     "everyoneVerb": "",
     "isApi": false,
     "memberVerb": "с пользователем",
-    "verbal": "пьёт чай"
+    "verbal": "пьёт чай",
+    "type":"Действия"
   },
   "coffee": {
       "action": "пить кофе",
@@ -303,7 +336,8 @@
       "everyoneVerb": "",
       "isApi": false,
       "memberVerb": "с пользователем",
-      "verbal": "пьёт кофе"
+      "verbal": "пьёт кофе",
+      "type":"Действия"
     },
     "squeeze": {
       "action": "тискать",
@@ -312,7 +346,8 @@
       "everyoneVerb": "весь сервер",
       "isApi": false,
       "memberVerb": "пользователя",
-      "verbal": "тискает"
+      "verbal": "тискает",
+      "type":"Действия"
     },
     "cheek": {
       "action": "поцеловать в щечку",
@@ -321,7 +356,8 @@
       "everyoneVerb": "",
       "isApi": false,
       "memberVerb": "пользователя",
-      "verbal": "поцеловал(-а) в щечку"
+      "verbal": "поцеловал(-а) в щечку",
+      "type":"Любовные"
     },
     "bonk": {
       "action": "ударить по голове",
@@ -330,7 +366,8 @@
       "everyoneVerb": "весь сервер",
       "isApi": false,
       "memberVerb": "пользователя",
-      "verbal": "бьёт по голове"
+      "verbal": "бьёт по голове",
+      "type":"Действия"
     },
     "slap": {
       "action": "дать подщёчину",
@@ -339,7 +376,8 @@
       "everyoneVerb": "самому себе",
       "isApi": false,
       "memberVerb": "пользователю",
-      "verbal": "дал(-а) подщёчину"
+      "verbal": "дал(-а) подщёчину",
+      "type":"Действия"
     },
     
   "wave": {
@@ -349,7 +387,8 @@
     "everyoneVerb": "всему серверу ручкой",
     "isApi": true,
     "memberVerb": "пользователю",
-    "verbal": "помахал(-а)"
+    "verbal": "помахал(-а)",
+    "type":"Действия"
   },
   "yes": {
     "action": "соглашается",
@@ -358,6 +397,7 @@
     "everyoneVerb": "со всеми",
     "isApi": true,
     "memberVerb": "с пользователем",
-    "verbal": "соглашается"
+    "verbal": "соглашается",
+    "type":"Действия"
   }
 }
