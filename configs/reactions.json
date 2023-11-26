@@ -80,15 +80,6 @@
     "memberVerb": "пользователем",
     "verbal": "Озадачен"
   },
-  "cool": {
-    "action": "крутой",
-    "api_name": "cool",
-    "everyone": true,
-    "everyoneVerb": "со всем сервером",
-    "isApi": true,
-    "memberVerb": "вместе с пользователем",
-    "verbal": "крутой"
-  },
   "cry": {
     "action": "плак-плак",
     "api_name": "cry",
@@ -120,7 +111,7 @@
     "action": "злобно улыбаться",
     "api_name": "evillaugh",
     "everyone": true,
-    "everyoneVerb": "всему серверу",
+    "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователю",
     "verbal": "злобно улыбается"
@@ -223,15 +214,6 @@
     "isApi": true,
     "memberVerb": "из-за пользователя",
     "verbal": "нервничает"
-  },
-  "no": {
-    "action": "отказать",
-    "api_name": "no",
-    "everyone": true,
-    "everyoneVerb": "всем",
-    "isApi": true,
-    "memberVerb": "пользователю",
-    "verbal": "отказывает"
   },
   "pat": {
     "action": "погладить",
@@ -341,7 +323,6 @@
       "memberVerb": "пользователю",
       "verbal": "дал(-а) подщёчину"
     },
-    
   "wave": {
     "action": "помахать",
     "api_name": "wave",
@@ -350,14 +331,5 @@
     "isApi": true,
     "memberVerb": "пользователю",
     "verbal": "помахал(-а)"
-  },
-  "yes": {
-    "action": "соглашается",
-    "api_name": "yes",
-    "everyone": true,
-    "everyoneVerb": "со всеми",
-    "isApi": true,
-    "memberVerb": "с пользователем",
-    "verbal": "соглашается"
   }
 }
