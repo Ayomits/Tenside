@@ -1,11 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType} = require('discord.js')
+const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType, PermissionFlagsBits} = require('discord.js')
 const { systemMessageModel, systemAnketa } = require("../../models/system_message/models");
 
 module.exports = {
   data: new SlashCommandBuilder()
         .setName("setupmodal")
-        .setDescription("установка канала для публикации вакансий"),
+        .setDescription("установка канала для публикации вакансий")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   
   /**
    * @param {CommandInteraction} interaction
@@ -42,6 +43,12 @@ module.exports = {
                 .setPlaceholder("выберите канал с вакансиями")
                 .setChannelTypes(ChannelType.GuildText)      
     )
+    const select2 = new ActionRowBuilder().addComponents(
+      new ChannelSelectMenuBuilder()
+      .setCustomId("setRecrutChannel")
+      .setPlaceholder("выберите канал после заполнения")
+      .setChannelTypes(ChannelType.GuildText)      
+)
     const btn = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
           .setCustomId("deleteExists")
@@ -56,9 +63,14 @@ module.exports = {
       new ButtonBuilder()
           .setCustomId('vacansiesEmbedBuilder')
           .setLabel("Создать эмбед")
+          .setStyle(ButtonStyle.Success),
+      
+      new ButtonBuilder()
+          .setCustomId("setupVacansies")
+          .setLabel("Вакансии")
           .setStyle(ButtonStyle.Success)
     )
 
-    await interaction.reply({embeds: [embed], components: [select, btn]})
+    await interaction.reply({embeds: [embed], components: [select, select2, btn ]})
   }
 }

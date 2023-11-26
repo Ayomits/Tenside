@@ -5,7 +5,7 @@
     "everyone": true,
     "everyoneVerb": "воздушный поцелуй всему серверу",
     "isApi": true,
-    "memberVer": "воздушный поцелуй пользователю",
+    "memberVerb": "воздушный поцелуй пользователю",
     "verbal": "послал(-а)",
     "type":"love"
   },
