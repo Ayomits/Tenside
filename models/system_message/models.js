@@ -55,10 +55,54 @@ const systemAnketaEmbed = sequelize.define('system_anketa_embed', {
   }
 })
 
+const systemAnketaQuestion = sequelize.define('system_anketa_question', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  type: {
+    type: DataTypes.STRING,
+    unique:true
+  },
+  question1: {
+    type: DataTypes.STRING,
+  },
+  question2: {
+    type: DataTypes.STRING,
+  }
+})
 
+const systemAnketaModalIDS = sequelize.define("system_anketa_modal_ids", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  customId: {
+    type: DataTypes.STRING,
+    unique:true
+  }
+})
+
+const systemAnketaRecrutChannel = sequelize.define("system_anketa_channel", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  channel_id: {
+    type: DataTypes.STRING,
+    unique:true
+  },
+  guild_id: {
+    type: DataTypes.STRING,
+    unique:true
+  }
+})
 
 module.exports = {
   systemMessageModel,
   systemAnketa,
-  systemAnketaEmbed
+  systemAnketaEmbed, 
+  systemAnketaQuestion,
+  systemAnketaModalIDS, 
+  systemAnketaRecrutChannel
 };

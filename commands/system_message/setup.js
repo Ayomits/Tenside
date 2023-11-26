@@ -42,6 +42,12 @@ module.exports = {
                 .setPlaceholder("выберите канал с вакансиями")
                 .setChannelTypes(ChannelType.GuildText)      
     )
+    const select2 = new ActionRowBuilder().addComponents(
+      new ChannelSelectMenuBuilder()
+      .setCustomId("setRecrutChannel")
+      .setPlaceholder("выберите канал после заполнения")
+      .setChannelTypes(ChannelType.GuildText)      
+)
     const btn = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
           .setCustomId("deleteExists")
@@ -56,9 +62,14 @@ module.exports = {
       new ButtonBuilder()
           .setCustomId('vacansiesEmbedBuilder')
           .setLabel("Создать эмбед")
+          .setStyle(ButtonStyle.Success),
+      
+      new ButtonBuilder()
+          .setCustomId("setupVacansies")
+          .setLabel("Вакансии")
           .setStyle(ButtonStyle.Success)
     )
 
-    await interaction.reply({embeds: [embed], components: [select, btn]})
+    await interaction.reply({embeds: [embed], components: [select, select2, btn ]})
   }
 }
