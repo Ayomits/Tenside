@@ -31,4 +31,7 @@ const systemAnketa = sequelize.define('system_anketa', {
   }
 })
 
-module.exports = systemAnketa, systemMessageModel
+module.exports = {
+  systemMessageModel,
+  systemAnketa
+};
