@@ -32,14 +32,12 @@ module.exports = {
           .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
           .setCustomId('closeAnketa')
-          .setLabel("close")
+          .setLabel("")
           .setStyle(ButtonStyle.Primary)
     )
     const close = new ActionRowBuilder().addComponents(
       
     )
-
     return await interaction.reply({embeds: [embed], components: [create]})
-
   }
 }

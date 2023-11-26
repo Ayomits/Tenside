@@ -158,7 +158,7 @@
     "everyone": true,
     "everyoneVerb": "",
     "isApi": true,
-    "memberVerb": "",
+    "memberVerb": "об пользователя",
     "verbal": "бьется головой"
   },
   "hug": {
