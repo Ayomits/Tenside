@@ -1,11 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType} = require('discord.js')
+const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType, PermissionFlagsBits} = require('discord.js')
 const { systemMessageModel, systemAnketa } = require("../../models/system_message/models");
 
 module.exports = {
   data: new SlashCommandBuilder()
         .setName("setupmodal")
-        .setDescription("установка канала для публикации вакансий"),
+        .setDescription("установка канала для публикации вакансий")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   
   /**
    * @param {CommandInteraction} interaction
