@@ -30,6 +30,7 @@ module.exports = {
         embed.setDescription(`Ваш канал: <#${result.channel_id}>`)
       })
     }
+    await interaction.reply({content: "канал успешно установлен", ephemeral: true})
     return await interaction.message.edit({embeds: [embed]})
   },
 };

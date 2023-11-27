@@ -16,9 +16,10 @@ module.exports = {
   async execute(interaction) {
     const values = interaction.values[0];
     await systemAnketaRecrutChannel.create({channel_id: values, guild_id: interaction.guildId}).then(async () => {
-      await interaction.reply("Отлично, канал создан")
+      await interaction.reply({content: "Отлично, канал создан", ephemeral: true})
     }).catch(async () => {
-      await interaction.reply("Видимо, такой канал уже указан")
+      await systemAnketaRecrutChannel.update({channel_id: values}, {where: {guild_id: interaction.guildId}})
+      await interaction.reply({content: "Канал был обновлен", ephemeral: true})
     }) 
   }
 }

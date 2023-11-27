@@ -33,32 +33,40 @@ module.exports = {
       });
       if (fields) {
         const fields_ = fields.dataValues;
-        const embed = new EmbedBuilder()
+        const embed1 = new EmbedBuilder()
+                      .setTitle("ㅤ")
+                      .setImage(fields_.imageLink)
+        const embed2 = new EmbedBuilder()
           .setTitle(fields_.title)
           .setDescription(fields_.description)
           .setColor(fields_.color)
-          .setImage(fields_.imageLink);
+        
+        
+
         const select = new StringSelectMenuBuilder()
           .setCustomId("vacansiesSelect")
-          .setPlaceholder("Выберите должность");
+          .setPlaceholder("Выберите должность")
+          .setOptions(
+            {label: "Ведущий", value: "vedushiy"},
+            {label: "Closer", value: "closer"},
+            {label: "Creative", value: "creative"},
+            {label: "Control", value: "control"}
+          )
 
-        const types = await systemAnketaQuestion.findAll();
-        for (let i = 0; i < types.length; i++) {
-          select.addOptions({
-            label: types[i].dataValues.type,
-            value: types[i].dataValues.type,
-          });
-        }
+
         try {
           await channel.send({
             components: [new ActionRowBuilder().addComponents(select)],
-            embeds: [embed]
+            embeds: [embed1 ,embed2]
           });
         } catch {
           await interaction.reply({
             content: "неизвестная ошибка, видимо вы не создали вакансий",
+            ephemeral: true
           });
         }
+      }else {
+        await interaction.reply({content: "Не установлен эмбед. Обратите внимание, в поле image нужно ставить картинку, а не pornhub!!", ephemeral: true})
       }
     }
   },

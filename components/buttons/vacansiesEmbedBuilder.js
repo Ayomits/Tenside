@@ -31,7 +31,7 @@ module.exports = {
         .setCustomId("embedDescription")
         .setLabel("Описание эмбеда")
         .setPlaceholder("Бла-бла")
-        .setStyle(TextInputStyle.Short)
+        .setStyle(TextInputStyle.Paragraph)
         .setRequired(true),
     )
     const color =  new ActionRowBuilder().addComponents(
@@ -50,7 +50,7 @@ module.exports = {
         .setLabel("Цвет эмбеда")
         .setPlaceholder("https://example.com")
         .setStyle(TextInputStyle.Short)
-        .setRequired(true)
+        .setRequired(false)
     )
     
     modal.setComponents(title, desc, color, image)

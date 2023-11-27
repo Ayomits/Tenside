@@ -20,7 +20,7 @@ module.exports = {
       title: embedTitle,
       description: embedDescription,
       color: embedColor,
-      imageLink: embedImage
+      imageLink: embedImage ? embedImage != null : "https://media.discordapp.net/attachments/1166714499693281400/1178218736470200330/image.png?format=webp&width=1340&height=502"
     }).then(async () => {
       await interaction.reply({content: "успешно создан эмбед", ephemeral: true})
     }).catch(async () => {
@@ -28,7 +28,7 @@ module.exports = {
         title: embedTitle,
         description: embedDescription,
         color: embedColor,
-        imageLink: embedImage
+        imageLink: embedImage ? embedImage != null : "https://media.discordapp.net/attachments/1166714499693281400/1178218736470200330/image.png?format=webp&width=1340&height=502"
       }, {where: {guild_id: interaction.guildId}})
       await interaction.reply({content: "успешно обновлён эмбед"})
     })

@@ -63,14 +63,8 @@ module.exports = {
       new ButtonBuilder()
           .setCustomId('vacansiesEmbedBuilder')
           .setLabel("Создать эмбед")
-          .setStyle(ButtonStyle.Success),
-      
-      new ButtonBuilder()
-          .setCustomId("setupVacansies")
-          .setLabel("Вакансии")
           .setStyle(ButtonStyle.Success)
     )
-
     await interaction.reply({embeds: [embed], components: [select, select2, btn ]})
   }
 }
