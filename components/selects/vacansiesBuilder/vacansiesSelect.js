@@ -2,7 +2,7 @@ const {
   ChannelSelectMenuInteraction,
 } = require('discord.js')
 
-const {baseModal} = require('../../modals/vacansiesBuilder/baseExecute')
+const {baseModal} = require('../../../functions/baseExecute')
 
 module.exports = {
   customId: "vacansiesSelect",

@@ -8,7 +8,7 @@ const {
 } = require("discord.js");
 const {
   systemAnketaRecrutChannel,
-} = require("../../../models/system_message/models");
+} = require("../models/system_message/models");
 
 
 
