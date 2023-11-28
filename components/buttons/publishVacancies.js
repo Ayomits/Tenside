@@ -41,8 +41,6 @@ module.exports = {
           .setDescription(fields_.description)
           .setColor(fields_.color)
         
-        
-
         const select = new StringSelectMenuBuilder()
           .setCustomId("vacansiesSelect")
           .setPlaceholder("Выберите должность")
@@ -52,7 +50,6 @@ module.exports = {
             {label: "Creative", value: "creative"},
             {label: "Control", value: "control"}
           )
-
 
         try {
           await channel.send({
