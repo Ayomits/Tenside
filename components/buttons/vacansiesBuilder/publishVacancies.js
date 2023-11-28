@@ -10,7 +10,11 @@ const {
   systemAnketaQuestion,
   systemAnketaModalIDS,
   systemAnketaRecrutChannel,
-} = require("../../models/system_message/models");
+} = require("../../../models/system_message/models");
+
+function descTemplate (vacansiya) {
+  return "Вы хотите подать на " + vacansiya
+}
 
 module.exports = {
   customId: "publishVacancies",
@@ -34,21 +38,27 @@ module.exports = {
       if (fields) {
         const fields_ = fields.dataValues;
         const embed1 = new EmbedBuilder()
-                      .setTitle("ㅤ")
                       .setImage(fields_.imageLink)
+                      .setColor(fields_.color)
         const embed2 = new EmbedBuilder()
           .setTitle(fields_.title)
           .setDescription(fields_.description)
           .setColor(fields_.color)
         
+
         const select = new StringSelectMenuBuilder()
           .setCustomId("vacansiesSelect")
           .setPlaceholder("Выберите должность")
           .setOptions(
-            {label: "Ведущий", value: "vedushiy"},
-            {label: "Closer", value: "closer"},
-            {label: "Creative", value: "creative"},
-            {label: "Control", value: "control"}
+            {label: "Ведущий", value: "vedushiy", description: descTemplate("ведущий")},
+            {label: "Closer", value: "closer", description: descTemplate("closer")},
+            {label: "Creative", value: "creative", description: descTemplate("creative")},
+            {label: "Control", value: "control", description: descTemplate("control")},
+            {label: "Eventer", value: "eventer", description: descTemplate("eventer")},
+            {label: "PR manager", value: "pm", description: descTemplate("пиар менеджера")},
+            {label: "Designer", value: "designer", description: descTemplate("designer")},
+            {label: "Media", value: "media", description: descTemplate("media")},
+            {label: "Support", value: "support", description: descTemplate("support")}
           )
 
         try {
@@ -58,7 +68,7 @@ module.exports = {
           });
         } catch {
           await interaction.reply({
-            content: "неизвестная ошибка, видимо вы не создали вакансий",
+            content: "неизвестная ошибка undefined",
             ephemeral: true
           });
         }

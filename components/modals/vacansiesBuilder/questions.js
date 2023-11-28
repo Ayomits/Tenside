@@ -1,5 +1,5 @@
 const { ModalSubmitInteraction } = require('discord.js');
-const { systemAnketaQuestion, systemAnketaModalIDS, systemAnketa } = require('../../models/system_message/models');
+const { systemAnketaQuestion, systemAnketaModalIDS, systemAnketa } = require('../../../models/system_message/models');
 
 module.exports = {
   customId: 'questions',

@@ -31,9 +31,6 @@ module.exports = {
     if (channelId === "отсутствует") {
       embed.setDescription(`Ваш канал: ${channelId}`)
     }else {
-      console.log(String(channelId));
-      const channel = interaction.guild.channels.cache.get(String(channelId))
-      console.log(channel);
       embed.setDescription(`Ваш канал: <#${channelId}>`)
     }
 

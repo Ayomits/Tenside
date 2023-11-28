@@ -1,5 +1,5 @@
 const {ModalSubmitInteraction, EmbedBuilder} = require('discord.js')
-const { systemAnketaEmbed } = require('../../models/system_message/models')
+const { systemAnketaEmbed } = require('../../../models/system_message/models')
 
 module.exports = {
   customId: 'embedGenerator',

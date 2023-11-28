@@ -1,7 +1,7 @@
 const { ChannelSelectMenuInteraction } = require("discord.js");
-const { systemMessageModel, systemAnketa } = require("../../models/system_message/models");
+const { systemMessageModel, systemAnketa } = require("../../../models/system_message/models");
 const {EmbedBuilder} = require('discord.js')
-const sequelize = require('../../db')
+const sequelize = require('../../../db')
 
 
 module.exports = {

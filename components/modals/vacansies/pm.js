@@ -1,8 +1,8 @@
 const { ModalSubmitInteraction, EmbedBuilder } = require('discord.js');
-const {baseCallback} = require("./baseExecute")
+const {baseCallback} = require("../vacansiesBuilder/baseExecute")
 
 module.exports = {
-  customId: 'vedushiy',
+  customId: 'pm',
 
   /**
    * @param {ModalSubmitInteraction} interaction
