@@ -150,7 +150,7 @@
     "type":"love"
   },
   "happy": {
-    "action": "Разочароваться",
+    "action": "Радоваться",
     "api_name": "happy",
     "everyone": true,
     "everyoneVerb": "всему серверу",
