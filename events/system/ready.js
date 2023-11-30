@@ -10,7 +10,6 @@ module.exports = {
   async execute(client) {
     // подгрузка команд, компонентов, создание таблиц в СУБД
 
-    require('../../handlers/system/dbHandler').init()
     require('../../handlers/system/commandHandler').init(client)
     require('../../handlers/system/componentsHandler').init("components", client.buttons, "кнопки")
     require('../../handlers/system/componentsHandler').init("components", client.modals, "модалки")

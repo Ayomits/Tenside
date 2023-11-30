@@ -57,6 +57,8 @@ async function react(message, reaction, url) {
   } else {
     if (mentions && mentions.users.size > 0) {
       const targetUser = mentions.users.first();
+      if (authorId === targetUser.id  )
+        return await message.channel.send({ embeds: [errorEmbed] });
       embed.setDescription(
         `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.memberVerb} ${targetUser} `
       );

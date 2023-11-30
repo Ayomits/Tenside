@@ -1,9 +1,15 @@
-const {TextInputBuilder, ModalBuilder, TextInputStyle} = require("discord.js")
+const {TextInputBuilder, ModalBuilder, TextInputStyle, ActionRowBuilder, ButtonInteraction} = require("discord.js")
 
-async function embedBuilderModal (interaction) {
-  new ModalBuilder()
+/**
+ * 
+ * @param {ButtonInteraction} interaction 
+ * @param {String} customId 
+ */
+
+async function embedBuilderModal (interaction, customId) {
+  const modal = new ModalBuilder()
       .setTitle("Генератор эмбеда")
-      .setCustomId("embedGenerator");
+      .setCustomId(customId);
 
     const title = new ActionRowBuilder().addComponents(
       new TextInputBuilder()
@@ -34,7 +40,7 @@ async function embedBuilderModal (interaction) {
     const image = new ActionRowBuilder().addComponents(
       new TextInputBuilder()
         .setCustomId("embedImage")
-        .setLabel("Цвет эмбеда")
+        .setLabel("Ссылка на изображение")
         .setPlaceholder("https://example.com")
         .setStyle(TextInputStyle.Short)
         .setRequired(false)
@@ -51,24 +57,30 @@ async function embedBuilderModalCallback (interaction, model) {
     const embedImage = interaction.fields.getTextInputValue('embedImage')
     const embedColor = interaction.fields.getTextInputValue('embedColor')
 
+    const filter = { guild_id: interaction.guildId };
+    const update = {
+    title: embedTitle,
+    description: embedDescription,
+    color: embedColor,
+    imageLink: embedImage || "https://i.pinimg.com/736x/95/15/52/951552282c98f65fa63723fc75d361e8.jpg"
+    };
+    
+    const updated = await model.updateOne(filter, update, {new: true, upsert: true});
 
-    await model.create({
-      guild_id: interaction.guildId,
-      title: embedTitle,
-      description: embedDescription,
-      color: embedColor,
-      imageLink: embedImage ? embedImage != null : "https://media.discordapp.net/attachments/1166714499693281400/1178218736470200330/image.png?format=webp&width=1340&height=502"
-    }).then(async () => {
-      await interaction.reply({content: "успешно создан эмбед", ephemeral: true})
-    }).catch(async () => {
-      await model.update({
+    if (!updated) {
+      await model.create({
+        guild_id: interaction.guildId,
         title: embedTitle,
         description: embedDescription,
         color: embedColor,
-        imageLink: embedImage ? embedImage != null : "https://media.discordapp.net/attachments/1166714499693281400/1178218736470200330/image.png?format=webp&width=1340&height=502"
-      }, {where: {guild_id: interaction.guildId}})
-      await interaction.reply({content: "успешно обновлён эмбед"})
-    })
+        imageLink: embedImage ? embedImage != null : "https://i.pinimg.com/736x/95/15/52/951552282c98f65fa63723fc75d361e8.jpg"
+      }).then(async () => {
+        await interaction.reply({content: "успешно создан эмбед", ephemeral: true})
+      })
+    }else {
+      await interaction.reply({content: "успешно обновлён эмбед", ephemeral: true})
+    }
+    
 }
 
 module.exports = {

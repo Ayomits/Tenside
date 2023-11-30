@@ -1,15 +1,15 @@
 const {embedBuilderModalCallback} = require("../../../functions/embedGen")
-const {systemAnketaEmbed} = require("../../../models/system_message")
+const {TicketSettingsEmbed} = require("../../../models/tickets")
 const {ModalSubmitInteraction} = require("discord.js")
 
 module.exports = {
-  customId: 'embedGenerator',
+  customId: 'embedTicketBuilderModal',
 
   /**
    * @param {ModalSubmitInteraction} interaction
    */
 
   async execute(interaction) {
-    await embedBuilderModalCallback(interaction, systemAnketaEmbed)
+    await embedBuilderModalCallback(interaction, TicketSettingsEmbed)
   }
 }

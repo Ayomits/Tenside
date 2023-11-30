@@ -1,5 +1,5 @@
 const {ButtonInteraction, EmbedBuilder} = require('discord.js')
-const {systemMessageModel} = require('../../../models/system_message/models')
+const {systemMessageModel} = require('../../../models/system_message')
 
 module.exports = {
   customId: "deleteExists",

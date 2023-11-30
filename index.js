@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const env = require('dotenv')
+const moongoose = require('mongoose')
 
 env.config()
 
@@ -17,6 +18,10 @@ client.commands = new Collection();
 client.buttons = new Collection();
 client.modals = new Collection();
 client.selects = new Collection()
+
+
+
+moongoose.connect(process.env.DB_URI)
 
 require('./handlers/system/eventHandler.js').init(client)
 

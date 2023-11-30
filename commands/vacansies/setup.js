@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {CommandInteraction, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, RoleSelectMenuBuilder, ChannelSelectMenuBuilder, TextChannel, ChannelType, PermissionFlagsBits} = require('discord.js')
-const { systemMessageModel, systemAnketa } = require("../../models/system_message/models");
+const { systemMessageModel } = require("../../models/system_message");
+const getChannel = require("../../functions/getChannel");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,25 +14,16 @@ module.exports = {
    */
 
   async execute(interaction) {
-    let channelId
-    await systemMessageModel.findOne({
-      where: {
-        guild_id: interaction.guildId
-      }
-    }).then((result) => {
-      channelId = result.dataValues.channel_id
-    }).catch(() => {
-      channelId = "отсутствует"
-    })
+    let channelId = await getChannel(systemMessageModel, interaction)
     const embed = new EmbedBuilder()
                   .setTitle("Установка канала для отправки вакансий")
                   .setTimestamp(Date.now())
                   .setFooter({iconURL: interaction.user.displayAvatarURL(), text: interaction.user.username})
     
-    if (channelId === "отсутствует") {
-      embed.setDescription(`Ваш канал: ${channelId}`)
+    if (!channelId) {
+      embed.setDescription(`Ваш канал: ${channelId.channel_id}`)
     }else {
-      embed.setDescription(`Ваш канал: <#${channelId}>`)
+      embed.setDescription(`Ваш канал: <#${channelId.channel_id}>`)
     }
 
     const select = new ActionRowBuilder().addComponents(
@@ -62,6 +54,8 @@ module.exports = {
           .setLabel("Создать эмбед")
           .setStyle(ButtonStyle.Success)
     )
+
+    
     await interaction.reply({embeds: [embed], components: [select, select2, btn ]})
   }
 }

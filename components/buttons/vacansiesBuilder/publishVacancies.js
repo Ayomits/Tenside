@@ -10,7 +10,7 @@ const {
   systemAnketaQuestion,
   systemAnketaModalIDS,
   systemAnketaRecrutChannel,
-} = require("../../../models/system_message/models");
+} = require("../../../models/system_message");
 
 function descTemplate (vacansiya) {
   return "Вы хотите подать на " + vacansiya
@@ -25,25 +25,21 @@ module.exports = {
 
   async execute(interaction) {
     const channel_id = await systemMessageModel.findOne({
-      where: {
         guild_id: interaction.guildId,
-      },
     });
     if (channel_id) {
-      const channelId = channel_id.dataValues.channel_id;
+      const channelId = channel_id.channel_id
       const channel = interaction.guild.channels.cache.get(channelId);
-      const fields = await systemAnketaEmbed.findOne({
-        where: { guild_id: interaction.guildId },
-      });
+      const fields = await systemAnketaEmbed.findOne({ guild_id: interaction.guildId },
+      );
       if (fields) {
-        const fields_ = fields.dataValues;
         const embed1 = new EmbedBuilder()
-                      .setImage(fields_.imageLink)
-                      .setColor(fields_.color)
+                      .setImage(fields.imageLink)
+                      .setColor(fields.color)
         const embed2 = new EmbedBuilder()
-          .setTitle(fields_.title)
-          .setDescription(fields_.description)
-          .setColor(fields_.color)
+          .setTitle(fields.title)
+          .setDescription(fields.description)
+          .setColor(fields.color)
         
 
         const select = new StringSelectMenuBuilder()

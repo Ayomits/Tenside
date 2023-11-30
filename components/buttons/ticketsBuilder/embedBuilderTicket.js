@@ -1,13 +1,13 @@
 const {embedBuilderModal} = require("../../../functions/embedGen")
 
 module.exports = {
-  customId: "vacansiesEmbedBuilder",
+  customId: "embedBuilderTicket",
 
   /**
    * @param {ButtonInteraction} interaction
    */
 
   async execute(interaction) {
-    await embedBuilderModal(interaction, "embedGenerator")
+    await embedBuilderModal(interaction, "embedTicketBuilderModal")
   },
 };

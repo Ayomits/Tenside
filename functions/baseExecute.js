@@ -8,7 +8,7 @@ const {
 } = require("discord.js");
 const {
   systemAnketaRecrutChannel,
-} = require("../models/system_message/models");
+} = require("../models/system_message");
 
 
 
@@ -100,10 +100,10 @@ const baseCallback = async (interaction) => {
   embed.setTimestamp(Date.now())
 
   await systemAnketaRecrutChannel
-    .findOne({ where: { guild_id: interaction.guildId } })
+    .findOne({ guild_id: interaction.guildId })
     .then(async (result) => {
       const channel = interaction.client.channels.cache.get(
-        result.dataValues.channel_id
+        result.channel_id
       );
       await interaction.reply({content: "Ваша заявка успешно отправлена. Администрация её рассмотрит и отправит вам ответ!", ephemeral: true})
       await channel.send({embeds: [embed]})

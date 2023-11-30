@@ -3,7 +3,7 @@ const { Events, Message } = require("discord.js");
 const react = require('../../handlers/features/reactHandler');
 const fs = require('fs');
 const path = require("path");
-const { url } = require("inspector");
+
 
 module.exports = {
   name: Events.MessageCreate,
@@ -15,7 +15,7 @@ module.exports = {
   async execute(message) {
     if (message.author.bot) return;
     if (!message.content.toLowerCase().startsWith(process.env.PREFIX)) return;
-    const reaction = message.content.replace(process.env.PREFIX, "").split(" ");
+    const reaction = message.content.toLowerCase().replace(process.env.PREFIX, "").split(" ");
     const data = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactions.json'), "utf-8"))
     
 

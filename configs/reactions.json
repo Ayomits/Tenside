@@ -203,7 +203,7 @@
     "action": "Облизывать",
     "api_name": "lick",
     "everyone": true,
-    "everyoneVerb": "",
+    "everyoneVerb": "весь сервер",
     "isApi": true,
     "memberVerb": "пользователя",
     "verbal": "облизывает",
@@ -350,13 +350,13 @@
       "type":"action"
     },
     "slap": {
-      "action": "Дать подщёчину",
+      "action": "Дать пощёчину",
       "api_name": "slap",
       "everyone": true,
       "everyoneVerb": "самому себе",
       "isApi": false,
       "memberVerb": "пользователю",
-      "verbal": "дал(-а) подщёчину",
+      "verbal": "дал(-а) пощёчину",
       "type":"action"
     },
     
