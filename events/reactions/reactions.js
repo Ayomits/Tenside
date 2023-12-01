@@ -1,41 +1,56 @@
-const axios = require("axios");;
+const axios = require("axios");
 const { Events, Message } = require("discord.js");
 const react = require('../../handlers/features/reactHandler');
 const fs = require('fs');
 const path = require("path");
 
+function findReactionKeyByAlias(alias, config) {
+  for (let key in config) {
+    const entry = config[key];
+    if (entry.aliases && entry.aliases.includes(alias)) {
+      return key;
+    }
+  }
+  return null;
+}
 
 module.exports = {
   name: Events.MessageCreate,
   once: false,
-  /**
-   *
-   * @param {Message} message
-   */
   async execute(message) {
-    if (message.author.bot) return;
-    if (!message.content.toLowerCase().startsWith(process.env.PREFIX)) return;
+    if (message.author.bot || !message.content.toLowerCase().startsWith(process.env.PREFIX)) {
+      return;
+    }
+
     const reaction = message.content.toLowerCase().replace(process.env.PREFIX, "").split(" ");
-    const data = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactions.json'), "utf-8"))
-    
+    const reactionsConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactions.json'), "utf-8"));
 
-    if (data[reaction[0]].isApi) {
+    try {
+      const reactionKey = findReactionKeyByAlias(reaction[0], reactionsConfig) || reaction[0];
+      const reactionData = reactionsConfig[reactionKey];
 
-    console.log(reaction);
-    await axios
-      .get(
-        `${process.env.API_URL}/gif?reaction=${reaction[0]}&format=${process.env.FORMAT}`
-      )
-      .then(async (response) => {
-        await react(message, reaction, response.data.url)
-      })
-      .catch(() => {
+      if (!reactionData) {
+        console.error(`Reaction key not found: ${reactionKey}`);
         return;
-      });
-  } else {
-    const urls = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactionslink.json'), "utf-8"))
-    const randomIndex = (Math.floor(Math.random() * urls[reaction[0]].length));
-    await react(message, reaction, urls[reaction[0]][randomIndex])
-  }
-},
+      }
+
+      if (reactionData.isApi) {
+        const apiUrl = `${process.env.API_URL}/gif?reaction=${reaction[0]}&format=${process.env.FORMAT}`;
+        const response = await axios.get(apiUrl);
+        await react(message, reaction, response.data.url);
+      } else {
+        const linksConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactionslink.json'), "utf-8"));
+        const reactionKeyForLinks = reactionKey;
+        
+        if (linksConfig[reactionKeyForLinks] && linksConfig[reactionKeyForLinks].length > 0) {
+          const randomIndex = Math.floor(Math.random() * linksConfig[reactionKeyForLinks].length);
+          await react(message, reaction, linksConfig[reactionKeyForLinks][randomIndex]);
+        } else {
+          console.error(`Invalid or empty array for reaction key: ${reactionKeyForLinks}`);
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
 };
