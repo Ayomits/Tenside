@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelSelectMenuBuilder, ChannelType } = require("discord.js")
-const { TicketSettings } = require("../../models/tickets");
+const { CommandInteraction, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelSelectMenuBuilder, ChannelType, ComponentType } = require("discord.js")
+const { TicketSettings, TicketCategory } = require("../../models/tickets");
 const getChannel = require("../../functions/getChannel");
 
 module.exports = {
@@ -37,6 +37,8 @@ module.exports = {
           .setCustomId("setChannelTicketLogs")
           .setPlaceholder("канал с тикет-логами")
     )
+    
+   
 
     const settings = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -48,6 +50,11 @@ module.exports = {
           .setCustomId("embedBuilderTicket")
           .setLabel("Установить эмбед")
           .setStyle(ButtonStyle.Success),
+      
+      new ButtonBuilder()
+          .setCustomId("ticketCategory")
+          .setLabel("Категория для тикетов")
+          .setStyle(ButtonStyle.Success)
     )
 
     const themes = new ActionRowBuilder().addComponents(
@@ -65,7 +72,12 @@ module.exports = {
           .setCustomId("allThemes")
           .setLabel("Просмотреть все темы")
           .setStyle(ButtonStyle.Primary)
+      
+      
     )
+    
+    
+    
 
     await interaction.reply({embeds: [embed], components: [setChannelSelect, ticketLogs, settings, themes]})
     

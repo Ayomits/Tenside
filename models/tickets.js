@@ -78,11 +78,23 @@ const ticketSettingsThemeSchema = new Schema({
   }
 })
 
+const ticketCategorySchema = new Schema({
+  guild_id: {
+    type: String,
+    unique: true
+  },
+  category_id: {
+    type: String,
+    unique: true
+  }
+})
+
 const TicketSettingsTheme = mongoose.model("TicketSettingsTheme", ticketSettingsThemeSchema)
 const TicketSettings = mongoose.model('TicketSettings', ticketSettingsSchema);
 const TicketLogSettings = mongoose.model('TicketLogSettings', ticketLogSettingsSchema);
 const CurrentTicket = mongoose.model('CurrentTicket', currentTicketSchema);
 const TicketSettingsEmbed = mongoose.model('TicketSettingsEmbed', ticketSettingsEmbedSchema);
+const TicketCategory = mongoose.model("TicketCategory", ticketCategorySchema)
 
 module.exports = {
   TicketSettings,
@@ -90,4 +102,5 @@ module.exports = {
   CurrentTicket,
   TicketSettingsEmbed,
   TicketSettingsTheme,
+  TicketCategory
 }
