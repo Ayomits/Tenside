@@ -26,7 +26,6 @@ const ticketLogSettingsSchema = new Schema({
 const currentTicketSchema = new Schema({
   guild_id: {
     type: String,
-    unique: true
   },
   channel_id: {
     type: String,

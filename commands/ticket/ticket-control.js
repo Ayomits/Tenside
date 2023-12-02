@@ -15,7 +15,7 @@ module.exports = {
     const ticket = CurrentTicket.findOne({guild_id: interaction.guildId, channel_id: interaction.channelId})
     if (ticket !== null) {
       const closeTicket = new ButtonBuilder()
-                          .setCustomId("closeTicket")
+                          .setCustomId("closeTicket_")
                           .setLabel("Закрыть тикет")
                           .setStyle(ButtonStyle.Danger)
       const changeAnswer = new ButtonBuilder()
@@ -24,7 +24,7 @@ module.exports = {
                             .setStyle(ButtonStyle.Success)
 
       const AcceptTiket = new ButtonBuilder()
-                          .setCustomId("acceptBtn")
+                          .setCustomId("acceptTicketBtn")
                           .setLabel("Принять тикет")
                           .setStyle(ButtonStyle.Success)
             
@@ -50,23 +50,22 @@ module.exports = {
             await inter.channel.permissionOverwrites.edit(inter.user, {
               SendMessages: false
             })
-            await inter.reply({content: "ждёмс)) Вы свободны", ephemeral: true})
             await inter.message.edit({embeds: [changeAnswerEmbed], components: [new ActionRowBuilder().addComponents(AcceptTiket)]})
           }
         }
-        if (inter.customId === "acceptBtn") {
+        if (inter.customId === "acceptTicketBtn") {
+          console.log(inter.user.id, interaction.user.id);
           if (inter.user.id === interaction.user.id)
-          {
-              await inter.reply({content: "вы успешно приняли тикет", ephemeral: true})
+          { 
               await inter.message.edit({embeds: [changeAnswerEmbed.setDescription("Найден отвечающий..")], components: []})
               await inter.channel.permissionOverwrites.edit(inter.user, {
                 SendMessages:true
               })
             }
         }
-        if (inter.customId === "closeTicket") {
+        if (inter.customId === "closeTicket_") {
           if(inter.user.id == interaction.user.id) {
-            await CurrentTicket.deleteOne({guild_id: inter.guildId, channel_id: inter.channel.id})
+            await CurrentTicket.findOneAndDelete({guild_id: inter.guildId, channel_id: inter.channelId})
             await inter.channel.delete()
           }
         }

@@ -56,10 +56,6 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
       // Проверяем, не является ли автор упоминаемым пользователем
       if (authorId === targetUser.id || targetUser == message.user.bot) {
         return await message.channel.send({ embeds: [errorEmbed], ephemeral: true, ephemeral: true });
-          
-
-
-
       }
 
     if (isAcceptable) {
@@ -145,7 +141,7 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
 
     // Если NSFW и не в NSFW-канале, отправляем ошибку
     if (isNsfw && !message.channel.nsfw) {
-      message.reply({ ephemeral: true, embeds: [errorEmbed], ephemeral: true });
+      await message.reply({ ephemeral: true, embeds: [errorEmbed], ephemeral: true });
       return;
     }
 
@@ -153,7 +149,7 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
     const replyMessage = await message.reply({ embeds: [acceptableEmbed], components: [arrow] });
 
     // Создаем коллектор для кнопок
-    const collector = replyMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 100_000 });
+    const collector = replyMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15_000 });
 
     // Обрабатываем нажатия на кнопки
     collector.on("collect", async (inter) => {
