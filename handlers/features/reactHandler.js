@@ -3,8 +3,6 @@ const path = require("path");
 const fs = require("fs");
 
 async function react(message, reaction, url) {
- if (message.mentions.users.size == 0) return
-  if(message.author.bot) return
    console.log("вызвано");
 
   const baseDir = path.resolve("configs");
@@ -20,8 +18,7 @@ async function react(message, reaction, url) {
   const authorId = message.author.id;
   const mentions = message.mentions;
   const targetUser = mentions.users.first();
-  const targetUserId = targetUser?.id;
-
+ 
   const embed = new EmbedBuilder()
     .setTitle(`Реакция ${reactionData.action}`)
     .setImage(url)
@@ -43,7 +40,6 @@ async function react(message, reaction, url) {
   const isEveryoneReaction = reactionData.everyone;
   const isAcceptable = reactionData.isAcceptable;
   const isNsfw = reactionData.nsfw;
-if (message.author.id == mentions.users.first().id || mentions.users.size == 0) return message.reply({embeds:[errorEmbed], ephemeral: true, ephemeral: true, ephemeral: true})
 
   if (!isNsfw){
   
@@ -51,11 +47,17 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
   if (isEveryoneReaction) {
     // Проверяем, упоминается ли кто-то в сообщении
     if (mentions && mentions.users.size > 0) {
+      if (message.author == mentions.users.first()) return message.reply({embeds:[errorEmbed], ephemeral: true, ephemeral: true, ephemeral: true}) 
+
       
       const targetUser = mentions.users.first();
       // Проверяем, не является ли автор упоминаемым пользователем
-      if (authorId === targetUser.id || targetUser == message.user.bot) {
+      if (authorId === targetUser.id ) {
         return await message.channel.send({ embeds: [errorEmbed], ephemeral: true, ephemeral: true });
+          
+
+
+
       }
 
     if (isAcceptable) {
@@ -141,7 +143,7 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
 
     // Если NSFW и не в NSFW-канале, отправляем ошибку
     if (isNsfw && !message.channel.nsfw) {
-      await message.reply({ ephemeral: true, embeds: [errorEmbed], ephemeral: true });
+      message.reply({ ephemeral: true, embeds: [errorEmbed], ephemeral: true });
       return;
     }
 
@@ -149,7 +151,7 @@ if (message.author.id == mentions.users.first().id || mentions.users.size == 0) 
     const replyMessage = await message.reply({ embeds: [acceptableEmbed], components: [arrow] });
 
     // Создаем коллектор для кнопок
-    const collector = replyMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15_000 });
+    const collector = replyMessage.createMessageComponentCollector({ componentType: ComponentType.Button, time: 100_000 });
 
     // Обрабатываем нажатия на кнопки
     collector.on("collect", async (inter) => {
