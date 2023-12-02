@@ -85,6 +85,7 @@ module.exports = {
             message_content += `<@&${spited_pinged_roles[i]}>`
           }
           embed.setDescription("Ваш ответ записан. Теперь напишите свою жалобу")
+          embed.setFooter({iconURL: inter.guild.iconURL() || "https://i.pinimg.com/736x/45/d5/d1/45d5d164a1dde1895a070571251ff756.jpg" , text: "Выбранная тема: " + value})
           await inter.message.edit({embeds: [embed], components: []})
 
           const messageCollector = await newChannel.createMessageCollector({})

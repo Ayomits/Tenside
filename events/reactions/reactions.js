@@ -27,14 +27,12 @@ module.exports = {
 
     try {
       const reactionKey = findReactionKeyByAlias(reaction[0], reactionsConfig) || reaction[0];
-      console.log(reactionKey);
       const reactionData = reactionsConfig[reactionKey];
 
       if (!reactionData) {
         console.error(`Reaction key not found: ${reactionKey}`);
         return;
       }
-
       if (reactionData.isApi) {
         const apiUrl = `${process.env.API_URL}/gif?reaction=${reactionKey}&format=${process.env.FORMAT}`;
         const response = await axios.get(apiUrl);
@@ -45,7 +43,7 @@ module.exports = {
         
         if (linksConfig[reactionKeyForLinks] && linksConfig[reactionKeyForLinks].length > 0) {
           const randomIndex = Math.floor(Math.random() * linksConfig[reactionKeyForLinks].length);
-          await react(message, reaction, linksConfig[reactionKeyForLinks][randomIndex]);
+          await react(message, reactionKey, linksConfig[reactionKeyForLinks][randomIndex]);
         } else {
           console.error(`Invalid or empty array for reaction key: ${reactionKeyForLinks}`);
         }
