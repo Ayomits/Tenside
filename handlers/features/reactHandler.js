@@ -8,8 +8,7 @@ async function react(message, reaction, url) {
   const baseDir = path.resolve("configs");
   const data = JSON.parse(await fs.promises.readFile(path.join(baseDir, "reactions.json"), "utf-8"));
 
-  const reactionKey = Object.keys(data).find((key) => data[key].aliases?.includes(reaction[0])) || reaction[0];
-  const reactionData = data[reactionKey];
+  const reactionData = data[reaction];
 
   if (!reactionData) {
     throw new Error("Я такого не знать");

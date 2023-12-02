@@ -27,6 +27,7 @@ module.exports = {
 
     try {
       const reactionKey = findReactionKeyByAlias(reaction[0], reactionsConfig) || reaction[0];
+      console.log(reactionKey);
       const reactionData = reactionsConfig[reactionKey];
 
       if (!reactionData) {
@@ -35,9 +36,9 @@ module.exports = {
       }
 
       if (reactionData.isApi) {
-        const apiUrl = `${process.env.API_URL}/gif?reaction=${reaction[0]}&format=${process.env.FORMAT}`;
+        const apiUrl = `${process.env.API_URL}/gif?reaction=${reactionKey}&format=${process.env.FORMAT}`;
         const response = await axios.get(apiUrl);
-        await react(message, reaction, response.data.url);
+        await react(message, reactionKey, response.data.url);
       } else {
         const linksConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactionslink.json'), "utf-8"));
         const reactionKeyForLinks = reactionKey;
