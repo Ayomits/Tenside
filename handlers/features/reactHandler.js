@@ -19,12 +19,16 @@ async function acceptable(
 ) {
   const targetUserId = targetUser.id;
   const acceptableEmbed = new EmbedBuilder()
-    .setTitle("Вопрос")
+    .setTitle(`Реакция: ${reactionData.action.toLowerCase()}`)
     .setDescription(
-      `эй. ${targetUser}, тебя тут <@${authorId}> хочет ${reactionData.action} тебя. что скажешь`
-    );
+      `Эй, ${targetUser}, тебя тут <@${authorId}> хочет ${reactionData.action.toLowerCase()}, что скажешь?`
+    )
+    .setFooter({
+      iconURL: message.author.displayAvatarURL(),
+      text: message.author.username
+    });
   const noEmbed = new EmbedBuilder()
-    .setTitle("Отказ")
+    .setTitle(`Реакция: ${reactionData.action.toLowerCase()}`)
     .setDescription(
       `${targetUser}, решил(а) отказаться от предложения <@${authorId}>`
     );
@@ -49,20 +53,25 @@ async function acceptable(
     time: 15_000,
   });
 
+  let isClicked = false
+
   // Обрабатываем нажатия на кнопки
-  collector.on("collect", async (inter) => {
+  collector.once("collect", async (inter) => {
     if (inter.customId === `${inter.user.id}_no`) {
       await inter.message.edit({ components: [], embeds: [noEmbed] });
+      isClicked = true
     } else if (inter.customId === `${inter.user.id}_yes`) {
       embed.setDescription(
         `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.memberVerb} ${targetUser}`
       );
       await inter.message.edit({ components: [], embeds: [embed] });
+      isClicked= true
     }
   });
 
   // Обрабатываем завершение коллектора (например, из-за истечения времени)
-  collector.on("end", (collected, reason) => {
+  collector.once("end", (collected, reason) => {
+    if (!isClicked) {
     if (reason && reason !== "time") {
       console.error(`Collector ended due to an error: ${reason}`);
       // Можно обработать ошибку здесь, например, отправить сообщение пользователю или записать в лог.
@@ -71,7 +80,11 @@ async function acceptable(
         .edit({ components: [], embeds: [timeoutEmbed] })
         .catch(console.error);
     }
-  });
+  }else {
+    return
+  }
+}
+)
 }
 
 async function react(message, reaction, url) {
@@ -90,8 +103,10 @@ async function react(message, reaction, url) {
   const mentions = message.mentions;
   const targetUser = mentions.users.first();
 
+  const action = reactionData.action
+
   const embed = new EmbedBuilder()
-    .setTitle(`Реакция ${reactionData.action}`)
+    .setTitle(`Реакция: ${action.toLowerCase()}`)
     .setImage(url)
     .setFooter({
       iconURL: message.author.displayAvatarURL(),
@@ -144,13 +159,13 @@ async function react(message, reaction, url) {
           return await message.channel.send({ embeds: [errorEmbed] });
         } else {
           embed.setDescription(
-            `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.memberVerb} ${targetUser}`
+            `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.memberVerb.toLowerCase()} ${targetUser}`
           );
           await message.reply({ embeds: [embed] });
         }
       } else {
         embed.setDescription(
-          `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.everyoneVerb}`
+          `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.everyoneVerb.toLowerCase()}`
         );
         await message.reply({ embeds: [embed] });
       }
