@@ -83,7 +83,7 @@
     "type": "action",
     "isAcceptable": false,
     "nsfw": false,
-    "aliases": ["дринк", "выпить"]
+    "aliases": ["дринк", "выпить", "drink"]
   },
   "clap": {
     "action": "Хлопать",
