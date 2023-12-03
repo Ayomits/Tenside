@@ -148,7 +148,7 @@ async function react(message, reaction, url) {
             targetUser,
             authorId,
             reactionData,
-            timeoutEmbed
+            timeoutEmbed,
           );
         }
       }

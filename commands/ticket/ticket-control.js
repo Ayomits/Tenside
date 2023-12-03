@@ -1,6 +1,9 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {CommandInteraction, ButtonBuilder, ButtonStyle, EmbedBuilder, ComponentType, ActionRowBuilder} = require('discord.js')
-const {CurrentTicket} = require("../../models/tickets")
+const {CurrentTicket, TicketLogSettings} = require("../../models/tickets")
+const {toHtml} = require('../../functions/toHtml')
+const path = require('path')
+const fs = require('fs')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,7 +15,7 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const ticket = CurrentTicket.findOne({guild_id: interaction.guildId, channel_id: interaction.channelId})
+    const ticket = await CurrentTicket.findOne({guild_id: interaction.guildId, channel_id: interaction.channelId})
     if (ticket !== null) {
       const closeTicket = new ButtonBuilder()
                           .setCustomId("closeTicket_")
@@ -65,9 +68,27 @@ module.exports = {
         }
         if (inter.customId === "closeTicket_") {
           if(inter.user.id == interaction.user.id) {
-            await CurrentTicket.findOneAndDelete({guild_id: inter.guildId, channel_id: inter.channelId})
-            await inter.channel.delete()
-          }
+
+            const ticketLogId = await TicketLogSettings.findOne({guild_id: inter.guildId})
+            const ticketLogChannel = inter.client.channels.cache.get(ticketLogId.channel_id)
+            
+            const member = inter.guild.members.cache.get(ticket.ticket_creator_id)
+            const htmlString = await toHtml(interaction.channel, member.user);
+            const htmlPath = path.resolve('index.html')
+            fs.writeFile(htmlPath, htmlString, (err) => {
+              if (err !== null) {
+                console.log(err);
+              }
+            })
+            await ticketLogChannel.send({files: [htmlPath]})
+            try {
+              await CurrentTicket.findOneAndDelete({guild_id: inter.guildId, channel_id: inter.channelId})
+              await inter.channel.delete()
+            } catch (err) {
+              console.log(err);
+            }
+            
+           }
         }
       })
     }
