@@ -154,7 +154,7 @@
     "action": "Злобно улыбаться",
     "api_name": "evillaugh",
     "everyone": true,
-    "everyoneVerb": "всему серверу",
+    "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователю",
     "verbal": "злобно улыбается",
@@ -190,17 +190,17 @@
     "aliases": ["руки", "подержаться"]
   },
   "happy": {
-    "action": "Разочароваться",
+    "action": "Радоваться",
     "api_name": "happy",
     "everyone": true,
-    "everyoneVerb": "всему серверу",
+    "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователю",
     "verbal": "радуется",
     "type": "emotion",
     "isAcceptable": false,
     "nsfw": false,
-    "aliases": ["радость", "счастье"]
+    "aliases": ["радость", "счастье", "хэппи"]
   },
   "headbang": {
     "action": "Биться головой",
@@ -226,7 +226,7 @@
     "type": "love",
     "isAcceptable": false,
     "nsfw": false,
-    "aliases": ["объятие", "обнимашки"]
+    "aliases": ["объятие", "обнимашки", "обнять"]
   },
   "kiss": {
     "action": "Поцеловать",
@@ -239,7 +239,7 @@
     "type": "love",
     "isAcceptable": true,
     "nsfw": false,
-    "aliases": ["поцелуй", "целую"]
+    "aliases": ["поцелуй", "целую", "поцеловать", "кис"]
   },
   "laugh": {
     "action": "Смеяться",
@@ -265,7 +265,7 @@
     "type": "love",
     "isAcceptable": false,
     "nsfw": false,
-    "aliases": ["лизать", "лизание"]
+    "aliases": ["лизать", "лизание", "лизь"]
   },
   "love": {
     "action": "Выражать любовь",
@@ -324,7 +324,7 @@
     "sad": {
       "action": "Грустить",
       "api_name": "sad",
-      "aliases": ["грусть", "грустно"],
+      "aliases": ["грусть", "грустно", "тильт"],
       "everyone": true,
       "everyoneVerb": "",
       "isApi": true,
@@ -350,7 +350,7 @@
     "sleep": {
       "action": "Поспать",
       "api_name": "sleep",
-      "aliases": ["сон", "уснуть"],
+      "aliases": ["сон", "уснуть", "спать"],
       "everyone": true,
       "everyoneVerb": "",
       "isApi": true,
@@ -389,7 +389,7 @@
     "tea": {
       "action": "Пить чай",
       "api_name": "tea",
-      "aliases": ["чай", "пить чай"],
+      "aliases": ["чай"],
       "everyone": true,
       "everyoneVerb": "",
       "isApi": false,
@@ -402,7 +402,7 @@
     "coffee": {
       "action": "Пить кофе",
       "api_name": "coffee",
-      "aliases": ["кофе", "пить кофе"],
+      "aliases": ["кофе"],
       "everyone": true,
       "everyoneVerb": "",
       "isApi": false,
@@ -415,7 +415,7 @@
     "squeeze": {
       "action": "Тискать",
       "api_name": "squeeze",
-      "aliases": ["тиски", "тискать"],
+      "aliases": ["тискать"],
       "everyone": true,
       "everyoneVerb": "весь сервер",
       "isApi": false,
@@ -441,7 +441,7 @@
     "bonk": {
       "action": "Ударить по голове",
       "api_name": "bonk",
-      "aliases": ["удар", "ударить"],
+      "aliases": ["бонк", "ударить"],
       "everyone": true,
       "everyoneVerb": "весь сервер",
       "isApi": false,
@@ -452,9 +452,9 @@
       "nsfw": false
     },
     "slap": {
-      "action": "Дать подщёчину",
+      "action": "Дать пощёчину",
       "api_name": "slap",
-      "aliases": ["подщечина", "дать подщёчину"],
+      "aliases": ["пощечина", "слэп"],
       "everyone": true,
       "everyoneVerb": "самому себе",
       "isApi": false,
@@ -489,5 +489,18 @@
       "type": "nsfw",
       "nsfw": true,
       "isAcceptable": true
+    },
+    "poke": {
+      "action": "тыкать",
+      "api_name": "poke",
+      "aliases": ["тык", "тыкнуть"],
+      "everyone": true,
+      "everyoneVerb": "весь сервер",
+      "isApi": false,
+      "memberVerb": "пользователя",
+      "verbal": "тыкает",
+      "type": "action",
+      "nsfw": false,
+      "isAcceptable": false
     }
   }

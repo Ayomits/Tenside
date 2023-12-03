@@ -35,12 +35,12 @@ async function acceptable(
 
   const button = new ButtonBuilder()
     .setCustomId(`${targetUserId}_yes`)
-    .setLabel("Согласится")
-    .setStyle(ButtonStyle.Success);
+    .setEmoji("✅")
+    .setStyle(ButtonStyle.Secondary);
   const button2 = new ButtonBuilder()
     .setCustomId(`${targetUserId}_no`)
-    .setLabel("Отказатся")
-    .setStyle(ButtonStyle.Danger);
+    .setEmoji("❌")
+    .setStyle(ButtonStyle.Secondary);
   const arrow = new ActionRowBuilder().setComponents(button, button2);
   const replyMessage = await message.reply({
     embeds: [acceptableEmbed],
