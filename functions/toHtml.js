@@ -15,7 +15,7 @@ async function toHtml(channel, ticketUser) {
   let htmlString = await fs.promises.readFile(path.resolve("baseTicketLogTemplate.html"), "utf-8")
 
   htmlString += `<p class="title">Тикет пользователя ${ticketUser.username}</p>\n <div class="chat">`
-  messages.forEach(async (message) => {
+  messages.reverse().forEach(async (message) => {
     if (message.author.id === ticketUser.id) { // написавший в тикет
       htmlString += `<div class="message"> 
       <div class="user_avatar_div">
