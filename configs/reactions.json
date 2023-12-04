@@ -9,7 +9,7 @@
     "verbal": "послал(-а)",
     "type": "love",
     "isAcceptable": false,
-    "aliases": []
+    "aliases": ["айркисс"]
   },
   "angrystare": {
     "action": "Злобно посмотреть",
