@@ -25,13 +25,13 @@ module.exports = {
     for (let react in data) {
       switch (data[react].type) {
         case 'love':
-          loveDescription += `> **${data[react].api_name}(${data[react].aliases})** - ${data[react].action}\n`;
+          loveDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
           break;
         case 'emotion':
-          emotionDescription += `> **${data[react].api_name}(${data[react].aliases})** - ${data[react].action}\n`;
+          emotionDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
           break;
         case 'action':
-          actionDescription += `> **${data[react].api_name}(${data[react].aliases})** - ${data[react].action}\n`;
+          actionDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
           break;
         default:
           break;

@@ -3,11 +3,13 @@ const mongoose = require("mongoose")
 
 const userSchema = new Schema({
   guild_id: {
-    type: String
+    type: String,
+    required: true
   },
   user_id : {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   balance: {
     type: Number,
@@ -24,6 +26,13 @@ const userSchema = new Schema({
   married: {
     type: String,
     default: ""
+  },
+  reputation: {
+    type: Number,
+    default: 0
+  },
+  voiceActive: {
+    type: Date
   }
 })
 
