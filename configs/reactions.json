@@ -187,7 +187,7 @@
     "type": "love",
     "isAcceptable": false,
     "nsfw": false,
-    "aliases": ["руки", "подержаться"]
+    "aliases": ["руки", "подержаться", "ручки"]
   },
   "happy": {
     "action": "Радоваться",

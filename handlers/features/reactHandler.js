@@ -115,10 +115,15 @@ async function react(message, reaction, url) {
     .setTimestamp(Date.now())
     .setColor("#2F3136");
 
-  const errorEmbed = new EmbedBuilder()
+  const botErrorEmbed = new EmbedBuilder()
     .setTitle("Ошибка")
-    .setDescription("Произошла ошибка")
+    .setDescription("Я тоже считаю, что боты живые, но может быть ты выберешь пользователя?")
     .setColor("#2F3136");
+  
+  const authorErrorEmbed = new EmbedBuilder()
+                          .setTitle("Ошибка")
+                          .setDescription("Тебе так одиноко? Понимаю, но всё же, выбери другого пользователя, а не себя!")
+                          .setColor("#2F3136");
 
   const timeoutEmbed = new EmbedBuilder()
     .setTitle("Время вышло")
@@ -134,7 +139,10 @@ async function react(message, reaction, url) {
       // Проверяем, упоминается ли кто-то в сообщении
       if (mentions && mentions.users.size > 0) {
         if (message.author == mentions.users.first())
-          return message.reply({ embeds: [errorEmbed] });
+          return message.reply({ embeds: [authorErrorEmbed] });
+        else if (mentions.users.first().bot) {
+          return message.reply({embeds: [botErrorEmbed]})
+        }
         const targetUser = mentions.users.first();
         // Проверяем, не является ли автор упоминаемым пользователем
 
@@ -156,7 +164,9 @@ async function react(message, reaction, url) {
       if (mentions && mentions.users.size > 0) {
         const targetUser = mentions.users.first();
         if (authorId === targetUser.id) {
-          return await message.channel.send({ embeds: [errorEmbed] });
+          return await message.channel.send({ embeds: [authorErrorEmbed] })
+        } else if(mentions.users.first().bot){
+          return message.reply({embeds: [botErrorEmbed]})
         } else {
           embed.setDescription(
             `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.memberVerb.toLowerCase()} ${targetUser}`
