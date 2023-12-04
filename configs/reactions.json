@@ -502,5 +502,18 @@
       "type": "action",
       "nsfw": false,
       "isAcceptable": false
+    },
+    "panties": {
+      "action": "показать трусики",
+      "api_name": "panties",
+      "aliases": ["трусики"],
+      "everyone": true,
+      "everyoneVerb": "",
+      "isApi": false,
+      "memberVerb": "пользователю",
+      "verbal": "показывает трусики",
+      "type": "action",
+      "nsfw": false,
+      "isAcceptable": false
     }
   }
