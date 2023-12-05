@@ -17,7 +17,7 @@ const userSchema = new Schema({
   },
   lvl: {
     type: Number,
-    default: 1
+    default: 0
   },
   xp: {
     type: Number,
