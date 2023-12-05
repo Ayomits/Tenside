@@ -19,7 +19,7 @@ module.exports = {
     const target = interaction.options.get("target")
     const targetUser = userModel.findOne({
       guild_id: interaction.guildId,
-      user_id: target .user.id,
+      user_id: target.user.id,
     });
 
     const authorUser = userModel.findOne({
@@ -32,7 +32,7 @@ module.exports = {
     const erroEmbed = new EmbedBuilder().setTitle("Система браков")
                   .setDescription("У выбранного пользователя уже имеется партнёр")
     const requestEmbed = new EmbedBuilder().setTitle("Система браков")
-                      .setDescription(`Уважаемый пользователь <@${targetUser.user.id}>, хотите ли вы заключить брак с пользователем <@${interaction.user.id}>?`)
+                      .setDescription(`Уважаемый пользователь <@${target.user.id}>, хотите ли вы заключить брак с пользователем <@${interaction.user.id}>?`)
                       .setImage("https://i.pinimg.com/originals/6a/fe/22/6afe2295e4523d5bc8bd4027887e4c06.gif")
     
     const acceptEmbed = new EmbedBuilder().setTitle("Система браков")

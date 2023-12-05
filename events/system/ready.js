@@ -11,9 +11,9 @@ module.exports = {
     // подгрузка команд, компонентов, создание таблиц в СУБД
 
     require('../../handlers/system/commandHandler').init(client)
-    require('../../handlers/system/componentsHandler').init("components", client.buttons, "кнопки")
-    require('../../handlers/system/componentsHandler').init("components", client.modals, "модалки")
-    require('../../handlers/system/componentsHandler').init("components", client.selects, "селекты")
+    require('../../handlers/system/componentsHandler').init("components", "кнопки", client)
+    require('../../handlers/system/componentsHandler').init("components", "модалки", client)
+    require('../../handlers/system/componentsHandler').init("components", "селекты", client)
     require('../../handlers/system/commandRegister').init(client)
 
     client.user.setStatus("dnd")

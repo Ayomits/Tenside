@@ -16,13 +16,13 @@ module.exports = {
     }
 
     if (interaction.isModalSubmit()) {
-      const modal = interaction.client.modals.get(interaction.customId)
+      const modal = interaction.client.buttons.get(interaction.customId)
       if(!modal) return
       else await modal.execute(interaction)
     }
 
     if (interaction.isAnySelectMenu()) {
-      const select = interaction.client.selects.get(interaction.customId)
+      const select = interaction.client.buttons.get(interaction.customId)
       if (!select) return
       else await select.execute(interaction)
     }
