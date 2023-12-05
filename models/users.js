@@ -8,7 +8,6 @@ const userSchema = new Schema({
   },
   user_id : {
     type: String,
-    unique: true,
     required: true
   },
   balance: {
@@ -25,7 +24,7 @@ const userSchema = new Schema({
   },
   married: {
     type: String,
-    default: ""
+    default: null
   },
   reputation: {
     type: Number,

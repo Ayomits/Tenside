@@ -15,7 +15,8 @@ module.exports = {
     require('../../handlers/system/componentsHandler').init("components", "модалки", client)
     require('../../handlers/system/componentsHandler').init("components", "селекты", client)
     require('../../handlers/system/commandRegister').init(client)
-
+    await require('../../handlers/system/usersHandler').usersHandler(client)
+    
     client.user.setStatus("dnd")
     client.user.setActivity({
       name: `Приглядываю за вами :3`,
