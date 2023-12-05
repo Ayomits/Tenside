@@ -515,5 +515,18 @@
       "type": "action",
       "nsfw": false,
       "isAcceptable": false
+    },
+    "feed": {
+      "action": "кормить",
+      "api_name": "feed",
+      "aliases": ["кормить", "есть", "eat"],
+      "everyone": true,
+      "everyoneVerb": "весь сервер",
+      "isApi": false,
+      "memberVerb": "пользователя",
+      "verbal": "кормит",
+      "type": "action",
+      "nsfw": false,
+      "isAcceptable": false
     }
   }
