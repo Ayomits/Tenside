@@ -23,13 +23,13 @@ module.exports = {
 
     const marriedUser = await userModel.findOne({guild_id: interaction.guildId, user_id: authorUser.married})
 
-    if (authorUser.balance < 1000 || marriedUser.balance < 1000) {
+    if (authorUser.balance < 1000) {
       return await interaction.reply({
         content: "У вас или у вашего партнера недостаточно валюты для оплаты развода.",
         ephemeral: true,
       }) ;
     } else {
-      await userModel.updateMany({user_id: [marriedUser.user_id, authorUser.user_id], guild_id: interaction.guildId}, {$inc: {balance: -1000}, married: null})
+      await userModel.updateMany({user_id: [authorUser.user_id], guild_id: interaction.guildId}, {$inc: {balance: -1000}, married: null})
       const acceptEmbed = new EmbedBuilder()
       .setTitle("Система развода")
       .setDescription(`Поздравляем! Развод между <@${interaction.user.id}> и <@${marriedUser.user_id}> успешно завершен. Пусть каждый идет своим путем.`)

@@ -11,7 +11,10 @@ module.exports = {
         .setName("transfer")
         .setDescription("передача денег пользователю")
         .addUserOption((option) =>
-          option.setName("target").setDescription("target user").setRequired(false)
+          option.setName("target").setDescription("target user").setRequired(true)
+        )
+        .addNumberOption((option) =>
+        option.setName("amount").setDescription("Количество валюты для выдачи").setRequired(true)
         ),
   
   /**
@@ -19,15 +22,33 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const targetUser = interaction.options.get("target").value
+    const targetUser = interaction.options.get("target")
+    const amount = interaction.options.get('amount').value
 
-    const embed = new EmbedBuilder()
-                  .setName("Проверка баланса")
+    if (targetUser.user.id === interaction.user.id) {
+      return await interaction.reply({content: "Так делать нельзя", ephemeral: true})
+    }
+    const author = await userModel.findOne({guild_id: interaction.guildId, user_id: interaction.user.id})
+    if (author.balance < amount) {
+      return await interaction.reply({content: "Ты слишком беден для таких действий", ephemeral: true})
+    }else {
+      const user = await userModel.findOne({guild_id: interaction.guildId, user_id: targetUser.user.id})
 
-    const balance = await userModel.findOne({guild_id: interaction.guildId, user_id: targetUser.user.id || interaction.user.id})
+      if (user) {
+        user.balance += amount
+        user.save()
+        author.balance -= amount
+        author.save()
 
-    let description = `Баланс пользователя \n` + "```" + `${balance.balance}` + "```"
+        const embed = new EmbedBuilder()
+                    .setTitle("Перевод денег")
+                    .setDescription(`Пользователь <@${author.user_id}> перевел ${amount} денег пользователю <@${user.user_id}>`)
+                    .setFooter({iconURL: interaction.user.displayAvatarURL(), text: interaction.user.username})
 
-    await interaction.reply({embeds: [embed.setDescription(description)]})
+        await interaction.reply({embeds: [embed]})
+      }else {
+        await interaction.reply({content: "В нашей базе данных нет таких ребят, может быть вы ошиблись номером?", ephemeral: true})
+      }
+    }
   }
 }
