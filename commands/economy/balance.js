@@ -26,9 +26,12 @@ module.exports = {
     const user = targetUser || interaction.user
 
     const balance = await userModel.findOne({guild_id: interaction.guildId, user_id: user.id})
-
-    let description = `Баланс: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
-
+    let description = ""
+    if (balance) {
+       description = `Баланс: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
+    }else {
+      description += "такого юзера не существует"
+    }
     await interaction.reply({embeds: [embed.setDescription(description)]})
   }
 }

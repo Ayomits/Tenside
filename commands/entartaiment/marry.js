@@ -139,7 +139,6 @@ module.exports = {
                 "https://i.pinimg.com/originals/7c/77/f8/7c77f8d1a4ced504204a54774abec72f.gif"
               )
               .setColor("#2F3136")
-              .setFooter({iconURL: inter.user.displayAvatarUrl(), text: inter.user.username})
             await replyMessage.edit({ components: [], embeds: [acceptEmbed] });
           } else {
             console.log("что-то пошло не так");

@@ -29,7 +29,7 @@ module.exports = {
         ephemeral: true,
       }) ;
     } else {
-      await userModel.updateMany({user_id: [authorUser.user_id], guild_id: interaction.guildId}, {$inc: {balance: -1000}, married: null})
+      await userModel.updateMany({user_id: [authorUser.user_id, marriedUser.user_id], guild_id: interaction.guildId}, {married: null})
       const acceptEmbed = new EmbedBuilder()
       .setTitle("Система развода")
       .setDescription(`Поздравляем! Развод между <@${interaction.user.id}> и <@${marriedUser.user_id}> успешно завершен. Пусть каждый идет своим путем.`)
