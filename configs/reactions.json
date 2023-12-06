@@ -257,7 +257,7 @@
   "lick": {
     "action": "Облизывать",
     "api_name": "lick",
-    "everyone": true,
+    "everyone": false,
     "everyoneVerb": "",
     "isApi": true,
     "memberVerb": "пользователя",
@@ -499,19 +499,6 @@
       "isApi": false,
       "memberVerb": "пользователя",
       "verbal": "тыкает",
-      "type": "action",
-      "nsfw": false,
-      "isAcceptable": false
-    },
-    "panties": {
-      "action": "показать трусики",
-      "api_name": "panties",
-      "aliases": ["трусики"],
-      "everyone": true,
-      "everyoneVerb": "",
-      "isApi": false,
-      "memberVerb": "пользователю",
-      "verbal": "показывает трусики",
       "type": "action",
       "nsfw": false,
       "isAcceptable": false

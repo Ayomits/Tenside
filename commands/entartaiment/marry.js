@@ -13,29 +13,33 @@ module.exports = {
   async execute(interaction) {
     const target = interaction.options.get("target");
     const user = interaction.user;
-const author = interaction.user
+    const author = interaction.user
     const timeoutEmbed = new EmbedBuilder()
       .setTitle("Время вышло")
       .setDescription(`Время для реакции истекло.`)
-      .setColor("#2F3136");
+      .setColor("#2F3136")
 
     const erroEmbed = new EmbedBuilder()
       .setTitle("Система браков")
-      .setDescription("У выбранного пользователя уже имеется партнёр");
+      .setDescription("У выбранного пользователя уже имеется партнёр")
+      .setColor("#2F3136")
 
     const requestEmbed = new EmbedBuilder()
       .setTitle("Система браков")
       .setDescription(`Уважаемый пользователь <@${target.user.id}>, хотите ли вы заключить брак с пользователем <@${interaction.user.id}>?`)
-      .setImage("https://i.pinimg.com/originals/6a/fe/22/6afe2295e4523d5bc8bd4027887e4c06.gif");
+      .setImage("https://i.pinimg.com/originals/6a/fe/22/6afe2295e4523d5bc8bd4027887e4c06.gif")
+      .setColor("#2F3136")
 
     const acceptEmbed = new EmbedBuilder()
       .setTitle("Система браков")
       .setDescription("Я - как посланник моего разработчика, объявляю ваш брак успешным. Пусть в вашей дальнейшей совместной жизни будет много счастья и любви!")
-      .setImage("https://i.pinimg.com/originals/7c/77/f8/7c77f8d1a4ced504204a54774abec72f.gif");
+      .setImage("https://i.pinimg.com/originals/7c/77/f8/7c77f8d1a4ced504204a54774abec72f.gif")
+      .setColor("#2F3136")
 
     const cancelEmbed = new EmbedBuilder()
       .setTitle("Система браков")
-      .setDescription("Видимо, сегодня вам не светит быть в браке :(");
+      .setDescription("Видимо, сегодня вам не светит быть в браке :(")
+      .setColor("#2F3136")
 
     const acceptbutton = new ButtonBuilder()
       .setCustomId(`${target.user.id}_yes`)
@@ -77,7 +81,7 @@ const author = interaction.user
     if (targetUser && targetUser.married) {
       return await interaction.reply({ embeds: [erroEmbed] });
     }
-if (authorUser.balance < 2000) {
+    if (authorUser.balance < 2000) {
       return await interaction.reply({
         content: "У вас недостаточно валюты для проведения свадьбы.",
         ephemeral: true,
@@ -101,10 +105,12 @@ if (authorUser.balance < 2000) {
     let isClicked = false;
 
     collector.once("collect", async (inter) => {
-      if (inter.customId === `${inter.id}_no`) {
+      if (inter.customId === `${target.user.id}_no`) { 
+        if (inter.user.id === target.user.id){
         await replyMessage.edit({ components: [], embeds: [cancelEmbed] });
         isClicked = true;
-      } else if (inter.customId === `${inter.id}_yes`) {
+      }} else if (inter.customId === `${target.user.id}_yes`) {
+        if (inter.user.id === target.user.id){
         const updateResult1 = await userModel.updateOne({
           guild_id: interaction.guild.id,
           user_id: interaction.user.id,
@@ -129,7 +135,7 @@ if (authorUser.balance < 2000) {
 
         isClicked = true;
       }
-    });
+    }});
 
     collector.once("end", async (collected, reason) => {
       if (!isClicked) {
