@@ -1,4 +1,4 @@
-const { Events, Message } = require("discord.js");
+const { Events, Message  } = require("discord.js");
 const {userModel} = require('../../models/users')
 
 /**
