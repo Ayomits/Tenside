@@ -23,7 +23,7 @@ module.exports = {
 
     const embed = new EmbedBuilder().setTitle("Проверка баланса")
     
-    const user = targetUser || interaction.user
+    const user = targetUser.user || interaction.user
 
     const balance = await userModel.findOne({guild_id: interaction.guildId, user_id: user.id})
     let description = ""

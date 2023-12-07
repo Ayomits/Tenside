@@ -19,7 +19,7 @@ module.exports = {
           return;
         }
         await userModel.updateOne({ guild_id: newState.guild.id, user_id: newState.member.id }, { $inc: { balance: 5 } });
-      }, 5000);
+      }, 60_000);
     }
   }
 }

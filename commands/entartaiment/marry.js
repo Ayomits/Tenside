@@ -119,7 +119,7 @@ module.exports = {
               guild_id: inter.guildId,
               user_id: target.user.id,
             },
-            { $set: { married: author.id } }
+            { $set: { married: author.id }, $inc: {balance: -2000} }
           );
           const updated2 = await userModel.updateOne(
             {
