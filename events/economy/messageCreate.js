@@ -1,4 +1,4 @@
-const { Events, Message } = require("discord.js");
+const { Events, Message  } = require("discord.js");
 const {userModel} = require('../../models/users')
 
 /**
@@ -17,7 +17,7 @@ module.exports = {
   async execute(message) {
     if (!message.author.bot) {
       if (!message.content.startsWith(process.env.PREFIX)){
-        await userModel.updateOne({user_id: message.author.id, guild_id: message.guild.id}, {$inc: {balance: 0.5}})
+        await userModel.updateOne({user_id: message.author.id, guild_id: message.guild.id}, {$inc: {balance: 2}})
       }
     }
   }
