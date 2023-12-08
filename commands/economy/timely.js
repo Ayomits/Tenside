@@ -1,7 +1,7 @@
 const { CommandInteraction, EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel } = require("../../models/users");
-const { TimelyModel } = require("../../models/timely");
+const { TimelyModel } = require("../../models/users");
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -33,7 +33,7 @@ module.exports = {
       embed.setDescription(`Вы уже забрали ежедневную награду`);
       return await interaction.reply({ embeds: [embed] });
     }
-    const timelyCreate = await TimelyModel.create({
+    await TimelyModel.create({
       guild_id: interaction.guildId,
       user_id: interaction.user.id,
     });

@@ -35,8 +35,22 @@ const userSchema = new Schema({
   }
 })
 
+const timelySchema = new Schema({
+  guild_id: {
+    type: String,
+    required: true
+  },
+  user_id : {
+    type: String,
+    required: true,
+   },
+ 
+})
+
+const TimelyModel = mongoose.model("UsersTimely", timelySchema)
 const userModel = mongoose.model("user", userSchema)
 
 module.exports = {
-  userModel
+  userModel,
+  TimelyModel
 }

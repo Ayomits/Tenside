@@ -32,7 +32,7 @@ module.exports = {
 
       const randomIndex = Math.floor(Math.random() * welcomeMessages.length);
       const selectedMessage = welcomeMessages[randomIndex];
-      const embed = new EmbedBuilder().setDescription(selectedMessage).setTitle(`Добро пожаловать!`).setImage(`https://i.gifer.com/9uiZ.gif`).setColor(`#36393e`) .setFooter({ text: member.guild.name, iconURL: member.guild.icon.url });
+      const embed = new EmbedBuilder().setDescription(selectedMessage).setTitle(`Добро пожаловать!`).setImage(`https://i.gifer.com/9uiZ.gif`).setColor(`#36393e`).setFooter({ text: member.guild.name, iconURL: member.guild.icon.url });
 
       const checkuser = await userModel.userModel.findOne({
         guild_id: member.guild.id,
