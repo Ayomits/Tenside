@@ -19,14 +19,14 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const targetUser = interaction.options.get("target")
+    const targetUser = interaction.options.getUser("target")
 
-    const embed = new EmbedBuilder()
     
+    const user = targetUser || interaction.user
+    const embed = new EmbedBuilder().setTitle(`Баланс пользователя - ${user.displayName}`)
 
     const balance = await userModel.findOne({guild_id: interaction.guildId, user_id: user.id})
     let description = ""
-    embed.setTitle(`Проверка баланса юзера ${user.username}`)
     if (balance) {
        description = `Баланс: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
     }else {
