@@ -19,7 +19,7 @@ module.exports = {
    *
    */
   async execute(interaction) {
-      if (devs.includes(Number(interaction.user.id))){
+      if (devs.includes(String(interaction.user.id))){
       const ping = interaction.createdTimestamp - Date.now();
       const embed = new EmbedBuilder()
         .setTitle("Проверка задержки бота")
