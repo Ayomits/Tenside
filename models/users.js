@@ -1,84 +1,82 @@
-const {Schema} = require("mongoose") 
-const mongoose = require("mongoose") 
+const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
 const userSchema = new Schema({
   guild_id: {
     type: String,
-    required: true
+    required: true,
   },
-  user_id : {
+  user_id: {
     type: String,
     required: true,
   },
   balance: {
     type: Number,
-    default: 0
+    default: 0,
   },
   lvl: {
     type: Number,
-    default: 0
+    default: 0,
   },
   xp: {
     type: Number,
-    default: 0
+    default: 0,
   },
   married: {
     type: String,
-    default: null
+    default: null,
   },
   reputation: {
     type: Number,
-    default: 0
+    default: 0,
   },
   voiceActive: {
-    type: Date
-  }
-})
+    type: Date,
+  },
+});
 
 const timelySchema = new Schema({
   guild_id: {
     type: String,
-    required: true
+    required: true,
   },
-  user_id : {
+  user_id: {
     type: String,
     required: true,
-   },
- 
-})
+  },
+});
 
 const marrySchema = new Schema({
   guild_id: {
     type: String,
-    required: true
+    required: true,
   },
-partner1_id : {
-  type: String,
-  required: true,
+  partner1_id: {
+    type: String,
+    required: true,
   },
-  partner2_id : {
-  type: String,
-  required: true,
+  partner2_id: {
+    type: String,
+    required: true,
   },
   created_at: {
     type: String,
-    required: true, 
-    default: Date.now()
+    required: true,
+    default: Date.now(),
   },
   marry_points: {
     type: Number,
     default: 0,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-
-const TimelyModel = mongoose.model("UsersTimely", timelySchema)
-const userModel = mongoose.model("user", userSchema)
-const marryModel = mongoose.model('marrypoints', marrySchema)
+const TimelyModel = mongoose.model("UsersTimely", timelySchema);
+const userModel = mongoose.model("user", userSchema);
+const marryModel = mongoose.model("marrypoints", marrySchema);
 
 module.exports = {
   userModel,
   TimelyModel,
-  marryModel
-}
+  marryModel,
+};
