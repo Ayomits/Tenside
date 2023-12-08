@@ -47,10 +47,38 @@ const timelySchema = new Schema({
  
 })
 
+const marrySchema = new Schema({
+  guild_id: {
+    type: String,
+    required: true
+  },
+partner1_id : {
+  type: String,
+  required: true,
+  },
+  partner2_id : {
+  type: String,
+  required: true,
+  },
+  created_at: {
+    type: String,
+    required: true, 
+    default: Date.now()
+  },
+  marry_points: {
+    type: Number,
+    default: 0,
+    required: true
+  }
+})
+
+
 const TimelyModel = mongoose.model("UsersTimely", timelySchema)
 const userModel = mongoose.model("user", userSchema)
+const marryModel = mongoose.model('marrypoints', marrySchema)
 
 module.exports = {
   userModel,
-  TimelyModel
+  TimelyModel,
+  marryModel
 }
