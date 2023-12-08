@@ -268,13 +268,13 @@
     "aliases": ["лизать", "лизание", "лизь"]
   },
   "love": {
-    "action": "Выражать любовь",
+    "action": "Признаться в любви",
     "api_name": "love",
     "everyone": true,
-    "everyoneVerb": "весь сервер",
+    "everyoneVerb": "всему серверу",
     "isApi": true,
-    "memberVerb": "пользователя",
-    "verbal": "любит",
+    "memberVerb": "пользователю",
+    "verbal": "признаётся в любви",
     "type": "love",
     "isAcceptable": false,
     "nsfw": false,
