@@ -22,17 +22,17 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-  married: {
-    type: String,
-    default: null,
-  },
   reputation: {
     type: Number,
     default: 0,
   },
   voiceActive: {
-    type: Date,
+    type: Number,
   },
+  messageCount: {
+    type: Number,
+    default: 0
+  }
 });
 
 const timelySchema = new Schema({
