@@ -6,10 +6,10 @@ const img = `https://i.imgur.com/i3Y3gQF.png`
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("avatar_test")
-        .setDescription("test")
+        .setName("avatar")
+        .setDescription("Аватарка и баннер пользователя")
         .addUserOption((option) =>
-            option.setName("target").setDescription("target user").setRequired(false)
+            option.setName("target").setDescription("Нужный пользователь").setRequired(false)
         ),
 
     /**
@@ -27,8 +27,7 @@ module.exports = {
         }
         const inter_avatar = interaction.user.displayAvatarURL();
         const bannerURL = target.bannerURL({ size: 4096 });
-        console.log(target.id);
-        console.log(target.displayAvatarURL());
+        
         const avatarEmbed = new EmbedBuilder()
             .setColor("#36393F")
             .setAuthor({ iconURL: target.displayAvatarURL(), name: target.username })
