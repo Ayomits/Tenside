@@ -11,6 +11,13 @@ module.exports = {
         .addUserOption((option) =>
             option.setName("target").setDescription("target user").setRequired(false)
         ),
+
+    /**
+   *
+   * @param {CommandInteraction} interaction
+   *
+   */
+
     async execute(interaction) {
         let target = null;
         if (interaction.options.get("target") == null) {
