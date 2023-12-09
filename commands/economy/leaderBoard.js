@@ -5,7 +5,7 @@ const { userModel } = require("../../models/users");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("top")
-    .setDescription("топ шейхов сервера"),
+    .setDescription("Лист пользователей на сервере по деньгам"),
 
   /**
    * @param {CommandInteraction} interaction
@@ -20,14 +20,17 @@ module.exports = {
       .limit(10);
 
     let description = "";
+    let count = 1;
 
     for (let user of users) {
-      description += `<@${user.user_id}> - ${user.balance} $\n`;
+      description += `**#${count}.** <@${user.user_id}> - \`${user.balance}\` <:image:1183098175599419522>\n\n`;
+      count += 1
     }
 
     const embed = new EmbedBuilder()
-      .setTitle(`Топ 10 шейхов сервера ${interaction.guild.name}`)
+      .setTitle(`Топ 10 по деньгам сервера ${interaction.guild.name}`)
       .setDescription(description)
+      .setColor('#bdb022')
       .setFooter({
         iconURL: interaction.user.avatarURL(),
         text: interaction.user.username,
