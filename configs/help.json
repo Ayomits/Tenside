@@ -1,0 +1,53 @@
+{"balance": {
+    "description": "Показать баланс",
+    "name": "balance",
+    "type": "economy"
+},
+
+"top": {
+    "description": "Показать топ 10 шейхов сервера",
+    "name": "top",
+    "type": "economy"
+},
+
+"roulette": {
+    "description": "Игра в рулетку",
+    "name": "roulette",
+    "type": "economy"
+},
+
+"timely": {
+    "description": "Получить ежедневное вознаграждение",
+    "name": "timely",
+    "type": "economy"
+},
+
+"transfer": {
+    "description": "Перевести деньги пользователю",
+    "name": "transfer",
+    "type": "economy"
+},
+
+"marry": {
+    "description": "Пожениться",
+    "name": "marry",
+    "type": "marry"
+},
+
+"divorce": {
+    "description": "Развод",
+    "name": "divorce",
+    "type": "marry"
+},
+
+"gift": {
+    "description": "Подарок партнёру",
+    "name": "gift",
+    "type": "marry"
+},
+
+"marryinfo": {
+    "description": "Информация о браке",
+    "name": "marryinfo",
+    "type": "marry"
+}}
