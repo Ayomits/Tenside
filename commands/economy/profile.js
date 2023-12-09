@@ -1,9 +1,8 @@
 const { CommandInteraction, AttachmentBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel } = require("../../models/users");
-const { createCanvas, loadImage, Image, ImageData } = require("canvas");
+const { createCanvas, loadImage } = require("canvas");
 const path = require("path");
-const { request } = require('undici');
 
 
 
@@ -39,8 +38,8 @@ module.exports = {
     const canvas = createCanvas(1920, 1080);
     const ctx = canvas.getContext("2d");
     
-    ctx.font = "40px Sans";
-    ctx.fillStyle = "#5b647f";
+    ctx.font = "30px Sans";
+    ctx.fillStyle = "#abb4cc"; // #5b647f
 
     const avatarURL = user.displayAvatarURL({ extension: "png", size: 128 })
     const member = interaction.client.guilds.cache.get(interaction.guildId).members.cache.get("935048996722978896")
@@ -54,12 +53,14 @@ module.exports = {
     this.roundImage(1445, 540, 218, ctx, memberAvatar) // аватарка брака
     // ctx.fillText(userData.balance, 1550, 350) // balance
 
-    ctx.fillText(Math.floor(userData.balance), 320, 510) // баланс
-    ctx.fillText(userData.voiceActive, 400, 710) // активность в войсе
-    ctx.fillText(userData.reputation, 450, 900) // репутация
-    ctx.fillText(userData.messageCount, 450, 800) // количество сообщений
-    ctx.fillText(member.user.username, 1475, 800) // юзернейм чела в браке
-    ctx.fillText(Date.now(), 1500, 350)
+    ctx.fillText("Баланс", 270, 510) // баланс
+    ctx.fillText(Math.floor(userData.balance), 390, 510) // баланс
+    ctx.fillText(userData.voiceActive, 380, 704) // активность в войсе
+    ctx.fillText(userData.reputation, 450, 898) // репутация
+    ctx.fillText(userData.messageCount, 450, 799) // количество сообщений
+    ctx.fillText("Партнёр", 1495, 500)
+    ctx.fillText(member.user.username, 1495, 800) // юзернейм чела в браке
+    ctx.fillText(Date.now(), 1500, 350) // просто таймстемп для приличия
 
 
     await interaction.editReply({

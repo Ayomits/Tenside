@@ -28,6 +28,9 @@ async function usersHandler (client) {
     }
     }
     
+    // console.log(await userModel.find({married: {$ne: null}}));
+    // await userModel.updateMany({}, {$unset: {married: 1}})
+    // await userModel.updateMany({}, {$set: {voiceActive: 0}})
     console.log(`[USERHANDLER] кол-во итераций ${count}`);
   }
 }

@@ -1,5 +1,5 @@
 const { Events, Client, Activity, ActivityType } = require("discord.js");
-const TimelyModel = require(`../../models/timely`);
+const TimelyModel = require(`../../models/users`);
 const cron = require(`node-cron`);
 module.exports = {
   name: Events.ClientReady,
@@ -14,17 +14,6 @@ module.exports = {
     require("../../handlers/system/commandHandler").init(client);
     require("../../handlers/system/componentsHandler").init(
       "components",
-      "кнопки",
-      client
-    );
-    require("../../handlers/system/componentsHandler").init(
-      "components",
-      "модалки",
-      client
-    );
-    require("../../handlers/system/componentsHandler").init(
-      "components",
-      "селекты",
       client
     );
     require("../../handlers/system/commandRegister").init(client);

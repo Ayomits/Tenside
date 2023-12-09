@@ -4,8 +4,8 @@ const path = require('path');
 /**
  * @param {Client} client
  */
-module.exports.init = async (folder, component, client) => {
-  console.log(`[HANDLER] Занесение компонентов ${component} в коллекцию начато...`);
+module.exports.init = async (folder, client) => {
+  console.log(`[HANDLER] Занесение компонентов в коллекцию начато...`);
 
   for (let dir of fs.readdirSync(`./${folder}`)) {
     for (let subdir of fs.readdirSync(`./${folder}/${dir}`)) {
@@ -15,5 +15,5 @@ module.exports.init = async (folder, component, client) => {
       }
     }
   }
-   console.log(`[HANDLER] Занесение компонентов ${component} в коллекцию завершено...`);
+   console.log(`[HANDLER] Занесение компонентов в коллекцию завершено...`);
 };
