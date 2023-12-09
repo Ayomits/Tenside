@@ -17,6 +17,7 @@ module.exports = {
           { name: "commands", value: "commands" },
           { name: "components", value: "components" }
         )
+    .setRequired(true)
     ),
 
   /**
