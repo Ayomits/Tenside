@@ -31,8 +31,9 @@ module.exports = {
       switch (options.value) {
         case "events".toLowerCase():
           try {
+            await interaction.deferReply();
             await this.reloadEvents(interaction.client);
-            await interaction.channel.send({
+            await interaction.followUp({
               content: "ивенты успешно перезагружены",
               ephemeral: true,
             });
@@ -58,13 +59,15 @@ module.exports = {
           }
         case "components":
           try {
+            await interaction.deferReply();
             await this.reloadComponents(interaction.client);
-            await interaction.channel.send({
+            await interaction.followUp({
               content: "компоненты успешно перезагружены",
               ephemeral: true,
             });
           } catch (err) {
-            await interaction.reply({
+            await interaction.deferReply();
+            await interaction.followUp({
               content: "что-то пошло не так\n" + err,
               ephemeral: true,
             });

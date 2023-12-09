@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
-  MessageEmbed,
+  CommandInteraction,
   EmbedBuilder,
   ButtonBuilder,
   ButtonStyle,
@@ -8,6 +8,12 @@ const {
   ComponentType,
 } = require("discord.js");
 const { userModel, marryModel } = require("../.././models/users");
+
+/**
+   * 
+   * @param {CommandInteraction} interaction 
+   * @returns 
+   */
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -115,43 +121,47 @@ module.exports = {
 
     collector.on("collect", async (buttonInteraction) => {
       if (buttonInteraction.customId === `${target.id}_no`) {
+        if(buttonInteraction.user.id === target.id) {
         const cancelEmbed = new EmbedBuilder()
           .setTitle("Система браков")
           .setDescription("Видимо, сегодня вам не светит быть в браке :(")
           .setColor("#2F3136");
         await replyMessage.edit({ components: [], embeds: [cancelEmbed] });
         collector.stop();
-      } else if (buttonInteraction.customId === `${target.id}_yes`) {
-        const updated1 = await userModel.updateOne(
-          {
-            guild_id: interaction.guild.id,
-            user_id: interaction.user.id,
-          },
-          { $inc: { balance: -2000 } }
-        );
-
-        const marry = await marryModel.create({
-          guild_id: interaction.guild.id,
-          partner1_id: author.id,
-          partner2_id: target.id,
-        });
-
-        if (updated1 && marry) {
-          const acceptEmbed = new EmbedBuilder()
-            .setTitle("Система браков")
-            .setDescription(
-              `**Я** - как посланник моего разработчика, объявляю брак между ${author.id} и ${target.id} успешным. Пусть в вашей дальнейшей совместной жизни будет много счастья и любви!`
-            )
-            .setImage(
-              "https://i.pinimg.com/originals/7c/77/f8/7c77f8d1a4ced504204a54774abec72f.gif"
-            )
-            .setColor("#2F3136");
-          await replyMessage.edit({ components: [], embeds: [acceptEmbed] });
-        } else {
-          console.log("Что-то пошло не так");
-        }
-        collector.stop();
       }
+      } else if (buttonInteraction.customId === `${target.id}_yes`) {
+        if(buttonInteraction.user.id === target.id) {
+          const updated1 = await userModel.updateOne(
+            {
+              guild_id: interaction.guild.id,
+              user_id: interaction.user.id,
+            },
+            { $inc: { balance: -2000 } }
+          );
+
+          const marry = await marryModel.create({
+            guild_id: interaction.guild.id,
+            partner1_id: author.id,
+            partner2_id: target.id,
+          });
+
+          if (updated1 && marry) {
+            const acceptEmbed = new EmbedBuilder()
+              .setTitle("Система браков")
+              .setDescription(
+                `**Я** - как посланник моего разработчика, объявляю брак между <@${author.id}> и <@${target.id}> успешным. Пусть в вашей дальнейшей совместной жизни будет много счастья и любви!`
+              )
+              .setImage(
+                "https://i.pinimg.com/originals/7c/77/f8/7c77f8d1a4ced504204a54774abec72f.gif"
+              )
+              .setColor("#2F3136");
+            await replyMessage.edit({ components: [], embeds: [acceptEmbed] });
+          } else {
+            console.log("Что-то пошло не так");
+          }
+          collector.stop();
+      }
+    }
     });
 
     collector.on("end", (collected, reason) => {

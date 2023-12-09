@@ -1,10 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
-  EmbedBuilder,
-  ButtonBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-  ComponentType,
+  EmbedBuilder, CommandInteraction
 } = require("discord.js");
 const { userModel, marryModel } = require("../../models/users");
 
@@ -12,6 +8,12 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("divorce")
     .setDescription("Запрос на развод"),
+
+  /**
+   * 
+   * @param {CommandInteraction} interaction 
+   * @returns 
+   */
 
   async execute(interaction) {
     const userExists = await marryModel.findOne({
