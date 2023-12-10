@@ -14,6 +14,17 @@ module.exports = {
     require("../../handlers/system/commandHandler").init(client);
     require("../../handlers/system/componentsHandler").init(
       "components",
+      "кнопки",
+      client
+    );
+    require("../../handlers/system/componentsHandler").init(
+      "components",
+      "модалки",
+      client
+    );
+    require("../../handlers/system/componentsHandler").init(
+      "components",
+      "селекты",
       client
     );
     require("../../handlers/system/commandRegister").init(client);
@@ -26,17 +37,19 @@ module.exports = {
     });
     console.log(`Запущенно!`);
     cron.schedule(
-      "00 3 * * *",
+      "00 03 * * *",
       () => {
-        performDailyTask();
+        TimelyModel.TimelyModel.collection.deleteMany()
+      .then(ok =>{performDailyTask()})
+      .catch(err => {console.log(err)})
       },
       { timezone: "Europe/Moscow" }
-    );
+    );  
 
     // Функция для выполнения задачи
     const performDailyTask = () => {
       console.log("Выполняю задачу каждый день в 03:00 по московскому времени");
-      TimelyModel.TimelyModel.deleteMany({});
+     
     };
   },
 };

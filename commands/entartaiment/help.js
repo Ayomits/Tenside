@@ -12,6 +12,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const fs = require("fs");
 const path = require("path");
 const img = `https://i.imgur.com/i3Y3gQF.png`;
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("help")
@@ -134,8 +135,6 @@ module.exports = {
           await fs.promises.readFile(configs + "/help.json")
         );
 
-   
-        
         const economyEmbed = new EmbedBuilder()
           .setImage(img)
           .setTitle(`Список команд`)
@@ -158,7 +157,7 @@ module.exports = {
         }
 
         await i.message.edit({
-          embeds: [ economyEmbed],
+          embeds: [economyEmbed],
           components: [],
         });
       }

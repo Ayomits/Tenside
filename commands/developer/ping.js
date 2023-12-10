@@ -18,6 +18,7 @@ module.exports = {
    * @param {CommandInteraction} interaction
    *
    */
+
   async execute(interaction) {
       if (devs.includes(String(interaction.user.id))){
       const ping = interaction.createdTimestamp - Date.now();
