@@ -22,17 +22,21 @@ module.exports = {
       guild_id: interaction.guildId,
       user_id: interaction.user.id,
     });
+
     const embed = new EmbedBuilder().setTitle(
-      `ежедневная плата - ${interaction.user.displayName}`
+      `Eжедневная плата пользователю ${interaction.user.displayName}`
     );
+
     const timely = await TimelyModel.findOne({
       guild_id: interaction.guildId,
       user_id: interaction.user.id,
     });
+
     if (timely) {
-      embed.setDescription(`Вы уже забрали ежедневную награду`);
-      return await interaction.reply({ embeds: [embed] });
+      embed.setDescription(`Вы уже забрали ежедневную награду!`);
+      return await interaction.reply({ embeds: [embed], ephemeral: true });
     }
+
     await TimelyModel.create({
       guild_id: interaction.guildId,
       user_id: interaction.user.id,
