@@ -111,7 +111,7 @@ module.exports = {
           iconURL: interaction.user.avatarURL(),
           text: interaction.user.username,
         })
-        .setTimestamp(new Date());
+        .setTimestamp(Date.now());
 
       const loseEmbed = new EmbedBuilder()
         .setTitle(`Увы, вы проиграли!`)
@@ -135,58 +135,30 @@ module.exports = {
 
       if (color === selectedColor) {
         if (selectedColor == `красное` || selectedColor == `черное`) {
-          await userModel.updateOne(
-            {
-              guild_id: interaction.guild.id,
-              user_id: interaction.user.id,
-            },
-            { balance: intUser.balance + Math.floor(bid * 1.5) }
-          );
-          await casinoModel.updateOne(
-            {
-              guild_id: interaction.guild.id,
-            },
-            {
-              balance: casinobal.balance - Math.floor(bid * 1.5),
-            }
-          );
-        } else
-          await userModel.updateOne(
-            {
-              guild_id: interaction.guild.id,
-              user_id: interaction.user.id,
-            },
-            { balance: intUser.balance + Math.floor(bid * 2.0) }
-          );
-        await casinoModel.updateOne(
-          {
-            guild_id: interaction.guild.id,
-          },
-          {
-            balance: casinobal.balance - Math.floor(bid * 2.0),
-          }
-        );
-
-        await interaction.editReply({ embeds: [winEmbed] });
+          await this.update(interaction, -Math.floor(bid * 1.5), Math.floor(bid * 1.5));
+        } else await interaction.editReply({ embeds: [winEmbed] });
       } else {
-        await casinoModel.updateOne(
-          {
-            guild_id: interaction.guild.id,
-          },
-          {
-            balance: casinobal.balance + Math.floor(bid),
-          }
-        );
-
-        await userModel.updateOne(
-          {
-            guild_id: interaction.guild.id,
-            user_id: interaction.user.id,
-          },
-          { balance: intUser.balance - bid }
-        );
+        await this.update(interaction, Math.floor(bid * 2.0), -Math.floor(bid * 2.0));
         await interaction.editReply({ embeds: [loseEmbed] });
       }
     }, 5000);
+  },
+
+  async update(interaction, casinoAmount, userAmount) {
+    await casinoModel.updateOne(
+      {
+        guild_id: interaction.guild.id,
+      },
+      {
+        $inc: { balance: casinoAmount },
+      }
+    );
+    await userModel.updateOne(
+      {
+        guild_id: interaction.guild.id,
+        user_id: interaction.user.id,
+      },
+      { $inc: { balance: userAmount } }
+    );
   },
 };
