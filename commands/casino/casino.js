@@ -136,9 +136,10 @@ module.exports = {
       if (color === selectedColor) {
         if (selectedColor == `красное` || selectedColor == `черное`) {
           await this.update(interaction, -Math.floor(bid * 1.5), Math.floor(bid * 1.5));
+          await interaction.editReply({ embeds: [winEmbed] })
         } else await interaction.editReply({ embeds: [winEmbed] });
-      } else {
-        await this.update(interaction, Math.floor(bid * 2.0), -Math.floor(bid * 2.0));
+      } else {  
+        await this.update(interaction, Math.floor(bid), -Math.floor(bid));
         await interaction.editReply({ embeds: [loseEmbed] });
       }
     }, 5000);
