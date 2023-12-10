@@ -23,7 +23,7 @@ module.exports = {
     let count = 1;
 
     for (let user of users) {
-      description += `**#${count}.** <@${user.user_id}> - \`${user.balance}\` <:image:1183098175599419522>\n\n`;
+      description += `**#${count}.** <@${user.user_id}> - \`${user.balance}\` <:solana:1183097799756238858>\n\n`;
       count += 1
     }
 
