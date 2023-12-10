@@ -71,12 +71,30 @@ const marrySchema = new Schema({
   },
 });
 
+const workSchema  = new Schema({
+  guild_id: {
+    type: String, 
+    required: true
+  },
+  user_id: {
+    type: String, 
+    required: true
+  },
+  next_work: {
+    type: Date,
+    requred: true
+  }
+})
+
 const TimelyModel = mongoose.model("UsersTimely", timelySchema);
 const userModel = mongoose.model("user", userSchema);
 const marryModel = mongoose.model("marrypoints", marrySchema);
+const workModel = mongoose.model('work', workSchema)
+
 
 module.exports = {
   userModel,
   TimelyModel,
   marryModel,
+  workModel
 };
