@@ -65,7 +65,8 @@ module.exports = {
       const canvas = createCanvas(1920, 1080);
       const ctx = canvas.getContext("2d");
       
-      ctx.font = `35px Impact`; 
+      registerFont(path.resolve(__dirname, 'impact.ttf'), {family: "impact"})
+      ctx.font = `35px impact`; 
       ctx.fillStyle = "#5b647f"; // #5b647f
 
       const avatarURL = user.displayAvatarURL({ extension: "png", size: 128 });
@@ -95,8 +96,13 @@ module.exports = {
         ],
       });
 
+      ctx.restore()
+      ctx.resetTransform()
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
       let end = new Date().getTime();
       console.log((end - start) / 1000);
+      
     } catch (err) {
       console.log(err);
     }
