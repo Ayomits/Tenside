@@ -1,7 +1,7 @@
 const { CommandInteraction, EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel } = require("../../models/users");
-const { INTEGER } = require("sequelize");
+
 
 module.exports = {
   data: new SlashCommandBuilder()

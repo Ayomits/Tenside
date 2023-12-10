@@ -17,6 +17,12 @@ async function giveMoney(interaction) {
           user_id: interaction.user.id },
         { $inc: {balance: money} }
     );
+    
+    await workModel.updateOne(
+        { guild_id: interaction.guildId, 
+            user_id: interaction.user.id },
+        { $set: {next_work: newdate} }
+    );
 
     return money
 }
@@ -30,7 +36,7 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const user = await userModel.findOne({
+     await userModel.findOne({
       guild_id: interaction.guildId,
       user_id: interaction.user.id,
     });
@@ -48,22 +54,26 @@ module.exports = {
 
     let newMoney = 0
     if (worktime) {
+
       let nextWorkTimestamp = new Date(worktime.next_work).getTime()
+
       if (nextWorkTimestamp > now) {
         embed.setDescription("Вы уже работали менее, чем 2 часа назад!")
       } else {
         newMoney = await giveMoney(interaction)
-
+        
         await workModel.updateOne(
             { guild_id: interaction.guildId, 
                 user_id: interaction.user.id },
             { $set: {next_work: String(Number(Date.now()) + 7200)} }
         );
+
       }
     } else {
         await workModel.create({
             guild_id: interaction.guildId,
             user_id: interaction.user.id,
+
             next_work: String(Number(Date.now()) + 7200)
         });
 
