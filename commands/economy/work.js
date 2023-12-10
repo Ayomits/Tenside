@@ -9,6 +9,18 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+async function giveMoney(interaction) {
+    const money = getRandomInt(300, 100);
+    const newdate = String(Number(Date.now()) + 7200)
+    await userModel.updateOne(
+        { guild_id: interaction.guildId, 
+          user_id: interaction.user.id },
+        { $inc: {balance: money} }
+    );
+
+    return money
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("work")
@@ -32,50 +44,32 @@ module.exports = {
       user_id: interaction.user.id,
     });
 
+    let now = Date.now()
+
+    let newMoney = 0
     if (worktime) {
-      if (worktime.next_work < new Date()) {
+      let nextWorkTimestamp = new Date(worktime.next_work).getTime()
+      if (nextWorkTimestamp > now) {
         embed.setDescription("Вы уже работали менее, чем 2 часа назад!")
       } else {
-        const money = getRandomInt(300, 100);
-        const newBalance = user.balance + money;
-        const newdate = String(Number(Date.now()) + 7200)
-        await userModel.updateOne(
-            { guild_id: interaction.guildId, 
-              user_id: interaction.user.id },
-            { balance: newBalance }
-        );
+        newMoney = await giveMoney(interaction)
+
         await workModel.updateOne(
             { guild_id: interaction.guildId, 
-              user_id: interaction.user.id },
-            { next_work: newdate }
+                user_id: interaction.user.id },
+            { $set: {next_work: String(Number(Date.now()) + 7200)} }
         );
-
-        embed.setDescription(`Деньги получены. Вам дали ${money} денег.`)
       }
     } else {
         await workModel.create({
             guild_id: interaction.guildId,
             user_id: interaction.user.id,
+            next_work: String(Number(Date.now()) + 7200)
         });
 
-        const money = getRandomInt(300, 100);
-        const newBalance = user.balance + money;
-        const newdate = String(Number(Date.now()) + 7200)
-
-        await userModel.updateOne(
-            { guild_id: interaction.guildId, 
-              user_id: interaction.user.id },
-            { balance: newBalance }
-        );
-        await workModel.updateOne(
-            { guild_id: interaction.guildId, 
-              user_id: interaction.user.id },
-            { next_work: newdate }
-        );
-
-        embed.setDescription(`Деньги получены. Вам дали ${money} денег.`)
+        newMoney = await giveMoney(interaction)
     }
 
-    await interaction.reply({ embeds: [embed.setDescription(description)] });
+    await interaction.reply({ embeds: [embed.setDescription(`Деньги получены. Вам дали ${newMoney} денег.`)] });
   },
 };
