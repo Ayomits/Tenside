@@ -28,8 +28,7 @@ async function usersHandler (client) {
     }
     }
     
-    await userModel.updateMany({}, {$unset: {married: 1}})
-    await userModel.updateMany({}, {$set: {voiceActive: 0}})
+    // await userModel.updateMany({}, {status: "Статус не установлен."})
     console.log(`[USERHANDLER] кол-во итераций ${count}`);
   }
 }

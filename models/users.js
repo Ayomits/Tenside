@@ -28,10 +28,16 @@ const userSchema = new Schema({
   },
   voiceActive: {
     type: Number,
+    default: 0
   },
   messageCount: {
     type: Number,
     default: 0
+  },
+  status: {
+    type: String,
+    default: "Статус не установлен.",
+    maxLenght: 40
   }
 });
 

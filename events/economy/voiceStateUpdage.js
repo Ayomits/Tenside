@@ -15,6 +15,7 @@ module.exports = {
   async execute(oldState, newState) {
     const userId = newState.member.id;
     const guildId = newState.guild.id;
+    
 
     if (newState.channelId) {
       if (timeoutIds.has(userId)) {

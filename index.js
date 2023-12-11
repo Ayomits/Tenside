@@ -17,6 +17,7 @@ const client = new Client({ intents: intents });
 
 client.commands = new Collection();
 client.buttons = new Collection();
+client.voiceUsers = new Collection()
 
 moongoose.connect(process.env.DB_URI)
 
