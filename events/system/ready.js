@@ -19,24 +19,24 @@ module.exports = {
     require("../../handlers/system/commandRegister").init(client);
     await require("../../handlers/system/usersHandler").usersHandler(client);
 
+    
     client.user.setStatus("dnd");
     client.user.setActivity({
       name: `Приглядываю за вами :3`,
       type: ActivityType.Custom,
     });
+    
+
+    const performDailyTask = async () => {
+      console.log("Выполняю задачу каждый день в 03:00 по московскому времени");
+      await TimelyModel.TimelyModel.deleteMany({})
+    };
+
     console.log(`Запущенно!`);
     cron.schedule(
       "00 3 * * *",
-      () => {
-        performDailyTask();
-      },
+      performDailyTask,
       { timezone: "Europe/Moscow" }
     );
-
-    // Функция для выполнения задачи
-    const performDailyTask = () => {
-      console.log("Выполняю задачу каждый день в 03:00 по московскому времени");
-      TimelyModel.TimelyModel.deleteMany({});
-    };
   },
 };
