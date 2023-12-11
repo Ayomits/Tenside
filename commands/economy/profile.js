@@ -1,8 +1,10 @@
 const { CommandInteraction, AttachmentBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel, marryModel } = require("../../models/users");
-const { registerFont, createCanvas, loadImage } = require("canvas");
+const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
 const path = require("path");
+
+
 
 
 
@@ -61,44 +63,38 @@ module.exports = {
         return await interaction.channel.send({
           content: "Такой пользователь не найден",
         });
-      
+      let pathToFont = path.resolve("fonts", "montserat.ttf")
+
+      GlobalFonts.registerFromPath(pathToFont, "montserat")
+
       const canvas = createCanvas(1920, 1080);
       const ctx = canvas.getContext("2d");
-      
-      registerFont(path.resolve(__dirname, 'impact.ttf'), {family: "impact"})
-      ctx.font = `35px impact`; 
-      ctx.fillStyle = "#5b647f"; // #5b647f
+    
+      ctx.textAlign = 'center'
 
-      const avatarURL = user.displayAvatarURL({ extension: "png", size: 128 });
+      const avatarURL = user.displayAvatarURL({ extension: "png", size: 256 });
       const marriedUser = userDataQuery[0].marrypoints[0];
 
-      let member = await this.getMember(marriedUser, interaction, user);
-
-      const background = await loadImage(path.resolve("profile.png"));
+      const background = await loadImage(path.resolve("imgs", "newprofile.png"));
       const avatar = await loadImage(avatarURL);
 
-      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-      await this.roundImage(838, 228, 238, ctx, avatar); // аватарка юзера
-      await this.roundImage(
-        1445,
-        540,
-        218,
-        ctx,
-        await this.avatarMember(member)
-      ); // аватарка брака
-      await this.drawText(userData, marriedUser, ctx);
+      await Promise.all([
+        await this.drawBackground(background, ctx, canvas),
+        await this.roundImage(820, 173.8, 290, ctx, avatar),
+        await this.userStats(ctx, userData),
+        await this.userAbout(ctx, userData, user),
+        await this.marryLogic(ctx, marriedUser, interaction, user)
+      ])
 
-      await interaction.editReply({
-        files: [
-          new AttachmentBuilder()
-            .setFile(canvas.toBuffer())
-            .setName("profile.png"),
-        ],
-      });
-
-      ctx.restore()
-      ctx.resetTransform()
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      await Promise.all([
+        await interaction.editReply({
+          files: [
+            new AttachmentBuilder(canvas.toBuffer("image/png"), {name: "profile.png"})
+          ],
+        }),
+  
+        await this.optimize(ctx, canvas)
+      ])
 
       let end = new Date().getTime();
       console.log((end - start) / 1000);
@@ -108,14 +104,48 @@ module.exports = {
     }
   },
 
-  /**
-   *
-   * @param {Number} x
-   * @param {Number} y
-   * @param {Number} size
-   * @param {*} ctx
-   * @param {*} avatar
-   */
+  async userStats (ctx, userData) {
+    await Promise.all([
+      await this.drawText(ctx, String((userData.voiceActive / 3600).toFixed(2)) + "ч", "48px montserat", "#FFFFFF", 480, 250),
+      await this.drawText(ctx, String(userData.messageCount), "48px montserat", "#FFFFFF", 480, 475),
+      await this.drawText(ctx, String(userData.reputation), "48px montserat", "#FFFFFF", 480, 700)
+    ])
+  },
+
+  async userAbout (ctx, userData, user) {
+    await Promise.all([
+      await this.drawText(ctx, user.username, '58px montserat', '#FFFFFF', 965, 590),
+      await this.drawText(ctx, String(userData.status), '28px montserat', '#949598', 965, 650),
+      await this.drawText(ctx, String(userData.balance), '48px montserat', "#FFFFFF", 915, 830)
+    ])
+  },
+
+  async marryLogic (ctx, marriedUser, interaction, user) {
+    const marriedMember = await this.getMember(marriedUser, interaction, user);
+    let avatarUrl = !marriedMember ? path.resolve("imgs", "question.png") : marriedMember.user.displayAvatarURL({ extension: "png", size: 256 })
+    const avatar = await loadImage(avatarUrl)
+    
+    await this.memberUser()
+    await Promise.all([
+      await this.roundImage(1440, 237.5, 291, ctx, avatar),
+      await this.drawText(ctx, !marriedMember ? "Отсутствует" : marriedMember.user.username , "48px montserat", "#FFFFFF", 1580, 640),
+
+      
+    ])
+  },
+
+  async memberUser (marriedMember, interaction) {
+    if (marriedMember) {
+      await userModel.findOne({user_id: marriedMember.user.id, guild_id: interaction.guildId}).then((result) => {
+        async () => {
+                await this.drawText(ctx, result.status, '28px montserat', '#949598', 1580, 690)
+                await this.drawText(ctx, String(await this.getDate(result.created_at)), '32px montserat', '#FFFFFF', 1580, 736)
+             }
+          })
+        }
+      },
+  
+
   async roundImage(x, y, size, ctx, avatar) {
     ctx.save();
     ctx.beginPath();
@@ -126,31 +156,17 @@ module.exports = {
     ctx.restore();
   },
 
-  /**
-   *
-   * @param {String} timestamp
-   * @returns
-   */
-
   async getDate(timestamp) {
     const date = new Date(Number(timestamp));
 
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   },
 
-  async drawText(userData, marriedUser, ctx) {
-    ctx.fillText(Math.floor(userData.balance), 300, 510); // баланс
-    ctx.fillText(userData.voiceActive, 380, 704); // активность в войсе
-    ctx.fillText(userData.reputation, 450, 898); // репутация
-    ctx.fillText(userData.messageCount, 450, 799); // количество сообщений
-    ctx.fillText(
-      !marriedUser
-        ? "У пользователя нет брака"
-        : await this.getDate(marriedUser.created_at),
-      1450,
-      345
-    ); // просто таймстемп для приличия
-    ctx.fillText("Система браков", 1450, 500);
+  async drawText(ctx, text, font, color, x, y) {
+    ctx.font = font
+    ctx.fillStyle = color
+    ctx.fillText(text, x, y) // статусы юзеров
+    
   },
 
   async avatarMember(member) {
@@ -181,5 +197,15 @@ module.exports = {
 
     return member;
   },
+
+  async optimize (ctx, canvas) {
+    ctx.restore()
+    ctx.resetTransform()
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  },
+
+  async drawBackground (background, ctx, canvas) {
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+  }
 
 };
