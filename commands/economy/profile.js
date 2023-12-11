@@ -1,7 +1,7 @@
 const { CommandInteraction, AttachmentBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel, marryModel } = require("../../models/users");
-const { registerFont, createCanvas, loadImage } = require("canvas");
+const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
 const path = require("path");
 
 
@@ -61,12 +61,13 @@ module.exports = {
         return await interaction.channel.send({
           content: "Такой пользователь не найден",
         });
-      
+      let pathToFont = path.resolve("fonts", "montserat.ttf")
+      GlobalFonts.registerFromPath(pathToFont, "montserat")
       const canvas = createCanvas(1920, 1080);
       const ctx = canvas.getContext("2d");
+    
       
-      registerFont(path.resolve(__dirname, 'impact.ttf'), {family: "impact"})
-      ctx.font = `35px impact`; 
+      ctx.font = `35px montserat`; 
       ctx.fillStyle = "#5b647f"; // #5b647f
 
       const avatarURL = user.displayAvatarURL({ extension: "png", size: 128 });
@@ -76,7 +77,7 @@ module.exports = {
 
       const background = await loadImage(path.resolve("profile.png"));
       const avatar = await loadImage(avatarURL);
-
+      
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
       await this.roundImage(838, 228, 238, ctx, avatar); // аватарка юзера
       await this.roundImage(
@@ -91,7 +92,7 @@ module.exports = {
       await interaction.editReply({
         files: [
           new AttachmentBuilder()
-            .setFile(canvas.toBuffer())
+            .setFile(canvas.toBuffer("image/png"))
             .setName("profile.png"),
         ],
       });
@@ -139,18 +140,18 @@ module.exports = {
   },
 
   async drawText(userData, marriedUser, ctx) {
-    ctx.fillText(Math.floor(userData.balance), 300, 510); // баланс
-    ctx.fillText(userData.voiceActive, 380, 704); // активность в войсе
-    ctx.fillText(userData.reputation, 450, 898); // репутация
-    ctx.fillText(userData.messageCount, 450, 799); // количество сообщений
+    ctx.fillText(String(userData.balance), 300, 510); // баланс
+    ctx.fillText(String((userData.voiceActive / 3600).toFixed(2)) + "ч", 380, 706); // активность в войсе
+    ctx.fillText(String(userData.reputation), 450, 898); // репутация
+    ctx.fillText(String(userData.messageCount), 450, 799); // количество сообщений
     ctx.fillText(
       !marriedUser
-        ? "У пользователя нет брака"
+        ? "Нет партнёра"
         : await this.getDate(marriedUser.created_at),
       1450,
       345
     ); // просто таймстемп для приличия
-    ctx.fillText("Система браков", 1450, 500);
+    ctx.fillText("Система браков", 1410, 500);
   },
 
   async avatarMember(member) {
