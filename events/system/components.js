@@ -11,20 +11,43 @@ module.exports = {
   async execute(interaction) {
     if (interaction.isButton()) {
       const button = interaction.client.buttons.get(interaction.customId)
+     
       if(!button) return
-      else await button.execute(interaction)
-    }
+      
+      else {
+        try {
+        await button.execute(interaction)
+        }
+        catch {
+          console.error("ошибка кнопки");
+        }
+      }
+      } 
 
     if (interaction.isModalSubmit()) {
       const modal = interaction.client.buttons.get(interaction.customId)
       if(!modal) return
-      else await modal.execute(interaction)
+      else {
+        try {
+          await modal.execute(interaction)
+          }
+          catch {
+            console.error("ошибка кнопки");
+          }
+      }
     }
 
     if (interaction.isAnySelectMenu()) {
       const select = interaction.client.buttons.get(interaction.customId)
       if (!select) return
-      else await select.execute(interaction)
+      else {
+        try {
+          await select.execute(interaction)
+          }
+          catch {
+            console.error("ошибка кнопки");
+          }
+      }
     }
   },
 };
