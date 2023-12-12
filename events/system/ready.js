@@ -10,14 +10,14 @@ module.exports = {
    */
   async execute(client) {
     // подгрузка команд, компонентов, создание таблиц в СУБД
-
+    let start = Date.now()
     require("../../handlers/system/commandHandler").init(client);
     require("../../handlers/system/componentsHandler").init(
       "components",
       client
     );
     require("../../handlers/system/commandRegister").init(client);
-    await require("../../handlers/system/usersHandler").usersHandler(client);
+    require("../../handlers/system/usersHandler").usersHandler(client);
 
     
     client.user.setStatus("dnd");
@@ -32,11 +32,15 @@ module.exports = {
       await TimelyModel.TimelyModel.deleteMany({})
     };
 
-    console.log(`Запущенно!`);
+    console.log(`[TASK] Запущенно!`);
     cron.schedule(
       "00 3 * * *",
       performDailyTask,
       { timezone: "Europe/Moscow" }
     );
+
+    let end = (Date.now() - start) / 1000
+
+    console.log(`[READY.JS] Время запуска ${end}`);
   },
 };

@@ -135,7 +135,7 @@
     "type": "action",
     "isAcceptable": true,
     "nsfw": false,
-    "aliases": ["танец", "танцы"]
+    "aliases": ["танец", "танцы", "танцевать"]
   },
   "droll": {
     "action": "Пускать слюни",
