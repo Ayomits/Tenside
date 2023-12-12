@@ -124,27 +124,17 @@ module.exports = {
     const marriedMember = await this.getMember(marriedUser, interaction, user);
     let avatarUrl = !marriedMember ? path.resolve("imgs", "question.png") : marriedMember.user.displayAvatarURL({ extension: "png", size: 256 })
     const avatar = await loadImage(avatarUrl)
-    
-    await this.memberUser()
+    if (marriedMember) {
+      const marryDate = await this.getDate(marriedUser.created_at)
+      const partner = await userModel.findOne({user_id: marriedMember.user.id, guild_id: interaction.guildId})
+      await this.drawText(ctx, String(partner.status), '28px montserat', '#949598', 1580, 690)
+      await this.drawText(ctx, String(marryDate), '32px montserat', '#FFFFFF', 1580, 736)
+      }
     await Promise.all([
       await this.roundImage(1440, 237.5, 291, ctx, avatar),
       await this.drawText(ctx, !marriedMember ? "Отсутствует" : marriedMember.user.username , "48px montserat", "#FFFFFF", 1580, 640),
-
-      
     ])
   },
-
-  async memberUser (marriedMember, interaction) {
-    if (marriedMember) {
-      await userModel.findOne({user_id: marriedMember.user.id, guild_id: interaction.guildId}).then((result) => {
-        async () => {
-                await this.drawText(ctx, result.status, '28px montserat', '#949598', 1580, 690)
-                await this.drawText(ctx, String(await this.getDate(result.created_at)), '32px montserat', '#FFFFFF', 1580, 736)
-             }
-          })
-        }
-      },
-  
 
   async roundImage(x, y, size, ctx, avatar) {
     ctx.save();
