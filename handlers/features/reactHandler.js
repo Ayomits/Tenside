@@ -89,11 +89,10 @@ async function acceptable(
 
 async function react(message, reaction, url) {
   const baseDir = path.resolve("configs");
-  const data = JSON.parse(
+  const reactionsData = JSON.parse(
     await fs.promises.readFile(path.join(baseDir, "reactions.json"), "utf-8")
   );
-
-  const reactionData = data[reaction];
+  const reactionData = reactionsData[reaction];
 
   if (!reactionData) {
     throw new Error("Я такого не знать");
@@ -101,9 +100,9 @@ async function react(message, reaction, url) {
 
   const authorId = message.author.id;
   const mentions = message.mentions;
-  const targetUser = mentions.users.first();
+  const targetUser = mentions?.users.first();
 
-  const action = reactionData.action
+  const action = reactionData.action;
 
   const embed = new EmbedBuilder()
     .setTitle(`Реакция: ${action.toLowerCase()}`)
@@ -119,11 +118,11 @@ async function react(message, reaction, url) {
     .setTitle("Ошибка")
     .setDescription("Я тоже считаю, что боты живые, но может быть ты выберешь пользователя?")
     .setColor("#2F3136");
-  
+
   const authorErrorEmbed = new EmbedBuilder()
-                          .setTitle("Ошибка")
-                          .setDescription("Тебе так одиноко? Понимаю, но всё же, выбери другого пользователя, а не себя!")
-                          .setColor("#2F3136");
+    .setTitle("Ошибка")
+    .setDescription("Тебе так одиноко? Понимаю, но всё же, выбери другого пользователя, а не себя!")
+    .setColor("#2F3136");
 
   const timeoutEmbed = new EmbedBuilder()
     .setTitle("Время вышло")
@@ -135,52 +134,35 @@ async function react(message, reaction, url) {
   const isNsfw = reactionData.nsfw;
 
   if (!isNsfw) {
-    if (isEveryoneReaction === false) {
-      // Проверяем, упоминается ли кто-то в сообщении
-      if (mentions && mentions.users.size > 0) {
-        if (message.author == mentions.users.first())
-          return message.reply({ embeds: [authorErrorEmbed] });
-        else if (mentions.users.first().bot) {
-          return message.reply({embeds: [botErrorEmbed]})
-        }
-        const targetUser = mentions.users.first();
-        // Проверяем, не является ли автор упоминаемым пользователем
-
-        if (authorId === targetUser.id) {
-          return await message.channel.send({ embeds: [errorEmbed] });
-        }
-        if (isAcceptable) {
-          await acceptable(
-            message,
-            embed,
-            targetUser,
-            authorId,
-            reactionData,
-            timeoutEmbed,
-          );
-        }
+    if (isEveryoneReaction === false && targetUser) {
+      if (message.author === targetUser) {
+        return message.reply({ embeds: [authorErrorEmbed] });
+      } else if (targetUser.bot) {
+        return message.reply({ embeds: [botErrorEmbed] });
+      } else if (isAcceptable) {
+        await acceptable(
+          message,
+          embed,
+          targetUser,
+          authorId,
+          reactionData,
+          timeoutEmbed
+        );
       }
     } else {
-      if (mentions && mentions.users.size > 0) {
-        const targetUser = mentions.users.first();
-        if (authorId === targetUser.id) {
-          return await message.channel.send({ embeds: [authorErrorEmbed] })
-        } else if(mentions.users.first().bot){
-          return message.reply({embeds: [botErrorEmbed]})
-        } else {
-          embed.setDescription(
-            `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.memberVerb.toLowerCase()} ${targetUser}`
-          );
-          await message.reply({ embeds: [embed] });
-        }
+      if (targetUser && authorId !== targetUser.id && !targetUser.bot) {
+        embed.setDescription(
+          `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.memberVerb.toLowerCase()} ${targetUser}`
+        );
       } else {
         embed.setDescription(
           `Пользователь <@${authorId}> ${reactionData.verbal.toLowerCase()} ${reactionData.everyoneVerb.toLowerCase()}`
         );
-        await message.reply({ embeds: [embed] });
       }
+      await message.reply({ embeds: [embed] });
     }
   }
 }
 
 module.exports = react;
+

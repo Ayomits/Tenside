@@ -1,38 +1,53 @@
-const {Client} = require('discord.js')
-const {userModel, marryModel} = require('../../models/users')
+const { Client } = require("discord.js");
+const { userModel, marryModel } = require("../../models/users");
 
 /**
  * 
- * @param {Client} client 
+ * @param {String} userId 
+ * @param {String} guildId 
  */
 
-async function usersHandler (client) {
-  const guilds = client.guilds.cache
-
-  for (let guild of guilds) {
-    const members = await guild[1].members.fetch()
-    let count = 0
-    
-    for (let member of members) {
-      const user = await userModel.findOne({guild_id: guild[1].id, user_id: member[1].user.id}) // ЗАПРОС НА ПРОВЕРКУ ИТЕРИРУЕМОГО ЮЗЕРА
-      if (!user) { // ЕСЛИ ЮЗЕР НЕ СОЗДАН
-        if (member[1].user.bot) { // Если юзер является ботом
-          continue
-        }else{
-        try {
-          await userModel.create({guild_id: guild[1].id, user_id: member[1].user.id}) // создаём юзера
-        }
-        catch (err) {}
-        count += 1
-      }
-    }
-    }
-    
-    // await userModel.updateMany({}, {status: "Статус не установлен."})
-    console.log(`[USERHANDLER] кол-во итераций ${count}`);
-  }
+async function isUserCreated(guildId, userId) {
+  const user = await userModel.findOne({ guild_id: guildId, user_id: userId });
+  return !!user;
 }
 
 
+/**
+ * 
+ * @param {String} userId 
+ * @param {String} guildId 
+ */
 
-module.exports = {usersHandler}
+async function createUser(userId, guildId) {
+  await userModel.create({user_id: userId, guild_id: guildId})
+}
+
+/**
+ *
+ * @param {Client} client
+ */
+
+async function usersHandler(client) {
+  let start = Date.now()
+  const guilds = client.guilds.cache.map((guild) => guild);
+  let count = 0
+  for (let guild of guilds) {
+    const members = await guild.members.fetch()
+
+    members.forEach(async member => {
+      const userExists = await isUserCreated(member.guild.id, member.user.id)
+      if (!userExists && !member.user.bot ) {
+        count += 1
+        await createUser(member.user.id, member.guild.id)
+      }
+    });
+
+    let end = (Date.now() - start) / 1000
+
+    console.log("[USERSHANDLER.JS] время выполнения " + end);
+  }
+  
+}
+
+module.exports = { usersHandler };
