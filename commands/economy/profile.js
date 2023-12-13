@@ -75,19 +75,18 @@ module.exports = {
       const avatarURL = user.displayAvatarURL({ extension: "png", size: 256 });
       const marriedUser = userDataQuery[0].marrypoints[0];
 
-      const background = await loadImage(path.resolve("imgs", "newprofile.png"));
-      const avatar = await loadImage(avatarURL);
-
       await Promise.all([
-        await this.drawBackground(background, ctx, canvas),
-        await this.roundImage(820, 173.8, 290, ctx, avatar),
+        await this.drawBackground(await loadImage(path.resolve("imgs", "newprofile.png")), ctx, canvas),
+        await this.roundImage(820, 173.8, 290, ctx, await loadImage(avatarURL)),
         await this.userStats(ctx, userData),
         await this.userAbout(ctx, userData, user),
         await this.marryLogic(ctx, marriedUser, interaction, user)
       ])
 
+      
+
       await Promise.all([
-        await interaction.editReply({
+        await interaction.followUp({
           files: [
             new AttachmentBuilder(canvas.toBuffer("image/png"), {name: "profile.png"})
           ],
@@ -113,11 +112,9 @@ module.exports = {
   },
 
   async userAbout (ctx, userData, user) {
-    await Promise.all([
       await this.drawText(ctx, user.username, '58px montserat', '#FFFFFF', 965, 590),
       await this.drawText(ctx, String(userData.status), '28px montserat', '#949598', 965, 650),
       await this.drawText(ctx, String(userData.balance), '48px montserat', "#FFFFFF", 915, 830)
-    ])
   },
 
   async marryLogic (ctx, marriedUser, interaction, user) {
@@ -130,10 +127,8 @@ module.exports = {
       await this.drawText(ctx, String(partner.status), '28px montserat', '#949598', 1580, 690)
       await this.drawText(ctx, String(marryDate), '32px montserat', '#FFFFFF', 1580, 736)
       }
-    await Promise.all([
-      await this.roundImage(1440, 237.5, 291, ctx, avatar),
-      await this.drawText(ctx, !marriedMember ? "Отсутствует" : marriedMember.user.username , "48px montserat", "#FFFFFF", 1580, 640),
-    ])
+      await this.roundImage(1440, 237.5, 291, ctx, avatar)
+      await this.drawText(ctx, !marriedMember ? "Отсутствует" : marriedMember.user.username , "48px montserat", "#FFFFFF", 1580, 640)
   },
 
   async roundImage(x, y, size, ctx, avatar) {
