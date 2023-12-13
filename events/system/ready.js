@@ -18,7 +18,9 @@ module.exports = {
     );
     require("../../handlers/system/commandRegister").init(client);
     require("../../handlers/system/usersHandler").usersHandler(client);
+    require('../../handlers/system/checkUsersInVoice').checkUsersInVoice(client)
 
+    console.log(client.voiceUsers);
     
     client.user.setStatus("dnd");
     client.user.setActivity({
