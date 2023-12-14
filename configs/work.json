@@ -1,0 +1,28 @@
+{
+    "works": [
+      {
+      "miner": {
+        "user_name": "шахтёром",
+        "default_description": "Вы копали руды в шахтах. Всё шло как обычно.",
+        "prestige_description": "Вы копали руды в шахтах, но вдруг нашли очень редкую руду!",
+        "default_pay": 100,
+        "prestige_pay": 200,
+        "prestige_chance": 20,
+        "gif": "https://64.media.tumblr.com/50ebd11da0cf022db22cea92998c2aba/tumblr_nzij9jKVli1sotuj5o1_500.gif",
+        "color": "#4f4e4d",
+        "emoji": "⛏️"
+      },
+      "baker": {
+          "user_name": "пекарем",
+          "default_description": "Вы пекли булочки и пироги. Всё хорошо пропекалось.",
+          "prestige_description": "К вам в магазин зашли богатые гости, которые оставили вам много чаевых!",
+          "default_pay": 300,
+          "prestige_pay": 400,
+          "prestige_chance": 20,
+          "gif": "https://64.media.tumblr.com/df3741a399ac6804472c4dd0c2ddbbbf/5615e42edd9e8b45-30/s1280x1920/503f7f1eb4c532b1a4b8b4c08456cddc679e8515.gif",
+          "color": "#b06e23",
+          "emoji": "🥯"
+      }
+    }
+    ]
+  }

@@ -10,6 +10,7 @@ const path = require("path")
  */
 
 async function toHtml(channel, ticketUser) {
+  let start = Date.now()
   const messages = await channel.messages.fetch()
 
   let htmlString = await fs.promises.readFile(path.resolve("baseTicketLogTemplate.html"), "utf-8")
@@ -73,6 +74,7 @@ async function toHtml(channel, ticketUser) {
 
   htmlString += ` </div></body></html>`
 
+  console.log((Date.now() - start) / 1000);
   return htmlString
 }
 

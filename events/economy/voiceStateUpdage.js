@@ -1,7 +1,6 @@
-const { Events, VoiceState, NewsChannel } = require("discord.js");
+const { Events, VoiceState } = require("discord.js");
 const { userModel } = require("../../models/users");
 
-let timeoutIds = new Map();
 
 module.exports = {
   name: Events.VoiceStateUpdate,
@@ -15,33 +14,33 @@ module.exports = {
   async execute(oldState, newState) {
     const userId = newState.member.id;
     const guildId = newState.guild.id;
-    
 
     if (newState.channelId) {
-      if (timeoutIds.has(userId)) {
-        this.deleteIntervals(userId);
-        this.startInteraval(userId, guildId);
-      } else {
-        this.startInteraval(userId, guildId);
-      }
+      this.startInterval(userId, guildId, newState.client);
     } else {
-      this.deleteIntervals(userId);
+      this.stopInterval(userId, newState.client);
     }
   },
 
-  startInteraval(userId, guildId) {
-    const interval = setInterval(async () => {
-      await userModel.updateOne(
-        { guild_id: guildId, user_id: userId },
-        { $inc: { balance: 5, voiceActive: 60 } }
-      );
-    }, 60_000);
+  startInterval(userId, guildId, client) {
+    if (!client.voiceUsers.has(userId)) {
+      const interval = setInterval(async () => {
+        await userModel.updateOne(
+          { guild_id: guildId, user_id: userId },
+          { $inc: { balance: 5, voiceActive: 60 } }
+        );
+        
+      }, 60000);
 
-    timeoutIds.set(userId, interval);
+      client.voiceUsers.set(userId, interval);
+
+    }
   },
 
-  deleteIntervals(userId) {
-    clearInterval(timeoutIds.get(userId));
-    timeoutIds.delete(userId);
+  stopInterval(userId, client) {
+    if (client.voiceUsers.has(userId)) {
+      clearInterval(client.voiceUsers.get(userId));
+      client.voiceUsers.delete(userId);
+    }
   },
 };

@@ -12,10 +12,10 @@ module.exports = {
     const command = interaction.client.commands.get(interaction.commandName)
     if (!command) return;
     try {
-        command.execute(interaction)
+      await command.execute(interaction)
     }
     catch (err) {
         console.log(err);
     }
-}
+  }
 }

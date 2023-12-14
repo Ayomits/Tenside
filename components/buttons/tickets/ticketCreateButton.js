@@ -10,6 +10,7 @@ module.exports = {
    */
 
   async execute(interaction) {
+    if (interaction.customId === this.customId) {
     await CurrentTicket.findOne({guild_id: interaction.guildId, ticket_creator_id: interaction.user.id})
     .then(async (result) => {
       if (result === null) {
@@ -102,12 +103,24 @@ module.exports = {
                                 .setCustomId("acceptBtn")
                                 .setLabel("принять тикет")
                                 .setStyle(ButtonStyle.Success)
-            
+            try {
             for (role of theme_.pinged_roles.split()) {
-              newChannel.permissionOverwrites.create(role, {
+              try {
+              await newChannel.permissionOverwrites.create(role, {
                 ViewChannel: true,
               })
+            }catch (err) {
+              await CurrentTicket.findOneAndDelete({guild_id: inter.guildId, channel_id: inter.channel.id})
+              await inter.user.send("канал был удалён, т.к. не найден отвечающий")
+              return await inter.channel.delete()
             }
+            }
+          } catch (err) {
+            await CurrentTicket.findOneAndDelete({guild_id: inter.guildId, channel_id: inter.channel.id})
+            try{await inter.user.send("канал был удалён, т.к. не найден отвечающий")}
+            catch (err) {console.error(err)}
+            return await inter.channel.delete()
+          }
             await message.channel.send({content: message_content})
             await message.channel.send({embeds: [embed_], components: [new ActionRowBuilder().addComponents(AcceptTiket)]})
 
@@ -138,6 +151,8 @@ module.exports = {
     })
     .catch((err) => {
       console.log(err);
-    })
+    })} else {
+      await interaction.reply({content: "something wrong...."})
+    }
   },
 };
