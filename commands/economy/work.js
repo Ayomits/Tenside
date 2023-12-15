@@ -31,8 +31,7 @@ async function sendWorkData(interaction, worktime) {
     const num = Math.floor(Math.random() * workdata.length)
     const neededwork = workdata[num]
 
-    // const presnum = Math.floor(Math.random() * 100)
-    const presnum = 1
+    const presnum = Math.floor(Math.random() * 100)
 
     const description = presnum < worklist.works[0][neededwork].prestige_chance ? worklist.works[0][neededwork].prestige_description : worklist.works[0][neededwork].default_description
     const payment = (description == worklist.works[0][neededwork].prestige_description ? worklist.works[0][neededwork].prestige_pay : worklist.works[0][neededwork].default_pay) + presnum
