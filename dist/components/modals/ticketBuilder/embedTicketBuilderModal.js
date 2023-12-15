@@ -1,13 +1,14 @@
 "use strict";
-const { embedBuilderModalCallback } = require("../../../functions/embedGen");
-const { TicketSettingsEmbed } = require("../../../models/tickets");
-const { ModalSubmitInteraction } = require("discord.js");
-module.exports = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const embedGen_1 = require("../../../functions/embedGen");
+const tickets_1 = require("../../../models/tickets");
+const button = {
     customId: 'embedTicketBuilderModal',
     /**
      * @param {ModalSubmitInteraction} interaction
      */
     async execute(interaction) {
-        await embedBuilderModalCallback(interaction, TicketSettingsEmbed);
+        await (0, embedGen_1.embedBuilderModalCallback)(interaction, tickets_1.TicketSettingsEmbed);
     }
 };
+exports.default = button;

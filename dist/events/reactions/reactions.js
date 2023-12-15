@@ -1,8 +1,10 @@
 "use strict";
-const axios = require("axios");
-const { Events, Message } = require("discord.js");
-const react = require('../../handlers/features/reactHandler');
-const fs = require('fs');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.reactions = void 0;
+const axios_1 = require("axios");
+const discord_js_1 = require("discord.js");
+const reactHandler_1 = require("../../handlers/features/reactHandler");
+const fs = require("fs");
 const path = require("path");
 function findReactionKeyByAlias(alias, config) {
     for (let key in config) {
@@ -13,14 +15,14 @@ function findReactionKeyByAlias(alias, config) {
     }
     return null;
 }
-module.exports = {
-    name: Events.MessageCreate,
+exports.reactions = {
+    name: discord_js_1.Events.MessageCreate,
     once: false,
     async execute(message) {
-        if (message.author.bot || !message.content.toLowerCase().startsWith(process.env.PREFIX)) {
+        if (message.author.bot || !message.content.toLowerCase().startsWith(process.env.PREFIX || ".")) {
             return;
         }
-        const reaction = message.content.toLowerCase().replace(process.env.PREFIX, "").split(" ");
+        const reaction = message.content.toLowerCase().replace(process.env.PREFIX || ".", "").split(" ");
         const reactionsConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactions.json'), "utf-8"));
         try {
             const reactionKey = findReactionKeyByAlias(reaction[0], reactionsConfig) || reaction[0];
@@ -31,15 +33,15 @@ module.exports = {
             }
             if (reactionData.isApi) {
                 const apiUrl = `${process.env.API_URL}/gif?reaction=${reactionKey}&format=${process.env.FORMAT}`;
-                const response = await axios.get(apiUrl);
-                await react(message, reactionKey, response.data.url);
+                const response = await axios_1.default.get(apiUrl);
+                await (0, reactHandler_1.react)(message, reactionKey, response.data.url);
             }
             else {
                 const linksConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactionslink.json'), "utf-8"));
                 const reactionKeyForLinks = reactionKey;
                 if (linksConfig[reactionKeyForLinks] && linksConfig[reactionKeyForLinks].length > 0) {
                     const randomIndex = Math.floor(Math.random() * linksConfig[reactionKeyForLinks].length);
-                    await react(message, reactionKey, linksConfig[reactionKeyForLinks][randomIndex]);
+                    await (0, reactHandler_1.react)(message, reactionKey, linksConfig[reactionKeyForLinks][randomIndex]);
                 }
                 else {
                     console.error(`Invalid or empty array for reaction key: ${reactionKeyForLinks}`);
@@ -51,3 +53,4 @@ module.exports = {
         }
     },
 };
+exports.default = exports.reactions;

@@ -1,8 +1,9 @@
 "use strict";
-const { CommandInteraction, EmbedBuilder } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { userModel } = require("../../models/users");
-const { casinoModel } = require("../../models/casino");
+Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
+const builders_1 = require("@discordjs/builders");
+const users_1 = require("../../models/users");
+const casino_1 = require("../../models/casino");
 const waitimg = "https://media.discordapp.net/attachments/1173982744053829692/1183445733655990333/941dcf16849f26501923469dd119db15.gif?ex=65885cba&is=6575e7ba&hm=af980cc489071ee8140e5a57accff10c7738abe65ec1f48a6e240b01b42aec31&=";
 const images = [
     `https://media.discordapp.net/attachments/1173982744053829692/1183446320833368104/b6e45f1f2c49db8863d8af168e6e71f6.gif?ex=65885d46&is=6575e846&hm=281bf26e5944938609aa1fddeef3092ba9f71a85895a56bc6cd7f9222d458738&=`,
@@ -13,8 +14,8 @@ const loseimg = "https://media.discordapp.net/attachments/1173982744053829692/11
 /**
  * @param {CommandInteraction} interaction
  */
-module.exports = {
-    data: new SlashCommandBuilder()
+const command = {
+    data: new builders_1.SlashCommandBuilder()
         .setName("casino")
         .setDescription("Игра в казино!")
         .addIntegerOption((option) => option.setName("bid").setDescription("Ваша ставка").setRequired(true))
@@ -26,16 +27,16 @@ module.exports = {
     async execute(interaction) {
         const selectedImage = random(images);
         const bid = interaction.options.getInteger("bid");
-        const casinobalance = await casinoModel.findOne({
+        const casinobalance = await casino_1.casinoModel.findOne({
             guild_id: interaction.guild.id,
         });
-        const intUser = await userModel.findOne({
+        const intUser = await users_1.userModel.findOne({
             guild_id: interaction.guild.id,
             user_id: interaction.user.id,
         });
         if (!casinobalance)
-            await casinoModel.create({ guild_id: interaction.guild.id });
-        const casinobal = await casinoModel.findOne({
+            await casino_1.casinoModel.create({ guild_id: interaction.guild.id });
+        const casinobal = await casino_1.casinoModel.findOne({
             guild_id: interaction.guild.id,
         });
         if (casinobal.balance < bid) {
@@ -44,7 +45,7 @@ module.exports = {
                 content: `Ваша ставка превышает баланс казино! обратитетсь к Kleyy`,
             });
         }
-        const balanceEmbed = new EmbedBuilder()
+        const balanceEmbed = new discord_js_1.EmbedBuilder()
             .setTitle(`Ошибка!`)
             .setDescription(`**❌ У вас недостаточно валюты на счету. Ваш баланс:** \`${intUser ? intUser.balance : 0}\` <:solana:1183097799756238858> ❌`)
             .setColor("#db2518")
@@ -58,7 +59,7 @@ module.exports = {
                 ephemeral: true,
             });
         }
-        const waitEmbed = new EmbedBuilder()
+        const waitEmbed = new discord_js_1.EmbedBuilder()
             .setTitle(`Рулетка крутится...`)
             .setDescription(`Ожидайте.... Рулетка крутится...`)
             .setImage(waitimg);
@@ -69,7 +70,7 @@ module.exports = {
             const number = Math.floor(Math.random() * colors.length);
             const color = colors[number];
             const winmoney = color === "зеленое" ? bid * 2 : bid * 1.5;
-            const winEmbed = new EmbedBuilder()
+            const winEmbed = new discord_js_1.EmbedBuilder()
                 .setImage(selectedImage)
                 .setTitle(`Поздравляю, вы выиграли!`)
                 .setDescription(`🎉 **На табло ${color}. Ваша ставка умножается на ${color === "зеленое" ? "2" : "1.5"}. Вы выиграли** \`${Math.floor(winmoney)}\` **<:solana:1183097799756238858>**`)
@@ -85,7 +86,7 @@ module.exports = {
                 text: interaction.user.username,
             })
                 .setTimestamp(Date.now());
-            const loseEmbed = new EmbedBuilder()
+            const loseEmbed = new discord_js_1.EmbedBuilder()
                 .setTitle(`Увы, вы проиграли!`)
                 .setDescription(`💔 **На табло ${color}. Вы проиграли** \`${bid}\` **<:solana:1183097799756238858> **`)
                 .setColor("#a8342d")
@@ -116,12 +117,12 @@ module.exports = {
         }, 5000);
     },
     async update(interaction, casinoAmount, userAmount) {
-        await casinoModel.updateOne({
+        await casino_1.casinoModel.updateOne({
             guild_id: interaction.guild.id,
         }, {
             $inc: { balance: casinoAmount },
         });
-        await userModel.updateOne({
+        await users_1.userModel.updateOne({
             guild_id: interaction.guild.id,
             user_id: interaction.user.id,
         }, { $inc: { balance: userAmount } });

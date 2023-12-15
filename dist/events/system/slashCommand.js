@@ -1,11 +1,12 @@
 "use strict";
-const { Interaction, Client, Events } = require('discord.js');
-module.exports = {
-    name: Events.InteractionCreate,
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.slashCommand = void 0;
+const discord_js_1 = require("discord.js");
+exports.slashCommand = {
+    name: discord_js_1.Events.InteractionCreate,
     once: false,
     /**
-      * @param {Interaction} interaction
-      * @param {Client} client
+      * @param {Interaction} CommandInteraction
       */
     async execute(interaction) {
         const command = interaction.client.commands.get(interaction.commandName);

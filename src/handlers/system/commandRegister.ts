@@ -9,7 +9,7 @@ import { REST, Routes, Client }  from "discord.js";
 
 const rest = new REST().setToken(process.env.TOKEN || "");
 
-module.exports.init = async function register(client: Client) {
+export const commandRegister = async function register(client: Client) {
   try {
     console.log("[REGISTER] Начинаю регистрировать команды...");
 

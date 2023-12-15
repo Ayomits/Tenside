@@ -1,7 +1,8 @@
 "use strict";
-const { Interaction, Client, Events } = require("discord.js");
-module.exports = {
-    name: Events.InteractionCreate,
+Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
+const componentEvent = {
+    name: discord_js_1.Events.InteractionCreate,
     once: false,
     /**
      * @param {Interaction} interaction
@@ -49,3 +50,4 @@ module.exports = {
         }
     },
 };
+exports.default = componentEvent;

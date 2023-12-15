@@ -1,12 +1,13 @@
 "use strict";
-const { ModalSubmitInteraction, EmbedBuilder } = require('discord.js');
-const { baseCallback } = require("../../../functions/baseExecute");
-module.exports = {
-    customId: 'control',
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseExecute_1 = require("../../../functions/baseExecute");
+const button = {
+    customId: 'closer',
     /**
      * @param {ModalSubmitInteraction} interaction
      */
     async execute(interaction) {
-        await baseCallback(interaction);
+        await (0, baseExecute_1.baseCallback)(interaction);
     },
 };
+exports.default = button;

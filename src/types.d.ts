@@ -2,7 +2,7 @@ import { SlashCommandBuilder, CommandInteraction, Collection, PermissionResolvab
 
 export interface SlashCommand {
     data: SlashCommandBuilder,
-    execute: (interaction : ChatInputCommandInteraction) => void,
+    execute: (interaction : CommandInteraction) => void,
     autocomplete?: (interaction: AutocompleteInteraction) => void,
     modal?: (interaction: ModalSubmitInteraction<CacheType>) => void,
     cooldown?: number // in seconds

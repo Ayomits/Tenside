@@ -166,4 +166,6 @@ export async function react(message: Message, reaction: string, url: string) {
   }
 }
 
+export default {react}
+
 

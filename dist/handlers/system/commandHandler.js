@@ -1,9 +1,11 @@
 "use strict";
-const fs = require('fs');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.commandHandler = void 0;
+const fs = require("fs");
 /**
  * @param {Client} client
  */
-module.exports.init = async (client) => {
+const commandHandler = async (client) => {
     let start = Date.now();
     console.log("[HANDLER] Занесение команд в коллекцию начато...");
     fs.readdirSync('./commands').forEach((dir) => {
@@ -17,3 +19,4 @@ module.exports.init = async (client) => {
     console.log("[HANDLER] Занесение команд в коллекцию завершено...");
     console.log(`[COMMANDHANDLER.JS] ${(Date.now() - start) / 1000}`);
 };
+exports.commandHandler = commandHandler;

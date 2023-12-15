@@ -1,10 +1,12 @@
 "use strict";
-const fs = require('fs');
-const path = require('path');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.componentHandler = void 0;
+const fs = require("fs");
+const path = require("path");
 /**
  * @param {Client} client
  */
-module.exports.init = async (folder, client) => {
+const componentHandler = async (folder, client) => {
     let start = Date.now();
     console.log(`[HANDLER] Занесение компонентов в коллекцию начато...`);
     fs.readdirSync(`./${folder}`).forEach((dir) => {
@@ -20,3 +22,4 @@ module.exports.init = async (folder, client) => {
     console.log(`[HANDLER] Занесение компонентов в коллекцию завершено...`);
     console.log(`[COMPONENTHANDLER.JS] ${(Date.now() - start) / 1000}`);
 };
+exports.componentHandler = componentHandler;

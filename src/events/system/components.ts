@@ -1,6 +1,6 @@
-const { Interaction, Client, Events } = require("discord.js");
+import { Interaction, Client, Events } from 'discord.js'
 
-module.exports = {
+const componentEvent = {
   name: Events.InteractionCreate,
   once: false,
   /**
@@ -8,7 +8,7 @@ module.exports = {
    * @param {Client} client
    */
 
-  async execute(interaction) {
+  async execute(interaction: Interaction) {
     if (interaction.isButton()) {
       const button = interaction.client.buttons.get(interaction.customId)
      
@@ -51,3 +51,5 @@ module.exports = {
     }
   },
 };
+
+export default componentEvent

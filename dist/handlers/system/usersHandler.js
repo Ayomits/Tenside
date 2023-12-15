@@ -1,23 +1,26 @@
 "use strict";
-const { Client } = require("discord.js");
-const { userModel, marryModel } = require("../../models/users");
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.usersHandler = exports.createUser = exports.isUserCreated = void 0;
+const users_1 = require("../../models/users");
 /**
  *
  * @param {String} userId
  * @param {String} guildId
  */
 async function isUserCreated(guildId, userId) {
-    const user = await userModel.findOne({ guild_id: guildId, user_id: userId });
+    const user = await users_1.userModel.findOne({ guild_id: guildId, user_id: userId });
     return !!user;
 }
+exports.isUserCreated = isUserCreated;
 /**
  *
  * @param {String} userId
  * @param {String} guildId
  */
 async function createUser(userId, guildId) {
-    await userModel.create({ user_id: userId, guild_id: guildId });
+    await users_1.userModel.create({ user_id: userId, guild_id: guildId });
 }
+exports.createUser = createUser;
 /**
  *
  * @param {Client} client
@@ -39,4 +42,4 @@ async function usersHandler(client) {
         console.log("[USERSHANDLER.JS] время выполнения " + end);
     }
 }
-module.exports = { usersHandler };
+exports.usersHandler = usersHandler;

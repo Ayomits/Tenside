@@ -1,7 +1,9 @@
 "use strict";
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const ticketSettingsSchema = new Schema({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TicketCategory = exports.TicketSettingsEmbed = exports.CurrentTicket = exports.TicketLogSettings = exports.TicketSettings = exports.TicketSettingsTheme = void 0;
+const mongoose_1 = require("mongoose");
+const mongoose_2 = require("mongoose");
+const ticketSettingsSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         unique: true
@@ -11,7 +13,7 @@ const ticketSettingsSchema = new Schema({
         unique: true
     }
 });
-const ticketLogSettingsSchema = new Schema({
+const ticketLogSettingsSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         unique: true
@@ -21,7 +23,7 @@ const ticketLogSettingsSchema = new Schema({
         unique: true
     }
 });
-const currentTicketSchema = new Schema({
+const currentTicketSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
     },
@@ -33,11 +35,11 @@ const currentTicketSchema = new Schema({
         type: String
     }
 });
-const ticketSettingsEmbedSchema = new Schema({
+const ticketSettingsEmbedSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         unique: true,
-        default: 0
+        default: "0"
     },
     title: {
         type: String
@@ -53,7 +55,7 @@ const ticketSettingsEmbedSchema = new Schema({
         type: String
     }
 });
-const ticketSettingsThemeSchema = new Schema({
+const ticketSettingsThemeSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
     },
@@ -72,7 +74,7 @@ const ticketSettingsThemeSchema = new Schema({
         type: String
     }
 });
-const ticketCategorySchema = new Schema({
+const ticketCategorySchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         unique: true
@@ -82,17 +84,9 @@ const ticketCategorySchema = new Schema({
         unique: true
     }
 });
-const TicketSettingsTheme = mongoose.model("TicketSettingsTheme", ticketSettingsThemeSchema);
-const TicketSettings = mongoose.model('TicketSettings', ticketSettingsSchema);
-const TicketLogSettings = mongoose.model('TicketLogSettings', ticketLogSettingsSchema);
-const CurrentTicket = mongoose.model('CurrentTicket', currentTicketSchema);
-const TicketSettingsEmbed = mongoose.model('TicketSettingsEmbed', ticketSettingsEmbedSchema);
-const TicketCategory = mongoose.model("TicketCategory", ticketCategorySchema);
-module.exports = {
-    TicketSettings,
-    TicketLogSettings,
-    CurrentTicket,
-    TicketSettingsEmbed,
-    TicketSettingsTheme,
-    TicketCategory
-};
+exports.TicketSettingsTheme = mongoose_2.default.model("TicketSettingsTheme", ticketSettingsThemeSchema);
+exports.TicketSettings = mongoose_2.default.model('TicketSettings', ticketSettingsSchema);
+exports.TicketLogSettings = mongoose_2.default.model('TicketLogSettings', ticketLogSettingsSchema);
+exports.CurrentTicket = mongoose_2.default.model('CurrentTicket', currentTicketSchema);
+exports.TicketSettingsEmbed = mongoose_2.default.model('TicketSettingsEmbed', ticketSettingsEmbedSchema);
+exports.TicketCategory = mongoose_2.default.model("TicketCategory", ticketCategorySchema);

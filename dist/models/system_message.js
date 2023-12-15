@@ -1,7 +1,9 @@
 "use strict";
-const { Schema } = require("mongoose"); // класс Схемы (Аналогия с type в typescript или же просто задание типов)
-const mongoose = require("mongoose"); // сам монгус
-const systemMessageModelSchema = new Schema({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.systemAnketaRecrutChannel = exports.systemAnketaEmbed = exports.systemMessageModel = void 0;
+const mongoose_1 = require("mongoose");
+const mongoose_2 = require("mongoose");
+const systemMessageModelSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true
@@ -11,7 +13,7 @@ const systemMessageModelSchema = new Schema({
         required: true
     }
 }); // тут просто схему это определяь
-const systemAnketaEmbedSchema = new Schema({
+const systemAnketaEmbedSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         require: true,
@@ -34,7 +36,7 @@ const systemAnketaEmbedSchema = new Schema({
         require: false
     }
 }); // тут просто схему это определяь
-const systemAnketaRecrutChannelSchema = new Schema({
+const systemAnketaRecrutChannelSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true
@@ -43,12 +45,7 @@ const systemAnketaRecrutChannelSchema = new Schema({
         type: String,
         required: true
     }
-}); // тут просто схему это определяь 
-const systemMessageModel = mongoose.model("SystemMessageModel", systemMessageModelSchema); // создаст коллекцию. Первы аргумент название коллекции, второй схема
-const systemAnketaEmbed = mongoose.model("SystemAnketaEmbed", systemAnketaEmbedSchema); // создаст коллекцию. Первы аргумент название коллекции, второй схема
-const systemAnketaRecrutChannel = mongoose.model("SystemAnketaRecrutChannel", systemAnketaRecrutChannelSchema); // создаст коллекцию. Первы аргумент название коллекции, второй схема
-module.exports = {
-    systemMessageModel,
-    systemAnketaEmbed,
-    systemAnketaRecrutChannel
-}; // эксопртируй для переиспользования
+});
+exports.systemMessageModel = mongoose_2.default.model("SystemMessageModel", systemMessageModelSchema);
+exports.systemAnketaEmbed = mongoose_2.default.model("SystemAnketaEmbed", systemAnketaEmbedSchema);
+exports.systemAnketaRecrutChannel = mongoose_2.default.model("SystemAnketaRecrutChannel", systemAnketaRecrutChannelSchema);

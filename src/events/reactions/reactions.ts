@@ -1,10 +1,10 @@
-const axios = require("axios");
-const { Events, Message } = require("discord.js");
-const react = require('../../handlers/features/reactHandler');
-const fs = require('fs');
-const path = require("path");
+import axios from "axios"
+import { Events, Message } from "discord.js"
+import {react} from '../../handlers/features/reactHandler'
+import * as fs from 'fs'
+import * as path from 'path'
 
-function findReactionKeyByAlias(alias, config) {
+function findReactionKeyByAlias(alias: string, config: any) {
   for (let key in config) {
     const entry = config[key];
     if (entry.aliases && entry.aliases.includes(alias)) {
@@ -14,15 +14,15 @@ function findReactionKeyByAlias(alias, config) {
   return null;
 }
 
-module.exports = {
+export const reactions = {
   name: Events.MessageCreate,
   once: false,
-  async execute(message) {
-    if (message.author.bot || !message.content.toLowerCase().startsWith(process.env.PREFIX)) {
+  async execute(message: Message) {
+    if (message.author.bot || !message.content.toLowerCase().startsWith(process.env.PREFIX || ".")) {
       return;
     }
 
-    const reaction = message.content.toLowerCase().replace(process.env.PREFIX, "").split(" ");
+    const reaction = message.content.toLowerCase().replace(process.env.PREFIX || ".", "").split(" ");
     const reactionsConfig = JSON.parse(await fs.promises.readFile(path.resolve('configs/reactions.json'), "utf-8"));
 
     try {
@@ -48,8 +48,10 @@ module.exports = {
           console.error(`Invalid or empty array for reaction key: ${reactionKeyForLinks}`);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     }
   },
 };
+
+export default reactions

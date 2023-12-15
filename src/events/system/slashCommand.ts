@@ -1,14 +1,15 @@
-const { Interaction, Client, Events } = require('discord.js')
+import { CommandInteraction, Client, Events, ChatInputCommandInteraction } from "discord.js";
+import { BotEvent } from "../../types";
 
-module.exports = {
+
+export const slashCommand: BotEvent = {
   name: Events.InteractionCreate,
   once: false,
    /**
-     * @param {Interaction} interaction
-     * @param {Client} client
+     * @param {Interaction} CommandInteraction
      */
 
-   async execute(interaction) {
+   async execute(interaction: CommandInteraction) {
     const command = interaction.client.commands.get(interaction.commandName)
     if (!command) return;
     try {

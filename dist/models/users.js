@@ -1,6 +1,9 @@
-import { Schema } from "mongoose";
-import mongoose from "mongoose";
-const userSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.workModel = exports.marryModel = exports.userModel = exports.TimelyModel = void 0;
+const mongoose_1 = require("mongoose");
+const mongoose_2 = require("mongoose");
+const userSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true,
@@ -39,7 +42,7 @@ const userSchema = new Schema({
         maxLenght: 40
     }
 });
-const timelySchema = new Schema({
+const timelySchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true,
@@ -49,7 +52,7 @@ const timelySchema = new Schema({
         required: true,
     },
 });
-const marrySchema = new Schema({
+const marrySchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true,
@@ -65,7 +68,7 @@ const marrySchema = new Schema({
     created_at: {
         type: String,
         required: true,
-        default: Date.now(),
+        default: String(Date.now()),
     },
     marry_points: {
         type: Number,
@@ -73,7 +76,7 @@ const marrySchema = new Schema({
         required: true,
     },
 });
-const workSchema = new Schema({
+const workSchema = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true
@@ -84,16 +87,16 @@ const workSchema = new Schema({
     },
     next_work: {
         type: Date,
-        requred: true
+        required: true
     }
 });
-const TimelyModel = mongoose.model("UsersTimely", timelySchema);
-const userModel = mongoose.model("user", userSchema);
-const marryModel = mongoose.model("marrypoints", marrySchema);
-const workModel = mongoose.model('work', workSchema);
-export default {
-    TimelyModel,
-    userModel,
-    marryModel,
-    workModel
+exports.TimelyModel = mongoose_2.default.model("UsersTimely", timelySchema);
+exports.userModel = mongoose_2.default.model("user", userSchema);
+exports.marryModel = mongoose_2.default.model("marrypoints", marrySchema);
+exports.workModel = mongoose_2.default.model('work', workSchema);
+exports.default = {
+    TimelyModel: exports.TimelyModel,
+    userModel: exports.userModel,
+    marryModel: exports.marryModel,
+    workModel: exports.workModel
 };

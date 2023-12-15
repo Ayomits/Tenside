@@ -1,7 +1,9 @@
-const { CommandInteraction, EmbedBuilder } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { userModel } = require("../../models/users");
-const { casinoModel } = require("../../models/casino");
+import { CommandInteraction, EmbedBuilder } from "discord.js";
+
+import { SlashCommandBuilder } from "@discordjs/builders"
+import { userModel } from "../../models/users"
+import { casinoModel } from "../../models/casino"
+
 const waitimg =
   "https://media.discordapp.net/attachments/1173982744053829692/1183445733655990333/941dcf16849f26501923469dd119db15.gif?ex=65885cba&is=6575e7ba&hm=af980cc489071ee8140e5a57accff10c7738abe65ec1f48a6e240b01b42aec31&=";
 const images = [
@@ -9,14 +11,14 @@ const images = [
   `https://media.discordapp.net/attachments/1173982744053829692/1183446178000543844/7a9d12693ca06813df5f922c786b5c54.gif?ex=65885d24&is=6575e824&hm=96c517c9087b7346223e5151ce1ef1d6cd63d3fc29daef7e47858af2a5886f18&=`,
 ];
 
-const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const random = (arr: Array<string>) => arr[Math.floor(Math.random() * arr.length)];
 const loseimg =
   "https://media.discordapp.net/attachments/1173982744053829692/1183448383436894361/0c9499d86e30b5243a612b5d61b0e6a6.gif?ex=65885f32&is=6575ea32&hm=beb39312487578da6adbde7f5091683c6d065480811d5da28194f61d69c8e16c&=";
 /**
  * @param {CommandInteraction} interaction
  */
 
-module.exports = {
+const command: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("casino")
     .setDescription("Игра в казино!")
@@ -35,7 +37,7 @@ module.exports = {
         )
     ),
 
-  async execute(interaction) {
+  async execute(interaction: CommandInteraction) {
     const selectedImage = random(images);
 
     const bid = interaction.options.getInteger("bid");

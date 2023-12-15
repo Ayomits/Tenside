@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits, Collection, Message } from 'discord.js'
 import * as env from 'dotenv'
 import * as mongoose from 'mongoose'
 import {SlashCommand, Button} from './types'
+import { eventHandler } from './handlers/system/eventHandler'
 
 env.config()
 
@@ -22,7 +23,7 @@ client.voiceUsers = new Collection<string, any>()
 
 mongoose.connect(process.env.DB_URI || 'mongodb://127.0.0.1/TensideLocal')
 
-require('./handlers/system/eventHandler.js').init(client)
+eventHandler(client)
 
 client.on('error', (error: Error) => console.log(error));
 client.on('warn', (warn: string) => console.log(warn));

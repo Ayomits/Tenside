@@ -1,43 +1,41 @@
 "use strict";
-const { TextInputBuilder, ModalBuilder, TextInputStyle, ActionRowBuilder, ButtonInteraction } = require("discord.js");
-/**
- *
- * @param {ButtonInteraction} interaction
- * @param {String} customId
- */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.embedBuilderModalCallback = exports.embedBuilderModal = void 0;
+const discord_js_1 = require("discord.js");
 async function embedBuilderModal(interaction, customId) {
-    const modal = new ModalBuilder()
+    const modal = new discord_js_1.ModalBuilder()
         .setTitle("Генератор эмбеда")
         .setCustomId(customId);
-    const title = new ActionRowBuilder().addComponents(new TextInputBuilder()
+    const title = new discord_js_1.ActionRowBuilder().addComponents(new discord_js_1.TextInputBuilder()
         .setCustomId("embedTitle")
         .setLabel("Название эмбеда вакансий")
         .setPlaceholder("Название эмбеда")
         .setRequired(true)
-        .setStyle(TextInputStyle.Short));
-    const desc = new ActionRowBuilder().addComponents(new TextInputBuilder()
+        .setStyle(discord_js_1.TextInputStyle.Short));
+    const desc = new discord_js_1.ActionRowBuilder().addComponents(new discord_js_1.TextInputBuilder()
         .setCustomId("embedDescription")
         .setLabel("Описание эмбеда")
         .setPlaceholder("Бла-бла")
-        .setStyle(TextInputStyle.Paragraph)
+        .setStyle(discord_js_1.TextInputStyle.Paragraph)
         .setRequired(true));
-    const color = new ActionRowBuilder().addComponents(new TextInputBuilder()
+    const color = new discord_js_1.ActionRowBuilder().addComponents(new discord_js_1.TextInputBuilder()
         .setCustomId("embedColor")
         .setLabel("цвет эмбеда")
         .setPlaceholder("#0000000")
-        .setStyle(TextInputStyle.Short)
+        .setStyle(discord_js_1.TextInputStyle.Short)
         .setRequired(true)
         .setMaxLength(7)
         .setMinLength(7));
-    const image = new ActionRowBuilder().addComponents(new TextInputBuilder()
+    const image = new discord_js_1.ActionRowBuilder().addComponents(new discord_js_1.TextInputBuilder()
         .setCustomId("embedImage")
         .setLabel("Ссылка на изображение")
         .setPlaceholder("https://example.com")
-        .setStyle(TextInputStyle.Short)
+        .setStyle(discord_js_1.TextInputStyle.Short)
         .setRequired(false));
     modal.setComponents(title, desc, color, image);
     await interaction.showModal(modal);
 }
+exports.embedBuilderModal = embedBuilderModal;
 async function embedBuilderModalCallback(interaction, model) {
     const embedTitle = interaction.fields.getTextInputValue("embedTitle");
     const embedDescription = interaction.fields.getTextInputValue('embedDescription');
@@ -66,7 +64,4 @@ async function embedBuilderModalCallback(interaction, model) {
         await interaction.reply({ content: "успешно обновлён эмбед", ephemeral: true });
     }
 }
-module.exports = {
-    embedBuilderModal,
-    embedBuilderModalCallback,
-};
+exports.embedBuilderModalCallback = embedBuilderModalCallback;

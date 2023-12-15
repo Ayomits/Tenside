@@ -1,29 +1,33 @@
-const { Events, Client, Activity, ActivityType } = require("discord.js");
-const TimelyModel = require(`../../models/users`);
-const cron = require(`node-cron`);
-module.exports = {
+import { Events, Client, Activity, ActivityType } from "discord.js"
+import * as TimelyModel from '../../models/users'
+import * as cron from 'node-cron'
+import { BotEvent } from "../../types";
+import { commandHandler } from "../../handlers/system/commandHandler";
+import { componentHandler } from "../../handlers/system/componentsHandler";
+import { commandRegister } from "../../handlers/system/commandRegister";
+import { usersHandler } from "../../handlers/system/usersHandler";
+import { checkUsersInVoice } from "../../handlers/system/checkUsersInVoice";
+
+const ready: BotEvent = {
   name: Events.ClientReady,
   once: true,
   /**
    *
    * @param {Client} client
    */
-  async execute(client) {
+  async execute(client: Client) {
     // подгрузка команд, компонентов, создание таблиц в СУБД
     let start = Date.now()
-    require("../../handlers/system/commandHandler").init(client);
-    require("../../handlers/system/componentsHandler").init(
-      "components",
-      client
-    );
-    require("../../handlers/system/commandRegister").init(client);
-    require("../../handlers/system/usersHandler").usersHandler(client);
-    require('../../handlers/system/checkUsersInVoice').checkUsersInVoice(client)
+    commandHandler(client)
+    componentHandler("components", client)
+    commandRegister(client)
+    usersHandler(client)
+    checkUsersInVoice(client)
 
     console.log(client.voiceUsers);
     
-    client.user.setStatus("dnd");
-    client.user.setActivity({
+    client.user?.setStatus("dnd");
+    client.user?.setActivity({
       name: `Приглядываю за вами :3`,
       type: ActivityType.Custom,
     });
@@ -46,3 +50,5 @@ module.exports = {
     console.log(`[READY.JS] Время запуска ${end}`);
   },
 };
+
+export default ready

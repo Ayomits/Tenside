@@ -1,6 +1,7 @@
 "use strict";
-const { TextChannel, GuildMember } = require("discord.js");
-const fs = require('fs');
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.toHtml = void 0;
+const fs = require("fs");
 const path = require("path");
 /**
  *
@@ -11,7 +12,7 @@ async function toHtml(channel, ticketUser) {
     let start = Date.now();
     const messages = await channel.messages.fetch();
     let htmlString = await fs.promises.readFile(path.resolve("baseTicketLogTemplate.html"), "utf-8");
-    htmlString += `<p class="title">Тикет пользователя ${ticketUser.username}</p>\n <div class="chat">`;
+    htmlString += `<p class="title">Тикет пользователя ${ticketUser.user.username}</p>\n <div class="chat">`;
     messages.reverse().forEach(async (message) => {
         if (message.author.id === ticketUser.id) { // написавший в тикет
             htmlString += `<div class="message"> 
@@ -21,7 +22,7 @@ async function toHtml(channel, ticketUser) {
             htmlString += `
             <div class="user_agent">
             <div class="user_data">
-                <span class="user_name">${ticketUser.username}</span>
+                <span class="user_name">${ticketUser.user.username}</span>
                 <span class="time">${message.createdAt}</span>
             </div>
             <div class="msg">
@@ -73,4 +74,4 @@ async function toHtml(channel, ticketUser) {
     console.log((Date.now() - start) / 1000);
     return htmlString;
 }
-module.exports = { toHtml };
+exports.toHtml = toHtml;

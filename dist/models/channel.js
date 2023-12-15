@@ -1,7 +1,9 @@
 "use strict";
-const { Schema } = require("mongoose");
-const mongoose = require("mongoose");
-const channel = new Schema({
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.channelModel = void 0;
+const mongoose_1 = require("mongoose");
+const mongoose_2 = require("mongoose");
+const channel = new mongoose_1.Schema({
     guild_id: {
         type: String,
         required: true
@@ -11,7 +13,4 @@ const channel = new Schema({
         required: true,
     },
 });
-const channelModel = mongoose.model("channels", channel);
-module.exports = {
-    channelModel
-};
+exports.channelModel = mongoose_2.default.model("channels", channel);

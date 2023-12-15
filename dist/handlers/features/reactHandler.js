@@ -1,35 +1,37 @@
 "use strict";
-const { MessageActionRow, ButtonStyle, ComponentType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, } = require("discord.js");
-const path = require("path");
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.react = exports.acceptable = void 0;
+const discord_js_1 = require("discord.js");
 const fs = require("fs");
+const path = require("path");
 async function acceptable(message, embed, targetUser, authorId, reactionData, timeoutEmbed) {
     const targetUserId = targetUser.id;
-    const acceptableEmbed = new EmbedBuilder()
+    const acceptableEmbed = new discord_js_1.EmbedBuilder()
         .setTitle(`Реакция: ${reactionData.action.toLowerCase()}`)
         .setDescription(`Эй, ${targetUser}, тебя тут <@${authorId}> хочет ${reactionData.action.toLowerCase()}, что скажешь?`)
         .setFooter({
         iconURL: message.author.displayAvatarURL(),
         text: message.author.username
     });
-    const noEmbed = new EmbedBuilder()
+    const noEmbed = new discord_js_1.EmbedBuilder()
         .setTitle(`Реакция: ${reactionData.action.toLowerCase()}`)
         .setDescription(`${targetUser}, решил(а) отказаться от предложения <@${authorId}>`);
-    const button = new ButtonBuilder()
+    const button = new discord_js_1.ButtonBuilder()
         .setCustomId(`${targetUserId}_yes`)
         .setEmoji("✅")
-        .setStyle(ButtonStyle.Secondary);
-    const button2 = new ButtonBuilder()
+        .setStyle(discord_js_1.ButtonStyle.Secondary);
+    const button2 = new discord_js_1.ButtonBuilder()
         .setCustomId(`${targetUserId}_no`)
         .setEmoji("❌")
-        .setStyle(ButtonStyle.Secondary);
-    const arrow = new ActionRowBuilder().setComponents(button, button2);
+        .setStyle(discord_js_1.ButtonStyle.Secondary);
+    const arrow = new discord_js_1.ActionRowBuilder().setComponents(button, button2);
     const replyMessage = await message.reply({
         embeds: [acceptableEmbed],
         components: [arrow],
     });
     // Создаем коллектор для кнопок
     const collector = replyMessage.createMessageComponentCollector({
-        componentType: ComponentType.Button,
+        componentType: discord_js_1.ComponentType.Button,
         time: 15000,
     });
     let isClicked = false;
@@ -63,6 +65,7 @@ async function acceptable(message, embed, targetUser, authorId, reactionData, ti
         }
     });
 }
+exports.acceptable = acceptable;
 async function react(message, reaction, url) {
     const baseDir = path.resolve("configs");
     const reactionsData = JSON.parse(await fs.promises.readFile(path.join(baseDir, "reactions.json"), "utf-8"));
@@ -74,7 +77,7 @@ async function react(message, reaction, url) {
     const mentions = message.mentions;
     const targetUser = mentions?.users.first();
     const action = reactionData.action;
-    const embed = new EmbedBuilder()
+    const embed = new discord_js_1.EmbedBuilder()
         .setTitle(`Реакция: ${action.toLowerCase()}`)
         .setImage(url)
         .setFooter({
@@ -83,15 +86,15 @@ async function react(message, reaction, url) {
     })
         .setTimestamp(Date.now())
         .setColor("#2F3136");
-    const botErrorEmbed = new EmbedBuilder()
+    const botErrorEmbed = new discord_js_1.EmbedBuilder()
         .setTitle("Ошибка")
         .setDescription("Я тоже считаю, что боты живые, но может быть ты выберешь пользователя?")
         .setColor("#2F3136");
-    const authorErrorEmbed = new EmbedBuilder()
+    const authorErrorEmbed = new discord_js_1.EmbedBuilder()
         .setTitle("Ошибка")
         .setDescription("Тебе так одиноко? Понимаю, но всё же, выбери другого пользователя, а не себя!")
         .setColor("#2F3136");
-    const timeoutEmbed = new EmbedBuilder()
+    const timeoutEmbed = new discord_js_1.EmbedBuilder()
         .setTitle("Время вышло")
         .setDescription(`Время для реакции истекло.`)
         .setColor("#2F3136");
@@ -121,4 +124,5 @@ async function react(message, reaction, url) {
         }
     }
 }
-module.exports = react;
+exports.react = react;
+exports.default = { react };

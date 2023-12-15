@@ -1,13 +1,14 @@
 "use strict";
-const { ButtonInteraction, } = require("discord.js");
-const { systemAnketaRecrutChannel } = require("../../../models/system_message");
-const { setChannel } = require("../../../functions/setChannel");
-module.exports = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const system_message_1 = require("../../../models/system_message");
+const setChannel_1 = require("../../../functions/setChannel");
+const button = {
     customId: "setRecrutChannel",
     /**
-     * @param {ButtonInteraction} interaction
+     * @param {ChannelSelectMenuInteraction} interaction
      */
     async execute(interaction) {
-        await setChannel(interaction, systemAnketaRecrutChannel, "вакансий");
+        await (0, setChannel_1.setChannel)(interaction, system_message_1.systemAnketaRecrutChannel, "вакансий");
     }
 };
+exports.default = button;
