@@ -1,4 +1,4 @@
-const { CommandInteraction } = require("discord.js");
+const { CommandInteraction, PermissionFlagsBits, PermissionsBitField } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel } = require("../../models/users");
 
@@ -14,20 +14,21 @@ module.exports = {
    */
 
   async execute(interaction) {
-    let user = interaction.options.getUser('targetuser') || interaction.user
+    let user = interaction.options.getUser('target') || interaction.user
     let response = ''
     const status = interaction.options.get('status').value
 
-    if ((await interaction.guild.members.fetch({force: true})) && user != interaction.user){
+    if (interaction.member.permissions.has(8n)){
       response += `Статуса пользователя <@${user.id}> успешно обновлён`
-      await updateUser(interaction.guildId, user.id, status)
+      await this.updateUser(interaction.guildId, user.id, status)
+      await interaction.reply({content: response, ephemeral: true})
     } else {
       user = interaction.user
       response += `Ваш статус успешно обновлён`
       await this.updateUser(interaction.guildId, user.id, status)
     }
 
-    await interaction.reply({content: response})
+    await interaction.reply({content: response, ephemeral: true})
   },
 
   /**
