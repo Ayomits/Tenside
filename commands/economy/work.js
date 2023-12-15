@@ -85,7 +85,7 @@ module.exports = {
             embed.setTitle("Ошибка!")
             embed.setDescription(`**❌ Вы уже работали менее, чем 2 часа назад! Отдохните. Трудоголизм - это так себе...**`)
             embed.setColor('#ad1f22')
-            // await interaction.reply({ embeds: [embed], ephemeral: true });
+            await interaction.reply({ embeds: [embed], ephemeral: true });
         } else {
             await workModel.updateOne(
                 { guild_id: interaction.guildId, 
@@ -93,8 +93,8 @@ module.exports = {
                 { $set: {next_work: now.getTime() + (2 * 60 * 60 * 1000)}}
             );
 
-            // await interaction.reply({ embeds: [embed.setDescription(`**<@${interaction.user.id}>, вы начали работать. Подождите немного!**`)] });
-            // setTimeout(sendWorkData, 15000, interaction, worktime)
+            await interaction.reply({ embeds: [embed.setDescription(`**<@${interaction.user.id}>, вы начали работать. Подождите немного!**`)] });
+            setTimeout(sendWorkData, 15000, interaction, worktime)
         }
     } else {
         await workModel.create({
