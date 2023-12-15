@@ -76,10 +76,10 @@ module.exports = {
     });
 
     const now = new Date()
-    now.setHours(now.getHours() - 3)
     
     if (worktime) {
         const workTime = worktime.next_work
+
         if (workTime.getTime() > now.getTime()) {
             embed.setTitle("Ошибка!")
             embed.setDescription(`**❌ Вы уже работали менее, чем 2 часа назад! Отдохните. Трудоголизм - это так себе...**`)
@@ -101,6 +101,8 @@ module.exports = {
             user_id: interaction.user.id,
             next_work: new Date().getTime() + (2 * 60 * 60 * 1000)
         });
+        await interaction.reply({ embeds: [embed.setDescription(`**<@${interaction.user.id}>, вы начали работать. Подождите немного!**`)] });
+        setTimeout(sendWorkData, 15000, interaction, worktime)
     }
   }
 }
