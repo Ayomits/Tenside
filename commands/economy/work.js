@@ -81,7 +81,6 @@ module.exports = {
     if (worktime) {
         const workTime = worktime.next_work
         if (workTime.getTime() > now.getTime()) {
-            console.log('это условие');
             embed.setTitle("Ошибка!")
             embed.setDescription(`**❌ Вы уже работали менее, чем 2 часа назад! Отдохните. Трудоголизм - это так себе...**`)
             embed.setColor('#ad1f22')
@@ -90,7 +89,7 @@ module.exports = {
             await workModel.updateOne(
                 { guild_id: interaction.guildId, 
                   user_id: interaction.user.id },
-                { $set: {next_work: now.getTime() + (2 * 60 * 60 * 1000)}}
+                { $set: {next_work: new Date().getTime() + (2 * 60 * 60 * 1000)}}
             );
 
             await interaction.reply({ embeds: [embed.setDescription(`**<@${interaction.user.id}>, вы начали работать. Подождите немного!**`)] });
@@ -100,7 +99,7 @@ module.exports = {
         await workModel.create({
             guild_id: interaction.guildId,
             user_id: interaction.user.id,
-            next_work: now.getTime() + (2 * 60 * 60 * 1000)
+            next_work: new Date().getTime() + (2 * 60 * 60 * 1000)
         });
     }
   }
