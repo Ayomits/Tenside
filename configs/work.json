@@ -54,7 +54,62 @@
         "prestige_chance": 25,
         "gif": "https://i.pinimg.com/originals/5c/b7/6e/5cb76ee85ba6c0a9eea5513dbb8df254.gif",
         "color": "#964b00",
-        "emoji": "🏫"
+        "emoji": "📚"
+      },
+      "builder": {
+        "user_name": "строителем",
+        "default_description": "Вы строили обычный многоквартирный дом.",
+        "prestige_description": "Вы строили виллу для очень богатого человека. Он оставил вам чаевые.",
+        "default_pay": 200,
+        "prestige_pay": 500,
+        "prestige_chance": 20,
+        "gif": "https://64.media.tumblr.com/56773e4c633fe224d045bfda9114ed07/e86039d2a18fc6f9-f5/s540x810/8d8605fe62669363d50a606c57233f9338f8770a.gif",
+        "color": "#75726f",
+        "emoji": "🔨"
+      },
+      "architect": {
+        "user_name": "архитектором",
+        "default_description": "Вы проектировали пятиэтажный дом.",
+        "prestige_description": "Вы проектировали красивый многоэтажный дом для частного жилого квартала. Вам хорошо заплатили.",
+        "default_pay": 500,
+        "prestige_pay": 700,
+        "prestige_chance": 30,
+        "gif": "https://i.pinimg.com/originals/60/4b/e8/604be84f214cd4f9e6194fd04a0451ac.gif",
+        "color": "#8a96db",
+        "emoji": "🏢"
+      },
+      "chauffeur": {
+        "user_name": "водителем",
+        "default_description": "Вы работали в эконом классе Ten Taxi.",
+        "prestige_description": "Вы работали в бизнес-классе Ten Taxi.",
+        "default_pay": 300,
+        "prestige_pay": 600,
+        "prestige_chance": 30,
+        "gif": "https://i.pinimg.com/originals/60/ab/41/60ab414bd4d2769a1e1dd47b3f7b3ad3.gif",
+        "color": "#c4a123",
+        "emoji": "🚕"
+      },
+      "programmist": {
+        "user_name": "программистом",
+        "default_description": "Вы работали на фрилансе. Ваш заработок сильно колебался.",
+        "prestige_description": "Вы работали в команде разработчиков ООО \"Апёздалы\". Вам прилично заплатили.",
+        "default_pay": 500,
+        "prestige_pay": 800,
+        "prestige_chance": 20,
+        "gif": "https://user-images.githubusercontent.com/57133330/188281408-c67df9ee-fd1f-4b37-833b-f02848f1ce02.gif",
+        "color": "#121211",
+        "emoji": "💻"
+      },
+      "designer": {
+        "user_name": "дизайнером",
+        "default_description": "Вы делали дизайн для разных компаний.",
+        "prestige_description": "Вы делали дизайн для крупных компаний.",
+        "default_pay": 500,
+        "prestige_pay": 800,
+        "prestige_chance": 20,
+        "gif": "https://i.pinimg.com/originals/bb/e2/47/bbe2470d1ef6a44772f2015202fbb0ef.gif",
+        "color": "#87867f",
+        "emoji": "🖼️"
       }
     }
     ]
