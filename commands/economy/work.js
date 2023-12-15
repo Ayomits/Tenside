@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { userModel } = require("../../models/users");
 const { workModel } = require("../../models/users");
+const { now } = require("mongoose");
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -74,23 +75,20 @@ module.exports = {
       user_id: interaction.user.id,
     });
 
-    let now = Date.now()
-
+    let now = new Date()
+    now.setHours(now.getHours() - 3)
+    
     if (worktime) {
-        let nextWorkTimestamp = new Date(worktime.next_work).getTime()
-        console.log(nextWorkTimestamp)
-
-        if (nextWorkTimestamp > now) {
+        if (now.getTime() < worktime.next_work.getTime()) {
             embed.setTitle("Ошибка!")
             embed.setDescription(`**❌ Вы уже работали менее, чем 2 часа назад! Отдохните. Трудоголизм - это так себе...**`)
             embed.setColor('#ad1f22')
             await interaction.reply({ embeds: [embed], ephemeral: true });
-            return 0
         } else {
             await workModel.updateOne(
                 { guild_id: interaction.guildId, 
                   user_id: interaction.user.id },
-                { $set: {next_work: String(Number(Date.now()) + 7200)} }
+                { $set: {next_work: now.getTime() + (2 * 60 * 60 * 1000)}}
             );
 
             await interaction.reply({ embeds: [embed.setDescription(`**<@${interaction.user.id}>, вы начали работать. Подождите немного!**`)] });
@@ -100,8 +98,7 @@ module.exports = {
         await workModel.create({
             guild_id: interaction.guildId,
             user_id: interaction.user.id,
-
-            next_work: String(Number(Date.now()) + 7200)
+            next_work: now.getTime() + (2 * 60 * 60 * 1000)
         });
     }
   }
