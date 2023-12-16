@@ -2,6 +2,7 @@ const { CommandInteraction, EmbedBuilder, PermissionFlagsBits, Embed, ChannelTyp
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const fs = require("fs");
 const path = require("path");
+const { channel } = require("diagnostics_channel");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,27 +17,32 @@ module.exports = {
    */
 
     async execute(interaction) {
-        let description = undefined
+        let description = ""
         let users = []
+        let members = 0
+        
 
         const embed = new EmbedBuilder()
             .setTitle(`Онлайн в войсе`)
 
         interaction.guild.channels.cache.filter(channel => channel.type === ChannelType.GuildVoice).forEach(channel => {
-            channel.members.forEach(async member => {
-                users.push(member.user.id)
-            })
+            if (channel.members.size !== 0) {
+                description += `> - <#${channel.id}> - `
+                channel.members.forEach(async member => {
+                    description += `<@${member.user.id}> `
+                    members += 1
+                    console.log(description)
+                })
+                description += `\n`
+            }
         })
 
-        description = `### **Всего людей в голосовых каналах:** \`${users.length}\` \n`
+        description += `### **Всего людей в голосовых каналах:** \`${members}\` \n`
 
-        if (users.length > 20) {
+        if (members > 20) {
             description += `> \`\`\`Так как в голосовых каналах больше 20 людей, пользователи недоступны.\`\`\``
-        } else if (users.length == 0) {
+        } else if (members == 0) {
             description += `> \`\`\`В войсах нет ни единой души. Может, тебе стоит зайти и поболтать с кем то?\`\`\``
-        } else {
-            const reformat = users.map(Number => `<@${Number}>`).join('**,** ');
-            description += `> **Участники:** ${reformat}`
         }
         embed.setDescription(description)
         interaction.reply({embeds: [embed], ephemeral: true});
