@@ -61,7 +61,7 @@ module.exports = {
     const member = this.getMember(marryData, interaction, user)
     GlobalFonts.registerFromPath(path.resolve(__dirname, 'fonts', 'montserat.ttf'), "montserat")
 
-    const canvas = createCanvas(1440, 720)
+    const canvas = createCanvas(1176, 664)
     const ctx = canvas.getContext("2d")
 
     ctx.font = '40px montserat'
