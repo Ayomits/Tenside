@@ -192,14 +192,19 @@ async function acceptable(
   // Обрабатываем нажатия на кнопки
   collector.once("collect", async (inter) => {
     if (inter.customId === `${inter.user.id}_no`) {
-      await inter.message.edit({ components: [], embeds: [noEmbed] });
-      isClicked = true;
+      if (inter.user.id === targetUser.id) {
+        await inter.message.edit({ components: [], embeds: [noEmbed] });
+        isClicked = true;
+      }
+      
     } else if (inter.customId === `${inter.user.id}_yes`) {
-      embed.setDescription(
-        `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.memberVerb} ${targetUser}`
-      );
-      await inter.message.edit({ components: [], embeds: [embed] });
-      isClicked = true;
+      if (inter.user.id === targetUser.id) {
+        embed.setDescription(
+          `Пользователь <@${authorId}> ${reactionData.verbal} ${reactionData.memberVerb} ${targetUser}`
+        );
+        await inter.message.edit({ components: [], embeds: [embed] });
+        isClicked = true;
+      }
     }
   });
 
