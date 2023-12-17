@@ -18,8 +18,8 @@ module.exports = {
         try {
         await button.execute(interaction)
         }
-        catch {
-          console.error("ошибка кнопки");
+        catch (err) {
+          console.error(err);
         }
       }
       } 
@@ -31,8 +31,8 @@ module.exports = {
         try {
           await modal.execute(interaction)
           }
-          catch {
-            console.error("ошибка кнопки");
+          catch (err) {
+            console.error(err);
           }
       }
     }
@@ -44,8 +44,8 @@ module.exports = {
         try {
           await select.execute(interaction)
           }
-          catch {
-            console.error("ошибка кнопки");
+          catch (err) {
+            console.error(err);
           }
       }
     }

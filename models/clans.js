@@ -38,7 +38,7 @@ const clanSchema = new Schema({
   },
   clanAvatar: {
     type: String,
-    default: "https://i.pinimg.com/originals/be/d4/66/bed4660e8bdc8f39119fbe6587153059.gif"
+    default: null
   },
   clanOwner: {
     type: String,
@@ -64,20 +64,13 @@ const clanSchema = new Schema({
     type: String,
     default: null
   },
-  clanRoleHex: {
-    type: String, 
-    default: null
-  },
   clanLevel: {
     type: Number,
     default: 0
   },
-  clanExp: {
-    type: Number,
-    default: 0
-  },
   clanMaxSlots: {
-    type: Number
+    type: Number,
+    default: 10
   },
 })
 
