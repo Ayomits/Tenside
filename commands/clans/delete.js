@@ -2,8 +2,7 @@ const {
   CommandInteraction, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder, ButtonBuilder, ButtonStyle, ComponentType
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const {clanSetupModel, clanModel} = require('../../models/clans')
-const {userModel} = require('../../models/users')
+const {clanModel} = require('../../models/clans')
 const fs = require('fs')
 const path = require('path')
 
@@ -18,7 +17,7 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const userOwner = await clanModel.findOne({clanOwner: interaction.user.id})
+    const userOwner = await clanModel.findOne({guild_id: interaction.guildId, clanOwner: interaction.user.id})
     
     
     if (userOwner) {
@@ -54,15 +53,17 @@ module.exports = {
             const clanName = userOwner.clanName
             await clanModel.deleteOne({clanOwner: inter.user.id})
             await inter.message.delete()
-            await inter.editReply({components: [], embeds: [], content: `Клан ${clanName} успешно удалён...`})
+            return await inter.editReply({components: [], embeds: [], content: `Клан ${clanName} успешно удалён...`})
           }
         } else if (inter.customId === 'cancel') {
-          await inter.message.delete()
+          return await inter.message.delete()
         }
       })
+    } else {
+      return await interaction.channel.send({content: 'У вас нет клана', ephemeral: true})
     }
 
-    return await interaction.reply({content: 'У вас нет клана', ephemeral: true})
+    
     
     
   },
