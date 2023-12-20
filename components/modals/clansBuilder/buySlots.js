@@ -21,6 +21,10 @@ module.exports = {
 
     const amount = interaction.fields.getField("amount").value;
 
+    if (amount < 0) {
+      return await interaction.reply({content: "Вы не можете купить отрицательное кол-во слотов", ephemeral: true})
+    }
+
     if (result.clanLevel < 5) {
       return await interaction.reply({content: "У клана низкий лвл. Требуется 5й", ephemeral: true})
     }
@@ -44,8 +48,8 @@ module.exports = {
         { guild_id: interaction.guildId, clanName: result.clanName },
         {
           $inc: {
-            clanBalance: -(amount * config.slot),
-            clanMaxSlots: amount,
+            clanBalance: -(Math.floor(amount) * config.slot),
+            clanMaxSlots: Math.floor(amount),
           },
         }
       );

@@ -24,15 +24,40 @@ module.exports = {
    */
 
   async execute(interaction) {
+
     const result = await clanModel.findOne({
       guild_id: interaction.guildId,
       clanMembers: { $elemMatch: { $in: [interaction.user.id] } },
     });
 
+    const config = JSON.parse(
+      await fs.promises.readFile(path.resolve("configs", "store.json"))
+    );
+
+    const options = [
+      {
+        label: "Повысить уровень",
+        value: "lvlUp",
+        description: `${
+          result.clanLevel + 1 > 10
+            ? "Максимальный уровень"
+            : config.lvls[result.clanLevel + 1]
+        }`,
+      },
+      {
+        label: "Купить слоты",
+        value: "slots",
+        description: `${config.slot}`,
+      },
+      {
+        label: "Кастомизация клана",
+        value: "customize",
+        description: `${config.customize}`,
+      }
+    ]
+    console.log(result.clanLevel);
     if (result !== null) {
-      const config = JSON.parse(
-        await fs.promises.readFile(path.resolve("configs", "store.json"))
-      );
+      
       const embed = new EmbedBuilder().setTitle(
         `Магазин клана ${result.clanName}`
       )
@@ -44,27 +69,7 @@ module.exports = {
         new StringSelectMenuBuilder()
           .setCustomId(interaction.user.id)
           .setPlaceholder("Выберите товар")
-          .setOptions(
-            {
-              label: "Повысить уровень",
-              value: "lvlUp",
-              description: `${
-                result.clanLevel + 1 > 10
-                  ? "Максимальный уровень"
-                  : config.lvls[result.clanLevel + 1]
-              }`,
-            },
-            {
-              label: "Купить слоты",
-              value: "slots",
-              description: `${config.slot}`,
-            },
-            {
-              label: "Кастомизация клана",
-              value: "customize",
-              description: `${config.customize}`,
-            }
-          )
+          .setOptions(options)
       );
 
       const msg = await interaction.reply({ embeds: [embed], components: [selectMenu] });
@@ -78,8 +83,9 @@ module.exports = {
             const values = inter.values[0];
             switch (values) {
               case "lvlUp":
-                await lvlUp(inter, result, config);
-                break;
+                await inter.message.edit({ components: [] });
+                return await lvlUp(inter, result, config);
+
 
               case "slots":
                 const modal = new ModalBuilder()
@@ -93,8 +99,8 @@ module.exports = {
                     .setStyle(TextInputStyle.Short)
                 );
                 modal.addComponents(componentAmount);
-                await inter.showModal(modal)
-                break
+                await inter.message.edit({ components: [] });
+                return await inter.showModal(modal)
 
               case "customize":
                 const modalCustomize = new ModalBuilder().setTitle('Кастомизация клана').setCustomId('clanCustomize')
@@ -129,8 +135,8 @@ module.exports = {
                 );
 
                 modalCustomize.addComponents(componentName, componentDesc, componentHex, componentAvatar)
-                await inter.showModal(modalCustomize)
-                break
+                await inter.message.edit({components: []})
+                return await inter.showModal(modalCustomize)
             }
           }
         });
@@ -141,13 +147,13 @@ module.exports = {
 };
 
 async function lvlUp(inter, result, config) {
-  if (result.clanLevel + 1 > 10) {
+  if (Number(result.clanLevel + 1) > 10) {
     return await inter.reply({
       content: "Вам нельзя повысить уровень клана, т.к. у вас уже максимальный",
       ephemeral: true,
     });
   }
-  if (result.clanBalance < config.lvls[result.clanLevel + 1]) {
+  if (result.clanBalance < config.lvls[String(result.clanLevel + 1)]) {
     return await inter.reply({
       content:
         "У вашего клана недостаточно средств для совершения этой покупки",
@@ -156,9 +162,9 @@ async function lvlUp(inter, result, config) {
   } else {
     await clanModel.updateOne(
       { guild_id: inter.guildId, clanName: result.clanName },
-      { $inc: { clanLevel: 1, clanBalance: config.lvls[result.clanLevel + 1] } }
+      { $inc: { clanLevel: 1, clanBalance: -config.lvls[String(result.clanLevel + 1)] } }
     );
-    await inter.reply({
+    return await inter.reply({
       content: "Вы повысили уровень своего клана",
       ephemeral: true,
     });

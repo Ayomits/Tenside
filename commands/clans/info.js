@@ -1,5 +1,5 @@
 const {
-  CommandInteraction, EmbedBuilder
+  CommandInteraction, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ComponentType
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {clanModel} = require('../../models/clans')
@@ -62,7 +62,53 @@ module.exports = {
         catch {}
         
       }
-      return await interaction.reply({embeds: [embed]})
+
+      const selectMenu = new ActionRowBuilder().addComponents(
+        new StringSelectMenuBuilder().setCustomId(interaction.user.id).setPlaceholder('Выберите опцию').setOptions(
+          {
+            label: "Участники",
+            value: "members"
+          }
+        )
+      )
+
+      const msg = await interaction.reply({embeds: [embed], components: [selectMenu]})
+      msg.createMessageComponentCollector({
+        componentType: ComponentType.StringSelect, 
+        time: 60_000
+      }).on('collect', async (inter) => {
+        let desc = `**Глава клана:** <@${clanMember.clanOwner}>`
+
+        let count = 1
+
+        desc += "\n\n**Заместители клана:**\n\n"
+        if (clanMember.clanDeputy.length > 0) {
+          clanMember.clanDeputy.forEach(member => {
+            desc += `**${count}.** <@${member}>\n`
+            count += 1
+          })
+          count = 1
+        } else {
+          desc += "Отсутствуют"
+        }
+        
+        desc += "\n\n**Участники клана:**\n\n"
+        if (clanMember.clanMembers.length > 0) {
+          clanMember.clanMembers.forEach(member => {
+            if (clanMember.clanDeputy.includes(member) || clanMember.clanOwner === member) {
+              return
+            }
+            desc += `**${count}.** <@${member}>\n`
+            count += 1
+          })
+        }
+
+        const embedMember = new EmbedBuilder()
+                            .setTitle(`Участники клана ${clanMember.clanName}`)
+                            .setDescription(desc)
+        await inter.reply({embeds: [embedMember], ephemeral: true})
+
+      })
     }
     return await interaction.reply({content: "Вы не состоите ни в одном клане", ephemeral: true})
   }
