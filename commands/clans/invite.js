@@ -55,7 +55,9 @@ module.exports = {
         .setStyle(ButtonStyle.Danger)
     )
 
-    await interaction.reply({content: `<@${targetUser.user.id}>`, embeds: [embed], components: [clanRequest]})
+   const replyMessage =  await interaction.reply({content: `<@${targetUser.user.id}>`, embeds: [embed], components: [clanRequest]})
+
+    let isClicked = false
 
     interaction.channel.createMessageComponentCollector({
       componentType: ComponentType.Button,
@@ -65,13 +67,20 @@ module.exports = {
           try{
             await clanModel.updateOne({clanName: canInvite.clanName, guild_id: inter.guildId}, {$push: {clanMembers: targetUser.user.id}})
             await targetUser.roles.add(canInvite.clanRole)
-            await inter.message.edit({components: [], embeds: [embed.setDescription(`Пользователь <@${targetUser.user.id}> принял ваше приглашение`)]})
+            await replyMessage.edit({components: [], embeds: [embed.setDescription(`Пользователь <@${targetUser.user.id}> принял ваше приглашение`)]})
+            isClicked = true
           }catch(err) {
+            isClicked = true
             await inter.reply({content: "Что-то пошло не так .. \n" +  err, ephemeral: true})
           }
         }else if (inter.user.id === targetUser.user.id && inter.customId === "cancelInvite") {
-          await inter.message.edit({components: [], embeds: [embed.setDescription(`Пользователь <@${targetUser.user.id}> отказался от вашего приглашения`)]})
+          isClicked = true
+          await replyMessage.edit({components: [], embeds: [embed.setDescription(`Пользователь <@${targetUser.user.id}> отказался от вашего приглашения`)]})
         }
+    }).on('end', async (inter) => {
+      if (!isClicked) {
+        await replyMessage.edit({components: [], embeds: [embed.setDescription(`Время истекло`)]})
+      }
     })
   }               
 }
