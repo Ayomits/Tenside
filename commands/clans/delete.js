@@ -45,11 +45,11 @@ module.exports = {
         if (inter.customId === 'accept') {
           if (inter.user.id === interaction.user.id) {
             await inter.deferReply()
-            await Promise.all([
-              inter.guild.roles.cache.get(userOwner.clanRole).delete(),
-              inter.guild.channels.cache.get(userOwner.clanChat).delete(),
-              inter.guild.channels.cache.get(userOwner.clanVoice).delete(),
-            ])
+            try {
+              inter.guild.roles.cache.get(userOwner.clanRole).delete()
+              inter.guild.channels.cache.get(userOwner.clanChat).delete()
+              inter.guild.channels.cache.get(userOwner.clanVoice).delete()
+            } catch (err) {}
             const clanName = userOwner.clanName
             await clanModel.deleteOne({clanOwner: inter.user.id})
             await inter.message.delete()

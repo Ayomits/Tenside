@@ -1,5 +1,5 @@
 const {
-  CommandInteraction
+  CommandInteraction, PermissionFlagsBits
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { clanSetupModel } = require('../../models/clans')
@@ -14,7 +14,8 @@ module.exports = {
               .setRequired(true))
         .addStringOption(option => 
           option.setName('category').setDescription('choose category').setRequired(true)
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   /**
   * @param {CommandInteraction} interaction 

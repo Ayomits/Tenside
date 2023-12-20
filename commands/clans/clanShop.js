@@ -9,7 +9,7 @@ const {
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
-  StringSelectMenuInteraction,
+
 } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
@@ -67,11 +67,9 @@ module.exports = {
           )
       );
 
-      await interaction.reply({ embeds: [embed], components: [selectMenu] });
+      const msg = await interaction.reply({ embeds: [embed], components: [selectMenu] });
       
-      
-
-      interaction.channel
+      msg
         .createMessageComponentCollector({
           componentType: ComponentType.StringSelect,
         })
@@ -84,92 +82,73 @@ module.exports = {
                 break;
 
               case "slots":
-                await slots(result, config, inter);
+                const modal = new ModalBuilder()
+                  .setTitle("Слоты в клан")
+                  .setCustomId("buySlots");
+
+                const componentAmount = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Кол-во слотов")
+                    .setCustomId("amount")
+                    .setStyle(TextInputStyle.Short)
+                );
+                modal.addComponents(componentAmount);
+                await inter.showModal(modal)
+                break
 
               case "customize":
-                await customize();
+                const modalCustomize = new ModalBuilder().setTitle('Кастомизация клана').setCustomId('clanCustomize')
+                const componentName = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Имя клана")
+                    .setCustomId("clanName")
+                    .setStyle(TextInputStyle.Short)
+                    .setValue(result.clanName)
+                );
+                const componentAvatar = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Аватар клана")
+                    .setCustomId("clanAvatar")
+                    .setStyle(TextInputStyle.Short)
+                    .setValue(result.clanAvatar)
+                );
+                const componentDesc = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Описание клана")
+                    .setCustomId("clanDesc")
+                    .setStyle(TextInputStyle.Paragraph)
+                    .setValue(result.clanDesc)
+                );
+                const componentHex = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Кол-во слотов")
+                    .setCustomId("clanHex")
+                    .setStyle(TextInputStyle.Short)
+                    .setValue("#000000")
+                    .setMaxLength(7)
+                );
+
+                modalCustomize.addComponents(componentName, componentDesc, componentHex, componentAvatar)
+                await inter.showModal(modalCustomize)
+                break
             }
           }
         });
+    }else {
+      await interaction.reply({content: "У вас нет клана", ephemeral: true})
     }
   },
 };
 
-async function customize(inter) {}
-
-/**
- * 
- * @param {*} result 
- * @param {*} config 
- * @param {StringSelectMenuInteraction} inter 
- */
-
-async function slots(result, config, inter) {
-  const randomNum = Math.random()
-  const modal = new ModalBuilder()
-    .setTitle("Слоты в клан")
-    .setCustomId("slots_" + inter.user.id + String(randomNum));
-
-  const componentAmount = new ActionRowBuilder().addComponents(
-    new TextInputBuilder()
-      .setLabel("Кол-во слотов")
-      .setCustomId("amount")
-      .setStyle(TextInputStyle.Short)
-  );
-  modal.addComponents(componentAmount);
-  await inter.showModal(modal);
-  await slotsCallback(result, config, inter, String(randomNum))
-}
-
-async function slotsCallback (result, config, inter, randomNum) {
-  inter.client.on("interactionCreate", async (i) => {
-    if (i.isModalSubmit() && i.customId === "slots_" + i.user.id + randomNum) {
-      const amount = i.fields.getField("amount").value;
-      if (result.clanMaxSlots + Number(amount) > 100) {
-        await i.message.edit({components: []})
-        return await i.channel.send({
-          content: "Невозможно купить слоты, превышение лимита",
-          ephemeral: true,
-        });
-      }
-      if (result.clanBalance < config.slot * Number(amount)) {
-        await i.message.edit({components: []})
-        return await i.channel.send({
-          content: "Невозможно купить слот. У клана нет баланса",
-          ephemeral: true,
-        });
-      }
-      if (Number.isNaN(amount)) {
-        await i.message.edit({components: []})
-        return await i.channel.send({ content: "укажите число", ephemeral: true });
-      } else {
-        await clanModel.updateOne(
-          { guild_id: i.guildId, clanName: result.clanName },
-          {
-            $inc: {
-              clanBalance: -(amount * config.slot),
-              clanMaxSlots: amount,
-            },
-          }
-        );
-        await i.message.edit({components: []})
-        return await i.channel.send({ content: "Слоты успешно куплены" });
-      }
-    }
-  });
-}
-
 async function lvlUp(inter, result, config) {
   if (result.clanLevel + 1 > 10) {
-    await inter.message.edit({ components: [] });
     return await inter.reply({
       content: "Вам нельзя повысить уровень клана, т.к. у вас уже максимальный",
       ephemeral: true,
     });
   }
   if (result.clanBalance < config.lvls[result.clanLevel + 1]) {
-    await inter.message.edit({ components: [] });
-    return await inter.channel.send({
+    return await inter.reply({
       content:
         "У вашего клана недостаточно средств для совершения этой покупки",
       ephemeral: true,
@@ -179,8 +158,7 @@ async function lvlUp(inter, result, config) {
       { guild_id: inter.guildId, clanName: result.clanName },
       { $inc: { clanLevel: 1, clanBalance: config.lvls[result.clanLevel + 1] } }
     );
-    await inter.message.edit({ components: [] });
-    await inter.channel.send({
+    await inter.reply({
       content: "Вы повысили уровень своего клана",
       ephemeral: true,
     });

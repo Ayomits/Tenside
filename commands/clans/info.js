@@ -58,7 +58,9 @@ module.exports = {
                     
       
       if (clanMember.clanAvatar) {
-        embed.setThumbnail(clanMember.clanAvatar)
+        try{embed.setThumbnail(clanMember.clanAvatar)} 
+        catch {}
+        
       }
       return await interaction.reply({embeds: [embed]})
     }

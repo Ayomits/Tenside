@@ -1,5 +1,5 @@
 const {
-  CommandInteraction, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder, ButtonBuilder, ButtonStyle, ChannelType
+  CommandInteraction, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder, ButtonBuilder, ButtonStyle, ChannelType, ComponentType
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {clanModel, clanSetupModel} = require('../../models/clans')
@@ -7,97 +7,19 @@ const {userModel} = require('../../models/users')
 const fs = require('fs')
 const path = require('path')
 
-async function executeMoal(interaction){
-  await interaction.deferReply()
-  const clanName = interaction.fields.getField('clanName').value
-  const clanDesc = interaction.fields.getField('clanDesc').value
-  const clanAvatar = interaction.fields.getField('clanAvatar').value
-  const clanHex = interaction.fields.getField('clanHex').value
-  const clanSettings = await clanSetupModel.findOne({guild_id: interaction.guildId})
-
-  let chat
-  let voice
-  let role
-  let newRole
-
-  try {
-    if (!clanHex.startsWith('#')) {
-      throw new Error('Ошибка валидации hex цвета');
-    }
-
-    if (await clanModel.findOne({guild_id: interaction.guildId, clanName: clanName}) !== null) {
-      return await interaction.followUp({content: "Клан с таким названием уже существует", ephemeral: true})
-    }
-    try {
-      chat = await interaction.guild.channels.create({
-        name: clanName,
-        parent: clanSettings.categoryId
-      })
-      voice = await interaction.guild.channels.create({
-        name: clanName,
-        parent: clanSettings.categoryId, 
-        type: ChannelType.GuildVoice
-      })
-      
-    } catch(err) {
-      return await interaction.followUp({content: 'Что-то пошло не так (возможно, что админы указали неверную категорию для кланов)' + `\n ${err}`})
-    }
-    try {
-      role = interaction.guild.roles.cache.get(clanSettings.roleId)
-      let position = role.position
-      newRole = await interaction.guild.roles.create({name: clanName, color: clanHex, position: position})
-    }catch (err) {
-      return await interaction.followUp({content: 'Что-то пошло не так (возможно, что админы указали неверную роль для кланов)' + `\n ${err}`})
-    }
-    
-    try {
-      await clanModel.create({
-        guild_id: interaction.guildId, 
-        clanName: clanName, 
-        clanDesc: clanDesc, 
-        clanAvatar: clanAvatar, 
-        clanOwner: interaction.user.id, 
-        clanMembers: [interaction.user.id],
-        clanChat: chat.id,
-        clanVoice: voice.id,
-        clanRole: newRole.id
-      })
-    } catch(err) {
-      if (chat) {
-        await chat.delete();
-      }
-      if (voice) {
-        await voice.delete();
-      }
-      if (newRole) {
-        await newRole.delete();
-      }
-
-      return await interaction.followUp({content: "Что-то пошло не так..." + `\n ${err}`})
-    }
-    
-    const config = JSON.parse(await fs.promises.readFile(path.resolve('configs', 'store.json')))
-    await userModel.updateOne({user_id: interaction.user.id, guild_id: interaction.guildId}, {$inc: {balance: -config.clan.cost}})
-
-    await interaction.message.edit({components: []})
-    await interaction.member.roles.add(newRole.id)
-    await interaction.followUp({content: 'Ваш клан успешно создан...', ephemeral: true})
-  } catch (err) {
-    await interaction.reply({content: 'Что-то пошло не так...' + '\n' + err, ephemeral: true})
-
-    // Удаляем созданные каналы и роли, если они были созданы до ошибки.
-    if (chat) {
-      await chat.delete();
-    }
-    if (voice) {
-      await voice.delete();
-    }
-    if (newRole) {
-      await newRole.delete();
-    }
-  }
-
+/**
+ * 
+ * @param {CommandInteraction} interaction 
+ */
+async function modalHandler(interaction) {
+  interaction.channel.createMessageComponentCollector({
+    componentType: ComponentType.Button,
+    time: 100_000
+  }).once ('collect', () => {
+    console.log("хуй");
+  })
 }
+
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -128,7 +50,7 @@ module.exports = {
 
 
     const modal = new ModalBuilder()
-                  .setCustomId('clanCreateModal_' + interaction.user.id)
+                  .setCustomId('createClan')
                   .setTitle('менюшка с созданием клана')
     
     const clanName = new ActionRowBuilder().addComponents(
@@ -186,21 +108,12 @@ module.exports = {
           .setStyle(ButtonStyle.Secondary)
     )
     
-    await interaction.reply({embeds: [embed], components: [button]})
-    interaction.client.on('interactionCreate', async (inter) => {
-      if (inter.customId === inter.user.id && inter.isButton()) {
+    const msg = await interaction.reply({embeds: [embed], components: [button], fetchReply: true})
+    msg.createMessageComponentCollector({
+      componentType: ComponentType.Button
+    }).on('collect', async (inter) => {
+      if (inter.user.id === interaction.user.id) {
         await inter.showModal(modal)
-      } 
-
-      if (inter.isModalSubmit()){
-        if (inter.customId === "clanCreateModal_" + inter.user.id) {
-          try{
-            await executeMoal(inter)
-          }catch (err) {
-
-          }
-          
-        }
       }
     })
   }
