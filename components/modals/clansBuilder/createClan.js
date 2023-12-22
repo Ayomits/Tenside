@@ -16,9 +16,11 @@ module.exports = {
     const clanName = interaction.fields.getField('clanName').value
     const clanDesc = interaction.fields.getField('clanDesc').value
     const clanAvatar = interaction.fields.getField('clanAvatar').value
+    const clanBanner = interaction.fields.getField('clanBanner').value
     const clanHex = interaction.fields.getField('clanHex').value
     const clanSettings = await clanSetupModel.findOne({guild_id: interaction.guildId})
     const clanIsExists = await clanModel.findOne({clanName: clanName})
+    
 
     if (clanIsExists) {
       return await interaction.reply({content: "Увы и ах, клан с таким именем существует", ephemeral: true})
@@ -85,7 +87,8 @@ module.exports = {
       clanMembers: [interaction.user.id],
       clanChat: chat.id,
       clanVoice: voice.id,
-      clanRole: newRole.id
+      clanRole: newRole.id,
+      clanBanner: clanBanner
     })
 
     await userModel.updateOne({guild_id: interaction.guildId, user_id: interaction.user.id}, {$inc: {balance: -config.clan.cost}})

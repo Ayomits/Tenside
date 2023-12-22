@@ -40,6 +40,9 @@ const clanSchema = new Schema({
     type: String,
     default: null
   },
+  clanBanner: {
+    type: String,
+  },
   clanOwner: {
     type: String,
     required: true,

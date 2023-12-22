@@ -60,7 +60,12 @@ module.exports = {
       if (clanMember.clanAvatar) {
         try{embed.setThumbnail(clanMember.clanAvatar)} 
         catch {}
+      }
+
+      if (clanMember.clanBanner) {
         
+        try {embed.setImage(clanMember.clanBanner)}
+        catch{}
       }
 
       const selectMenu = new ActionRowBuilder().addComponents(
@@ -73,6 +78,7 @@ module.exports = {
       )
 
       const msg = await interaction.reply({embeds: [embed], components: [selectMenu]})
+
       msg.createMessageComponentCollector({
         componentType: ComponentType.StringSelect, 
         time: 60_000
@@ -109,7 +115,9 @@ module.exports = {
         await inter.reply({embeds: [embedMember], ephemeral: true})
 
       })
+    }else{
+      return await interaction.reply({content: "Вы не состоите ни в одном клане", ephemeral: true})
     }
-    return await interaction.reply({content: "Вы не состоите ни в одном клане", ephemeral: true})
+    
   }
 }

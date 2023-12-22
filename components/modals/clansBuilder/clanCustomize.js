@@ -30,13 +30,14 @@ module.exports = {
     const clanHex = interaction.fields.getField('clanHex').value
     const clanAvatar = interaction.fields.getField('clanAvatar').value 
     const clanDesc = interaction.fields.getField('clanDesc').value
+    const clanBanner = interaction.fields.getField('clanBanner').value
 
     await clanModel.updateOne({
       guild_id: interaction.guildId, clanName: result.clanName
     }, 
     {
       $inc: {clanBalance: -config.customize}, 
-      $set: {clanAvatar: clanAvatar, clanName: clanName, clanDesc: clanDesc}
+      $set: {clanAvatar: clanAvatar, clanName: clanName, clanDesc: clanDesc, clanBanner: clanBanner}
     })
 
     try{

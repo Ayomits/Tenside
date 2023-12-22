@@ -55,7 +55,6 @@ module.exports = {
         description: `${config.customize}`,
       }
     ]
-    console.log(result.clanLevel);
     if (result !== null) {
       
       const embed = new EmbedBuilder().setTitle(
@@ -118,6 +117,13 @@ module.exports = {
                     .setStyle(TextInputStyle.Short)
                     .setValue(result.clanAvatar)
                 );
+                const componentBanner = new ActionRowBuilder().addComponents(
+                  new TextInputBuilder()
+                    .setLabel("Баннер клана")
+                    .setCustomId("clanBanner")
+                    .setStyle(TextInputStyle.Short)
+                    .setValue('http://example.com')
+                );
                 const componentDesc = new ActionRowBuilder().addComponents(
                   new TextInputBuilder()
                     .setLabel("Описание клана")
@@ -134,7 +140,7 @@ module.exports = {
                     .setMaxLength(7)
                 );
 
-                modalCustomize.addComponents(componentName, componentDesc, componentHex, componentAvatar)
+                modalCustomize.addComponents(componentName, componentDesc, componentHex, componentAvatar, componentBanner)
                 await inter.message.edit({components: []})
                 return await inter.showModal(modalCustomize)
             }

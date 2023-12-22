@@ -46,15 +46,14 @@ module.exports = {
           .setCustomId("vacansiesSelect")
           .setPlaceholder("Выберите должность")
           .setOptions(
-            {label: "Ведущий", value: "vedushiy", description: descTemplate("ведущий")},
-            {label: "Closer", value: "closer", description: descTemplate("closer")},
-            {label: "Creative", value: "creative", description: descTemplate("creative")},
-            {label: "Control", value: "control", description: descTemplate("control")},
-            {label: "Eventer", value: "eventer", description: descTemplate("eventer")},
-            {label: "PR manager", value: "pm", description: descTemplate("пиар менеджера")},
-            {label: "Designer", value: "designer", description: descTemplate("designer")},
-            {label: "Media", value: "media", description: descTemplate("media")},
-            {label: "Support", value: "support", description: descTemplate("support")}
+            {label: "Ведущий", value: "vedushiy", description: descTemplate("ведущего")},
+            {label: "Клозер", value: "closer", description: descTemplate("клозера")},
+            {label: "Креатив", value: "creative", description: descTemplate("креатива")},
+            {label: "Контрол", value: "control", description: descTemplate("контрола")},
+            {label: "Ивентёр", value: "eventer", description: descTemplate("ивентёра")},
+            {label: "Пиар менеджер", value: "pm", description: descTemplate("пиар менеджера")},
+            {label: "Медиа", value: "media", description: descTemplate("медиа")},
+            {label: "Асистент", value: "support", description: descTemplate("асистента")}
           )
 
         try {

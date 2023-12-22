@@ -84,6 +84,15 @@ module.exports = {
           .setRequired(false)
     )
 
+    const clanBanner = new ActionRowBuilder().addComponents(
+      new TextInputBuilder()
+          .setCustomId('clanBanner')
+          .setStyle(TextInputStyle.Short)
+          .setPlaceholder('http://example.com')
+          .setLabel('Ссылка на баннер клана')
+          .setRequired(false)
+    )
+
     const clanRoleHex = new ActionRowBuilder().addComponents(
       new TextInputBuilder()
           .setCustomId('clanHex')
@@ -94,7 +103,7 @@ module.exports = {
           .setMaxLength(7)
     )
 
-    modal.addComponents(clanName, clanDesc, clanAvatar, clanRoleHex)
+    modal.addComponents(clanName, clanDesc, clanAvatar, clanRoleHex, clanBanner)
     
 
     const embed = new EmbedBuilder()
