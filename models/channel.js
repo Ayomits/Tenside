@@ -12,9 +12,20 @@ const channel = new Schema({
    },
   
 })
-
+const voice = new Schema({
+  guild_id: {
+    type: String,
+    required: true
+  },
+  channel_id : {
+    type: String,
+    required: true,
+   },
+  
+})
 const channelModel = mongoose.model("channels", channel)
+const voiceModel = mongoose.model("voices", voice)
 
 module.exports = {
-  channelModel
+  channelModel, voiceModel
 }
