@@ -1,53 +1,145 @@
-{"balance": {
-    "description": "Показать баланс",
-    "name": "balance",
-    "type": "economy"
-},
+{
+  "commands": {
+    "Economy": {
+      "balance": {
+        "name": "Баланс",
+        "api_name": "balance",
+        "description": "Баланс пользователя"
+      },
+      "top": {
+        "name": "Топ",
+        "api_name": "top",
+        "description": "Показать топ 10 шейхов сервера"
+      },
+      "timely": {
+        "name": "Таймели",
+        "api_name": "timely",
+        "description": "Получить ежедневное вознаграждение"
+      },
+      "transfer": {
+        "name": "Перевод",
+        "api_name": "transfer",
+        "description": "Перевести деньги пользователю"
+      },
+      "work": {
+        "name": "Работа",
+        "api_name": "work",
+        "description": "Выполнить работу"
+      }
+    },
+    "Marry": {
+      "marry": {
+        "name": "marry",
+        "api_name": "marry",
+        "description": "Пожениться"
+      },
+      "divorce": {
+        "name": "divorce",
+        "api_name": "divorce",
+        "description": "Развод"
+      }
+    },
+    "Utilities": {
+      "help": {
+        "name": "Помощь",
+        "api_name": "help",
+        "description": "Отобразить список доступных команд"
+      },
+      "profile": {
+        "name": "Профиль",
+        "api_name": "profile",
+        "description": "Просмотр профиля пользователя"
+      },
+      "setstatus": {
+        "name": "Установить статус",
+        "api_name": "setstatus",
+        "descri }ption": "Установить статус пользователя"
+      },
+      "avatar": {
+        "name": "Аватар",
+        "api_name": "avatar",
+        "description": "Просмотреть аватар и баннер пользователя"
+      },
+      "online": {
+        "name": "Онлайн",
+        "api_name": "online",
+        "description": "Проверить пользователей в гс"
+      },
+      "withrole": {
+        "name": "С ролью",
+        "api_name": "withrole",
+        "description": "Пользователи с определенной ролью"
+      }
+    },
 
-"top": {
-    "description": "Показать топ 10 шейхов сервера",
-    "name": "top",
-    "type": "economy"
-},
-
-"roulette": {
-    "description": "Игра в рулетку",
-    "name": "roulette",
-    "type": "economy"
-},
-
-"timely": {
-    "description": "Получить ежедневное вознаграждение",
-    "name": "timely",
-    "type": "economy"
-},
-
-"transfer": {
-    "description": "Перевести деньги пользователю",
-    "name": "transfer",
-    "type": "economy"
-},
-
-"marry": {
-    "description": "Пожениться",
-    "name": "marry",
-    "type": "marry"
-},
-
-"divorce": {
-    "description": "Развод",
-    "name": "divorce",
-    "type": "marry"
-},
-
-"gift": {
-    "description": "Подарок партнёру",
-    "name": "gift",
-    "type": "marry"
-},
-
-"marryinfo": {
-    "description": "Информация о браке",
-    "name": "marryinfo",
-    "type": "marry"
-}}
+    "Casino": {
+      "casino": {
+        "name": "Казино",
+        "api_name": "casino",
+        "description": "Игра в рулетку"
+      },
+      "casinobalance": {
+        "name": "Баланс в казино",
+        "api_name": "casinobalance",
+        "description": "Показать баланс казино"
+      }
+    },
+    "Clans": {
+      "shop": {
+        "name": "Магазин",
+        "api_name": "shop-clan",
+        "description": "Магазин кланов"
+      },
+      "create": {
+        "name": "Создать",
+        "api_name": "create-clan",
+        "description": "Создать клан"
+      },
+      "transfer": {
+        "name": "Передать",
+        "api_name": "transferclan",
+        "description": "Перевести деньги клану"
+      },
+      "delete": {
+        "name": "Удалить",
+        "api_name": "delete-clan",
+        "description": "Удалить клан"
+      },
+      "info": {
+        "name": "Инфо",
+        "api_name": "info-clan",
+        "description": "Информация о клане"
+      },
+      "invite": {
+        "name": "Инвайт",
+        "api_name": "invite-clan",
+        "description": "Пригласить пользователя в клан"
+      },
+      "kick": {
+        "name": "Кикнуть",
+        "api_name": "kick-clan",
+        "description": "Кикнуть пользователя из клана"
+      },
+      "leave": {
+        "name": "Ливнуть",
+        "api_name": "leave-clan",
+        "description": "Выйти из клана"
+      },
+      "newDeputy": {
+        "name": "Заместитель",
+        "api_name": "newdeputy-clan",
+        "description": "Добавить заместителя в клан"
+      },
+      "setup": {
+        "name": "Сетуп",
+        "api_name": "setup-clan",
+        "description": "Настройки клана"
+      },
+      "transferOwner": {
+        "name": "Овнер",
+        "api_name": "transfer-ownership-clan",
+        "description": "Передача клана"
+      }
+    }
+  }
+}
