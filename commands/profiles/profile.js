@@ -61,18 +61,18 @@ module.exports = {
     const member = this.getMember(marryData, interaction, user)
     GlobalFonts.registerFromPath(path.resolve(__dirname, 'fonts', 'montserat.ttf'), "montserat")
 
-    const canvas = createCanvas(1176, 664)
+    const canvas = createCanvas(629, 353)
     const ctx = canvas.getContext("2d")
 
-    ctx.font = '40px montserat'
+    ctx.font = '20px montserat'
     ctx.fillStyle = '#FFFFFF'
     ctx.textAlign = 'center'
     
-    ctx.drawImage(await loadImage(path.resolve(__dirname, 'assets', 'profile.png')), 0, 0, canvas.width, canvas.height),
-    await this.roundImage(496, 100, 188, await loadImage(user.displayAvatarURL({size: 128})), ctx)
+    ctx.drawImage(await loadImage(path.resolve(__dirname, 'assets', 'newprofile.png')), 0, 0, canvas.width, canvas.height),
+    await this.roundImage(269, 56, 95, await loadImage(user.displayAvatarURL({size: 256})), ctx)
     this.userAbout(ctx, userData.status, user);
     this.userStats(ctx, userData)
-    this.marryStats(ctx, marryData, member)
+    await this.marryStats(ctx, marryData, member)
 
     await interaction.followUp({files: [new AttachmentBuilder(canvas.toBuffer('image/png')).setName('profile.png')]})
 
@@ -98,10 +98,10 @@ module.exports = {
 
   userAbout (ctx, status, user) {
     ctx.save()
-    ctx.fillText(user.username, 596, 340)
-    ctx.font = '20px montserat'
+    ctx.fillText(user.username, 320, 190)
+    ctx.font = '10px montserat'
     ctx.fillStyle = '#949598'
-    ctx.fillText(status, 586, 370)
+    ctx.fillText(status, 320, 210)
     ctx.restore()
   },
 
@@ -114,13 +114,13 @@ module.exports = {
 
   userStats(ctx, userData) {
     ctx.save()
-    ctx.font = '27px montserat'
+    ctx.font = '17px montserat'
     ctx.fillStyle = '#FFFFFF'
 
-    ctx.fillText(String(Number(userData.voiceActive / 3600).toFixed(2)) + 'ч', 280, 160)
-    ctx.fillText(String(userData.messageCount), 280, 290)
-    ctx.fillText(String(userData.reputation), 280, 430)
-    ctx.fillText(String(userData.balance), 556, 510)
+    ctx.fillText(String(Number(userData.voiceActive / 3600).toFixed(2)) + 'ч', 140 , 89)
+    ctx.fillText(String(userData.messageCount), 140, 160)
+    ctx.fillText(String(userData.reputation), 140, 230)
+    ctx.fillText(String(userData.balance), 310, 270)
 
     ctx.restore()
   },
@@ -132,10 +132,16 @@ module.exports = {
    * @param {GuildMember} member 
    */
 
-  marryStats(ctx, marryData, member) {
-    ctx.font = '24px montserat'
-    ctx.fillText(member ? member.user.username : "Отсутствует", 970, 380)
-    ctx.fillText(marryData ? this.getDate(marryData.created_at) : "", 970, 450)
+  async marryStats(ctx, marryData, member) {
+    const memberInDb =  member ? await userModel.findOne({user_id: member.user?.id, guild_id: member.guild?.id}) : ""
+    await this.roundImage(470, 77, 97, await loadImage(!member ? path.resolve(__dirname, 'assets', 'question.png') : member.user.displayAvatarURL({size: 128})), ctx)
+    ctx.font = '16px montserat'
+    ctx.fillText(member ? member.user.username : "Отсутствует", 515, 200)
+    ctx.fillText(marryData ? this.getDate(marryData.created_at) : "", 515, 235)
+    ctx.font = '10px montserat'
+    ctx.fillStyle = '#949598'
+    ctx.fillText(memberInDb === "" ? "" : memberInDb.status, 515, 213)
+    
   },
 
   getMember(marriedUser, interaction, user) {
