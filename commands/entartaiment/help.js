@@ -2,16 +2,37 @@ const {
   CommandInteraction,
   EmbedBuilder,
   ComponentType,
-  filter,
-  PermissionFlagsBits,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
   ActionRowBuilder,
 } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 const img = `https://i.imgur.com/i3Y3gQF.png`;
+const options = [];
+const configs = path.resolve("configs");
+const fsPromises = require("fs").promises;
+
+async function requireCommands() {
+  const config = JSON.parse(
+    await fs.readFile(configs + "/helpSelectMenu.json", "utf-8")
+  );
+
+  Object.values(config.commands).forEach((commandInfo) => {
+    const description = commandInfo.description || "Undefined Description";
+    const value = commandInfo.value || "Undefined Value";
+    const emoji = commandInfo.emoji || "Undefined Emoji";
+    const name = commandInfo.name || "Undefined Name";
+    options.push(
+      new StringSelectMenuOptionBuilder()
+        .setLabel(name)
+        .setEmoji(emoji)
+        .setValue(value)
+        .setDescription(description)
+    );
+  });
+}
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,43 +41,28 @@ module.exports = {
     .setDMPermission(true),
 
   async execute(interaction) {
-    const configs = path.resolve("configs");
+    await requireCommands();
+
+    const select = new StringSelectMenuBuilder()
+      .setCustomId("select")
+      .setPlaceholder("Выберите модуль")
+      .addOptions(options);
+    const row = new ActionRowBuilder().setComponents(select);
+
+    options.splice(0);
+
     const descriptionembed = new EmbedBuilder()
-      .setTitle("Список команд")
+      .setTitle(`Хелп Меню`)
       .setDescription(
-        "Здесь вы можете выбрать модуль комманд о которых вы можете узнать."
+        `\`\`\`Тут находится список всех модулей команд.\nВы должны выбрать нужный модуль комманд\`\`\``
       )
       .setColor("#2F3136")
       .setImage(img);
-    const helpselect = new StringSelectMenuBuilder()
-      .setCustomId("HelpSelect")
-      .setMaxValues(1)
-      .setPlaceholder(`Выберите нужный модуль!`)
-      .setOptions(
-        new StringSelectMenuOptionBuilder()
-          .setLabel("Экономика")
-          .setValue("economy")
-          .setDescription("Команды экономики")
-          .setEmoji("💰"),
-
-        new StringSelectMenuOptionBuilder()
-          .setLabel("Браки")
-          .setValue("marry")
-          .setDescription("Команды брака")
-          .setEmoji("💍"),
-
-        new StringSelectMenuOptionBuilder()
-          .setLabel("Реакции")
-          .setValue("reaction")
-          .setDescription("Команды Реакции")
-          .setEmoji("🎭")
-      );
-    const row = new ActionRowBuilder().setComponents(helpselect);
-
     const helpmessage = await interaction.reply({
       embeds: [descriptionembed],
       components: [row],
     });
+
     const collectorFilter = (i) => i.user.id === interaction.user.id;
     const collector = helpmessage.createMessageComponentCollector({
       componentType: ComponentType.StringSelect,
@@ -67,7 +73,7 @@ module.exports = {
       const selection = i.values[0];
       if (selection == `reaction`) {
         const data = JSON.parse(
-          await fs.promises.readFile(configs + "/reactions.json")
+          await fs.readFile(configs + "/reactions.json", "utf-8")
         );
 
         const descriptionembed = new EmbedBuilder()
@@ -95,13 +101,13 @@ module.exports = {
         for (let react in data) {
           switch (data[react].type) {
             case "love":
-              loveDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
+              loveDescription += `> **${data[react].api_name} (${data[react].aliases}) ${data[react].cost}<:solana:1183097799756238858>** - ${data[react].action}\n`;
               break;
             case "emotion":
-              emotionDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
+              emotionDescription += `> **${data[react].api_name} (${data[react].aliases}) ${data[react].cost}<:solana:1183097799756238858>** - ${data[react].action}\n`;
               break;
             case "action":
-              actionDescription += `> **${data[react].api_name} (${data[react].aliases})** - ${data[react].action}\n`;
+              actionDescription += `> **${data[react].api_name} (${data[react].aliases}) ${data[react].cost}<:solana:1183097799756238858>** - ${data[react].action}\n`;
               break;
             default:
               break;
@@ -131,33 +137,32 @@ module.exports = {
           components: [],
         });
       } else {
-        const data = JSON.parse(
-          await fs.promises.readFile(configs + "/help.json")
+        const config = JSON.parse(
+          await fs.readFile(configs + "/help.json", "utf-8")
         );
+        const filteredEmbed = new EmbedBuilder()
+          .setColor("#2F3136")
+          .setImage(img);
 
-        const economyEmbed = new EmbedBuilder()
-          .setImage(img)
-          .setTitle(`Список команд`)
-          .setColor("#2F3136");
+        const selectedCategory = i.values[0];
 
-        let economyDescription = "";
-
-        for (let type in data) {
-          switch (data[type].type) {
-            case selection:
-              economyDescription += `> **${data[type].name}** - ${data[type].description}\n`;
-              break;
+        const filteredCommands = [];
+        for (const [category, commands] of Object.entries(config.commands)) {
+          if (category === selectedCategory) {
+            for (const [commandName, commandInfo] of Object.entries(commands)) {
+              const { api_name, description } = commandInfo;
+              filteredCommands.push(`> **${api_name}** - ${description}\n`);
+              filteredEmbed.setTitle(`Хелп меню - ${selectedCategory}`);
+            }
+            break;
           }
         }
 
-        if (economyDescription !== "") {
-          economyEmbed.setDescription(economyDescription.trim());
-        } else {
-          economyEmbed.setDescription("Команды не найдены.");
-        }
+        const embedDescriptions = filteredCommands.join("");
+        filteredEmbed.setDescription(embedDescriptions || "Команды не найдены");
 
         await i.message.edit({
-          embeds: [economyEmbed],
+          embeds: [filteredEmbed],
           components: [],
         });
       }

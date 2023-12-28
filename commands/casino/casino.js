@@ -21,7 +21,7 @@ module.exports = {
     .setName("casino")
     .setDescription("Игра в казино!")
     .addIntegerOption((option) =>
-      option.setName("bid").setDescription("Ваша ставка").setRequired(true)
+      option.setName("bid").setDescription("Ваша ставка").setRequired(true).setMinValue(50)
     )
     .addStringOption((option) =>
       option
@@ -144,6 +144,13 @@ module.exports = {
       }
     }, 5000);
   },
+
+  /**
+   * 
+   * @param {CommandInteraction} interaction 
+   * @param {Number} casinoAmount 
+   * @param {Number} userAmount 
+   */
 
   async update(interaction, casinoAmount, userAmount) {
     await casinoModel.updateOne(

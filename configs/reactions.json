@@ -680,5 +680,21 @@
     "nsfw": false,
     "isAcceptable": false,
     "cost": 5
+  },
+  "snowball": {
+    "action": "кинуть снежок",
+    "api_name": "snowball",
+    "aliases": [
+      "снежок"
+    ],
+    "everyone": false,
+    "everyoneVerb": "",
+    "isApi": false,
+    "memberVerb": "пользователя",
+    "verbal": "кинул снежок в",
+    "type": "action",
+    "nsfw": false,
+    "isAcceptable": false,
+    "cost": 5
   }
 }
