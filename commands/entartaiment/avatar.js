@@ -58,7 +58,7 @@ const {
 
         !bannerUrl
             ?bannerEmbed.setDescription("У пользователя нет баннера")
-            :bannerEmbed.setImage(bannerUrl).setDescription("В данный момент дискорд не предоставляет возможность получить баннер пользователя на сервере..")
+            :bannerEmbed.setImage(bannerUrl)
 
         await interaction.reply({embeds: [avatarEmbed, bannerEmbed], ephemeral: true})
       }  
