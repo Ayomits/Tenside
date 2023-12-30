@@ -38,7 +38,7 @@ if (interaction.user.id == `935048996722978896`){return interaction.reply({ephem
 
         const embed = new EmbedBuilder()
                     .setTitle("Перевод денег")
-                    .setDescription(`Пользователь <@${author.user_id}> перевел ${amount} денег на баланс казино`)
+                    .setDescription(`Пользователь <@${author.user_id}> перевел ${amount} ${process.env.MONEY_STICKER} на баланс казино`)
                     .setFooter({iconURL: interaction.user.displayAvatarURL(), text: interaction.user.username})
 
         await interaction.reply({embeds: [embed]})
