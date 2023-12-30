@@ -44,7 +44,17 @@ const userSchema = new Schema({
     default: 0
   }
 });
+const inventory = new Schema({
+  guild_id: {
+    type:String,
+  required: true,
+},
+  user_id:{ type: String,
+  required: true,},
 
+  inventory:{ type: Array,
+  required: true,}
+});
 const timelySchema = new Schema({
   guild_id: {
     type: String,
