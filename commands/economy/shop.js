@@ -41,7 +41,7 @@ module.exports = {
         (role, index) =>
           `**${index + 1})** <@&${role.roleId}>\n**Цена:** ${
             role.price
-          }<:solana:1183097799756238858>\n**Куплена раз:** ${role.buyed}`
+          }${process.env.MONEY_STICKER}\n**Куплена раз:** ${role.buyed}`
       );
 
       const roleSelectMenu = new StringSelectMenuBuilder()
@@ -129,7 +129,7 @@ module.exports = {
             )
             .setImage("https://i.imgur.com/i3Y3gQF.png")
             .setDescription(
-              `<@&${privaterole.roleId}>\n**Цена:** ${privaterole.price}<:solana:1183097799756238858>\n**Куплена раз:** ${privaterole.buyed}\n**Срок:** 30д\n\n **Подарок🎁**\n**Цена:** 200<:solana:1183097799756238858>`
+              `<@&${privaterole.roleId}>\n**Цена:** ${privaterole.price} ${process.env.MONEY_STICKER}\n**Куплена раз:** ${privaterole.buyed}\n**Срок:** 30д\n\n **Подарок🎁**\n**Цена:** 200 ${process.env.MONEY_STICKER}`
             )
             .setThumbnail(interaction.guild.iconURL());
 
@@ -216,7 +216,7 @@ module.exports = {
                 errembed.setDescription(
                   `У вас недостаточно денег! вас баланс: ${Math.floor(
                     userinfo.balance
-                  )} <:solana:1183097799756238858>`
+                  )} ${process.env.MONEY_STICKER}`
                 ),
               ],
             });
@@ -260,7 +260,7 @@ module.exports = {
           (role, index) =>
             `**${index + 1})** <@&${role.roleId}>\n**Цена:** ${
               role.price
-            }<:solana:1183097799756238858>\n**Куплена раз:** ${role.buyed}`
+            }${process.env.MONEY_STICKER}\n**Куплена раз:** ${role.buyed}`
         );
 
         const NEWprevButton = new ButtonBuilder()
