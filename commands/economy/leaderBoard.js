@@ -1,12 +1,13 @@
 const { CommandInteraction, EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { userModel } = require("../../models/users");
+const balance = require("./balance");
 
-async function topTemplate (query, sticker) {
+async function topTemplate (query, sticker, field) {
   let desc = ""
   let count = 1
   query.forEach(user => {
-    desc += `${count}. <@${user.user_id}> ${user.balance} ${sticker}\n`
+    desc += `${count}. <@${user.user_id}> ${user[field]} ${sticker}\n`
   })
 
   return desc
@@ -46,13 +47,13 @@ module.exports = {
         query = await userModel
         .find({ guild_id: interaction.guildId, user_id: { $nin: devs } })
         .sort({ candy: -1 })
-        .limit(10);
+        .limit(10)
         break
     }
-    const desc =  await topTemplate(query, value === "balance" ? process.env.MONEY_STICKER : "🍬")
+    const desc =  await topTemplate(query, value === "balance" ? process.env.MONEY_STICKER : "🍬", value)
 
     const embed = new EmbedBuilder()
-                  .setTitle('Топ пользователей по ' + value === "balance" ? process.env.MONEY_STICKER : "🍬")
+                  .setTitle(`Топ пользователей по ${value === "balance" ? process.env.MONEY_STICKER : "🍬"}`)
                   .setDescription(desc)
     
     return await interaction.reply({embeds: [embed]})
