@@ -62,7 +62,7 @@ module.exports = {
       .setDescription(
         `**❌ У вас недостаточно валюты на счету. Ваш баланс:** \`${
           intUser ? intUser.balance : 0
-        }\` <:solana:1183097799756238858> ❌`
+        }\` ${process.env.MONEY_STICKER} ❌`
       )
       .setColor("#db2518")
       .setFooter({
@@ -96,7 +96,7 @@ module.exports = {
             color === "зеленое" ? "2" : "1.5"
           }. Вы выиграли** \`${Math.floor(
             winmoney
-          )}\` **<:solana:1183097799756238858>**`
+          )}\` **${process.env.MONEY_STICKER}**`
         )
         .setColor("#3ab03c")
 
@@ -116,7 +116,7 @@ module.exports = {
       const loseEmbed = new EmbedBuilder()
         .setTitle(`Увы, вы проиграли!`)
         .setDescription(
-          `💔 **На табло ${color}. Вы проиграли** \`${bid}\` **<:solana:1183097799756238858> **`
+          `💔 **На табло ${color}. Вы проиграли** \`${bid}\` **${process.env.MONEY_STICKER} **`
         )
         .setColor("#a8342d")
         .setImage(loseimg)

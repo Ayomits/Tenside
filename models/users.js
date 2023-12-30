@@ -44,7 +44,17 @@ const userSchema = new Schema({
     default: 0
   }
 });
+const inventory = new Schema({
+  guild_id: {
+    type:String,
+  required: true,
+},
+  user_id:{ type: String,
+  required: true,},
 
+  inventory:{ type: Array,
+  required: true,}
+});
 const timelySchema = new Schema({
   guild_id: {
     type: String,
@@ -95,7 +105,7 @@ const workSchema  = new Schema({
     requred: true
   }
 })
-
+const inventoryModel = mongoose.model("inventory", inventory)
 const TimelyModel = mongoose.model("UsersTimely", timelySchema);
 const userModel = mongoose.model("user", userSchema);
 const marryModel = mongoose.model("marrypoints", marrySchema);
@@ -104,6 +114,7 @@ const workModel = mongoose.model('work', workSchema)
 
 module.exports = {
   userModel,
+  inventoryModel,
   TimelyModel,
   marryModel,
   workModel
