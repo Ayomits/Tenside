@@ -25,6 +25,7 @@ module.exports = {
    */
 
   async execute(interaction) {
+    await interaction.deferReply()
     const targetUser = interaction.options.getMember('target');
     const type = interaction.options.get('type').value;
     
@@ -51,7 +52,7 @@ module.exports = {
           await interaction.channel.send({ content: `<@${targetUser.user.id}> поздравляю, вы стали заместителем клана ${canIncrease.clanName}` });
         }
         
-        await interaction.reply({ content: "Заместитель успешно назначен", ephemeral: true });
+        await interaction.followUp({ content: "Заместитель успешно назначен", ephemeral: true });
       } else if (type === 'decrease' && isDeputy && isMember) {
         await clanModel.updateOne(
           { guild_id: interaction.guildId, clanName: canIncrease.clanName },
@@ -66,12 +67,12 @@ module.exports = {
           await interaction.channel.send({ content: `<@${targetUser.user.id}>, вы больше не являетесь заместителем клана ${canIncrease.clanName}` });
         }
     
-        await interaction.reply({ content: "Заместитель успешно снят", ephemeral: true });
+        await interaction.followUp({ content: "Заместитель успешно снят", ephemeral: true });
       } else {
-        await interaction.reply({ content: "Что-то пошло не так. Возможные причины: Этого заместителя уже есть в вашем клане, либо такого участника нет в вашем клане", ephemeral: true });
+        await interaction.followUp({ content: "Что-то пошло не так. Возможные причины: Этого заместителя уже есть в вашем клане, либо такого участника нет в вашем клане", ephemeral: true });
       }
     } catch (err) {
-      await interaction.reply({ content: "Что-то пошло не так.." + `\n${err}`, ephemeral: true });
+      await interaction.followUp({ content: "Что-то пошло не так.." + `\n${err}`, ephemeral: true });
     }
   }
 }
