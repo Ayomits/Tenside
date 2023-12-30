@@ -95,7 +95,7 @@ const workSchema  = new Schema({
     requred: true
   }
 })
-
+const inventoryModel = mongoose.model("inventory", inventory)
 const TimelyModel = mongoose.model("UsersTimely", timelySchema);
 const userModel = mongoose.model("user", userSchema);
 const marryModel = mongoose.model("marrypoints", marrySchema);
@@ -104,6 +104,7 @@ const workModel = mongoose.model('work', workSchema)
 
 module.exports = {
   userModel,
+  inventoryModel,
   TimelyModel,
   marryModel,
   workModel
