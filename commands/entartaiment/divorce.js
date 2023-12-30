@@ -29,24 +29,13 @@ module.exports = {
         .setDescription("У вас нет брака");
       return await interaction.reply({ embeds: [erroEmbed] });
     } else {
-      const authorUser = await userModel.findOne({
-        user_id: interaction.user.id,
-        guild_id: interaction.guild.id,
-      });
       const marriedUser = await userModel.findOne({
         user_id:
           userExists.partner1_id !== interaction.user.id
             ? userExists.partner1_id
             : userExists.partner2_id,
         guild_id: interaction.guildId,
-      });
-      if (authorUser.balance < 1000) {
-        return await interaction.reply({
-          content:
-            "У вас или у вашего партнера недостаточно валюты для оплаты развода.",
-          ephemeral: true,
-        });
-      } else {
+      }); 
         await userExists.deleteOne({});
         const acceptEmbed = new EmbedBuilder()
           .setTitle("Система развода")
@@ -57,5 +46,4 @@ module.exports = {
         return await interaction.reply({ embeds: [acceptEmbed] });
       }
     }
-  },
-};
+  }

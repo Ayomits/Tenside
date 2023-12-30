@@ -54,7 +54,7 @@ module.exports = {
     });
 
     return await interaction.reply({
-      content: `Успешно выдано ${amount} валюты пользователю <@${target.user.id}>.`,
+      content: `Успешно выдано ${amount} ${process.env.MONEY_STICKER} пользователю <@${target.user.id}>.`,
       ephemeral: true,
     });
   },

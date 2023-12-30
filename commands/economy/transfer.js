@@ -22,7 +22,7 @@ module.exports = {
    */
 
   async execute(interaction) {
-    const targetUser = interaction.options.get("target")
+    const targetUser = interaction.options.getMember("target")
     const amount = interaction.options.get('amount').value
 
     if (targetUser.user.id === interaction.user.id) {
@@ -42,8 +42,12 @@ module.exports = {
 
         const embed = new EmbedBuilder()
                     .setTitle("Перевод денег")
-                    .setDescription(`Пользователь <@${author.user_id}> перевел ${amount} денег пользователю <@${user.user_id}>`)
+                    .setDescription(`Пользователь <@${author.user_id}> перевел ${amount} ${process.env.MONEY_STICKER} пользователю <@${user.user_id}>`)
                     .setFooter({iconURL: interaction.user.displayAvatarURL(), text: interaction.user.username})
+
+        try {
+          await targetUser.send(`Вам перевели ${amount} ${process.env.MONEY_STICKER}`)
+        } catch (err) {console.log(err);}
 
         await interaction.reply({embeds: [embed]})
       }else {

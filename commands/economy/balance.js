@@ -28,8 +28,8 @@ module.exports = {
     const balance = await userModel.findOne({guild_id: interaction.guildId, user_id: user.id})
     let description = ""
     if (balance) {
-       description = `Баланс: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
-       description += `Конфетки: \n` + "```" + `${Math.floor(balance.candy)}` + "```"
+       description = `Баланс ${process.env.MONEY_STICKER}: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
+       description += `Конфетки 🍬: \n` + "```" + `${Math.floor(balance.candy)}` + "```"
     }else {
       description += "такого юзера не существует"
     }

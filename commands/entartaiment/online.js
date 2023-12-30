@@ -26,7 +26,7 @@ module.exports = {
             .setTitle(`Онлайн в войсе`)
 
         interaction.guild.channels.cache.filter(channel => channel.type === ChannelType.GuildVoice).forEach(channel => {
-            if (channel.members.size !== 0 && channel.id != 1186934799517102181) {
+            if (channel.members.size !== 0 && channel.id != "1186934799517102181") {
                 description += `> - <#${channel.id}> - `
                 channel.members.forEach(async member => {
                     description += `<@${member.user.id}> `

@@ -72,7 +72,7 @@ async function react(message, reaction, url) {
     .setImage(url)
     .setFooter({
       iconURL: message.author.displayAvatarURL(),
-      text: `${message.author.username} ${cost_} solana`,
+      text: `${message.author.username} ${cost_} ${process.env.MONEY_STICKER}`,
     })
     .setTimestamp(Date.now())
     .setColor("#2F3136");

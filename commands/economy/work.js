@@ -43,7 +43,7 @@ async function sendWorkData(interaction, worktime) {
 
     const workEmbed = new EmbedBuilder()
         .setTitle(`${emoji} Работа`)
-        .setDescription(`**<@${interaction.user.id}>, вы работали ${workname}. ${description} Вам заплатили ${payment} <:solana:1183097799756238858>**`)
+        .setDescription(`**<@${interaction.user.id}>, вы работали ${workname}. ${description} Вам заплатили ${payment} ${process.env.MONEY_STICKER}`)
         .setImage(gif)
         .setColor(color)
 
