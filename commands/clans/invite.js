@@ -79,7 +79,10 @@ module.exports = {
         }
     }).on('end', async (inter) => {
       if (!isClicked) {
-        await replyMessage.edit({components: [], embeds: [embed.setDescription(`Время истекло`)]})
+        try{
+          await replyMessage.edit({components: [], embeds: [embed.setDescription(`Время истекло`)]})
+        }catch {}
+        
       }
     })
   }               
