@@ -27,7 +27,7 @@ module.exports = {
       const interval = setInterval(async () => {
         await userModel.updateOne(
           { guild_id: guildId, user_id: userId },
-          { $inc: { balance: 5, voiceActive: 60 } }
+          { $inc: { balance: 2, voiceActive: 60 } }
         );
         
       }, 60000);

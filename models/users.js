@@ -38,6 +38,10 @@ const userSchema = new Schema({
     type: String,
     default: "Статус не установлен.",
     maxLenght: 40
+  },
+  candy: {
+    type: Number,
+    default: 0
   }
 });
 

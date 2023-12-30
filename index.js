@@ -19,7 +19,9 @@ client.commands = new Collection();
 client.buttons = new Collection();
 client.voiceUsers = new Collection()
 
-moongoose.connect(process.env.DB_URI)
+moongoose.connect(process.env.DB_URI).then(() => {
+  console.log("База данных успешно подключена");
+}).catch((err) => console.log(err))
 
 require('./handlers/system/eventHandler.js').init(client)
 

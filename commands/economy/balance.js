@@ -29,6 +29,7 @@ module.exports = {
     let description = ""
     if (balance) {
        description = `Баланс: \n` + "```" + `${Math.floor(balance.balance)}` + "```"
+       description += `Конфетки: \n` + "```" + `${Math.floor(balance.candy)}` + "```"
     }else {
       description += "такого юзера не существует"
     }
